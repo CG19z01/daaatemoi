@@ -4,6 +4,8 @@ Site interactif de proposition de rendez-vous à Rouen : une page d'accueil,
 une carte cartoon en fausse 3D, un effet de coloration au doigt ou à la souris,
 une réservation, un journal des clics et une page d'administration protégée.
 
+**En ligne : https://daaatemoi.vercel.app**
+
 ## Stack
 
 - **Node.js 20+ / Express** (unique dépendance de production)
