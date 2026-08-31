@@ -1,0 +1,87 @@
+/* Fiche d'un lieu et bouton flottant, au trait noir. */
+.fiche {
+  position: fixed;
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+  bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  width: min(21rem, calc(100vw - 2rem));
+  max-height: calc(100svh - 8rem);
+  overflow-y: auto;
+  padding: 1rem 1.1rem 1.2rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 4px;
+}
+
+.fiche h2 {
+  margin: 0 1.6rem 0.3rem 0;
+  font-size: 1.25rem;
+}
+
+.fiche-activite {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+}
+
+.fiche-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.6rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+}
+
+.fiche-details dt {
+  font-weight: 700;
+}
+
+.fiche-details dd {
+  margin: 0;
+}
+
+.fiche-cuisine {
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.fiche .fermer {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.6rem;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--encre);
+}
+
+.fiche-action {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+.bouton-flottant {
+  position: fixed;
+  /* Marges de securite : sur mobile, la barre du navigateur recouvrait le bouton. */
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 7;
+  padding: 0.9rem 1.6rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: 999px;
+  background: var(--encre);
+  color: var(--papier);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 3px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}

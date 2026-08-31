@@ -1,0 +1,69 @@
+/* Fenetres modales : reservation, autre endroit et carte d'un lieu. */
+.fenetre {
+  width: min(24rem, calc(100vw - 2rem));
+  padding: 1.3rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  color: var(--encre);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 4px;
+}
+
+.fenetre::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.fenetre h2 {
+  margin: 0 0 0.8rem;
+}
+
+.fenetre label {
+  display: block;
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.fenetre select,
+.fenetre input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-size: 1rem;
+}
+
+.fenetre .actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+}
+
+.fenetre .actions .bouton {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+}
+
+.fenetre .cadre-des-couleurs {
+  display: inline-flex;
+  margin-top: 0.2rem;
+}
+
+.bouton-placement {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0.9rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+.message {
+  min-height: 1.2rem;
+  margin: 0.7rem 0 0;
+  font-size: 0.85rem;
+}

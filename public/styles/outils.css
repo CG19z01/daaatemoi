@@ -1,0 +1,113 @@
+/* Barre d'outils : mode de dessin, taille du trait et roue chromatique. */
+.barre-doutils {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.groupe-doutils {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.outil {
+  padding: 0.5rem 1.1rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.outil.est-actif {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+/* Seule entorse au noir et blanc : la confirmation d'enregistrement. */
+.outil.est-enregistre {
+  background: #1f9d4d;
+  color: var(--papier);
+}
+
+.outil:disabled {
+  border-style: dashed;
+  color: #767676;
+  cursor: not-allowed;
+}
+
+.outil-rond {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Selecteur de couleur : un bouton carre, avec exactement le meme cadre
+   que Feutre et Gomme. Le champ natif reste dessous, invisible, et ouvre la palette. */
+.cadre-des-couleurs {
+  position: relative;
+  display: inline-flex;
+}
+
+.outil-couleur {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: var(--violet);
+}
+
+.champ-de-la-couleur {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Apercu : montre d'un coup d'oeil la taille et la couleur choisies. */
+.apercu-du-trait {
+  display: block;
+  border: 2px solid var(--encre);
+  border-radius: 50%;
+}
+
+@media (max-width: 640px) {
+  .barre-doutils {
+    top: auto;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    left: calc(1rem + env(safe-area-inset-left, 0px));
+  }
+
+  .outil {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .outil-rond {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .outil-couleur {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}

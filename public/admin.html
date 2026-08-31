@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Administration</title>
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/admin.css" />
+  </head>
+  <body class="page-admin">
+    <main class="cadre-admin">
+      <h1>Administration</h1>
+
+      <section id="blocConnexion" hidden>
+        <form id="formulaireConnexion" class="formulaire-connexion">
+          <label for="champIdentifiant">Identifiant</label>
+          <input id="champIdentifiant" type="text" autocomplete="username" required />
+          <label for="champMotDePasse">Mot de passe</label>
+          <input id="champMotDePasse" type="password" autocomplete="current-password" required />
+          <button class="bouton bouton-plein" type="submit">Se connecter</button>
+          <p class="message" id="messageConnexion" role="status"></p>
+        </form>
+      </section>
+
+      <section id="blocTableauDeBord" hidden>
+        <div class="actions-admin">
+          <button class="bouton bouton-contour" type="button" id="boutonDeconnexion">Déconnexion</button>
+        </div>
+
+        <h2>Journal des interactions</h2>
+        <table class="tableau">
+          <thead>
+            <tr><th>Type</th><th>Lieu</th><th>Créneau proposé</th><th>Date et heure (Europe/Paris)</th></tr>
+          </thead>
+          <tbody id="corpsDuJournal"></tbody>
+        </table>
+
+        <h2>Coloriage de la carte</h2>
+        <p class="resume-du-coloriage">
+          <span id="resumeDuColoriage">—</span>
+          <button class="bouton bouton-contour bouton-retirer" type="button" id="boutonEffacerLeColoriage">
+            Tout effacer
+          </button>
+        </p>
+
+        <h2>Points proposés sur la carte</h2>
+        <table class="tableau">
+          <thead>
+            <tr><th>Lieu</th><th>Créneau proposé</th><th>Couleur</th><th></th></tr>
+          </thead>
+          <tbody id="corpsDesLieuxProposes"></tbody>
+        </table>
+
+        <h2>Rendez-vous pris</h2>
+        <table class="tableau">
+          <thead>
+            <tr><th>Lieu</th><th>Date du rendez-vous</th><th>Heure</th><th>Réservé le</th></tr>
+          </thead>
+          <tbody id="corpsDesReservations"></tbody>
+        </table>
+      </section>
+    </main>
+    <script type="module" src="/scripts/admin.js"></script>
+  </body>
+</html>

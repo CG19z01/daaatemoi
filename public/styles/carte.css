@@ -1,0 +1,84 @@
+/* Carte : une grande illustration fixe, en plein ecran, ni deplacable ni zoomable. */
+.page-carte {
+  height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--papier);
+  touch-action: none;
+  /* Le melange du coloriage reste confine a la scene. */
+  isolation: isolate;
+}
+
+.couche {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Le violet se multiplie avec le dessin : les traits noirs restent visibles. */
+.couche-coloration {
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.couche-marqueurs {
+  pointer-events: none;
+}
+
+.message-carte {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 6;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  font-size: 0.9rem;
+  transform: translateX(-50%);
+}
+
+/* Bandeau affiche pendant la visee d'un point sur la carte. */
+.bandeau-de-placement {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.9rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 4px;
+  transform: translateX(-50%);
+}
+
+.bandeau-de-placement[hidden] {
+  display: none;
+}
+
+.bandeau-de-placement p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.bandeau-de-placement .bouton {
+  min-width: 0;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.9rem;
+}
+

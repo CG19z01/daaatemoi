@@ -1,0 +1,94 @@
+/* Base commune : direction artistique noir et blanc, tracee au trait. */
+:root {
+  --encre: #000000;
+  --papier: #ffffff;
+  /* Violet du coloriage, repris par les points de la carte. */
+  --violet: #a30dad;
+  --trait-epais: 3px;
+  --trait-fin: 2px;
+  /* Rebords cartoon : un arrondi franc, jamais un arrondi discret de site moderne. */
+  --rayon-cartoon: 16px;
+  --rayon-petit: 10px;
+  --police-cartoon: "Comic Sans MS", "Chalkboard SE", "Segoe UI Rounded", "Trebuchet MS", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: var(--police-cartoon);
+  color: var(--encre);
+  background: var(--papier);
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+input,
+select,
+a.bouton {
+  font-family: inherit;
+}
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8.5rem;
+  padding: 0.9rem 1.8rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: 999px;
+  background: var(--papier);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 700;
+  color: var(--encre);
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Bouton principal : noir plein. Bouton secondaire : blanc cerne de noir. */
+.bouton-plein {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+.bouton-contour {
+  background: var(--papier);
+  color: var(--encre);
+}
+
+.bouton:active {
+  transform: translate(2px, 2px);
+}
+
+.bouton:focus-visible {
+  outline: var(--trait-epais) dashed var(--encre);
+  outline-offset: 4px;
+}
+
+/* Panneau cartoon : contour epais, coins arrondis et second trait en retrait,
+   comme un cadre dessine a la main. Aucun degrade, aucun flou, aucune ombre. */
+.panneau-cartoon {
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 4px;
+}
+
+/* Les emojis demandes restent lisibles sans introduire de couleur. */
+.sans-couleur {
+  filter: grayscale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

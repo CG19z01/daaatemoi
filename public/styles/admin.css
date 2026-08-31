@@ -1,0 +1,121 @@
+/* Page d'administration : sobre et lisible. */
+.page-admin {
+  padding: 1.5rem 1rem 3rem;
+  background: var(--papier);
+}
+
+.cadre-admin {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.cadre-admin h1 {
+  color: var(--encre);
+}
+
+.cadre-admin h2 {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: var(--encre);
+}
+
+.formulaire-connexion {
+  max-width: 22rem;
+  padding: 1.2rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 4px;
+}
+
+.formulaire-connexion label {
+  display: block;
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.formulaire-connexion input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  font-size: 1rem;
+}
+
+.formulaire-connexion .bouton {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+.actions-admin {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.actions-admin .bouton {
+  min-width: 0;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+}
+
+.tableau {
+  width: 100%;
+  margin-top: 0.6rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  overflow: hidden;
+  background: var(--papier);
+  font-size: 0.85rem;
+}
+
+.tableau th,
+.tableau td {
+  padding: 0.5rem 0.6rem;
+  border-bottom: var(--trait-fin) solid var(--encre);
+  text-align: left;
+}
+
+.tableau th {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+@media (max-width: 640px) {
+  .tableau {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Pastille rappelant la couleur choisie pour le point. */
+.pastille-de-couleur {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: var(--trait-fin) solid var(--encre);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.bouton-retirer {
+  min-width: 0;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.resume-du-coloriage {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+}

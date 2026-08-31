@@ -1,0 +1,19 @@
+{
+  "name": "viens-on-se-date",
+  "version": "1.0.0",
+  "description": "Site interactif de proposition de rendez-vous a Rouen",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=.env serveur/index.js",
+    "dev": "node --watch --env-file-if-exists=.env serveur/index.js",
+    "verifier": "node scripts-verification/verifier-syntaxe.js && node scripts-verification/verifier-lignes.js"
+  },
+  "engines": {
+    "node": ">=20.18"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.38.2",
+    "express": "^4.21.2"
+  }
+}

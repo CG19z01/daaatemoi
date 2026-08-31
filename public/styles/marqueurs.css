@@ -1,0 +1,81 @@
+/* Les trois points de la carte : epingles cartoon, cernees de noir. */
+.marqueur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.marqueur .epingle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 4px solid var(--encre);
+  border-radius: 50% 50% 50% 0;
+  background: var(--violet);
+  transform: rotate(-45deg);
+}
+
+.marqueur .etiquette {
+  max-width: 12rem;
+  padding: 2px 9px;
+  border: 2px solid var(--encre);
+  background: var(--papier);
+  font-size: 1.4rem;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Les trois points se signalent pendant exactement 5 s au chargement
+   (1,25 s x 4), puis l'animation s'arrete d'elle-meme. */
+.marqueur.attire-l-oeil .epingle {
+  animation: clignoter 1.25s ease-in-out 4;
+}
+
+@keyframes clignoter {
+  0%,
+  100% {
+    background: var(--violet);
+    transform: rotate(-45deg) scale(1);
+  }
+
+  50% {
+    background: var(--papier);
+    transform: rotate(-45deg) scale(1.25);
+  }
+}
+
+.marqueur.est-selectionne .epingle {
+  border-width: 6px;
+  transform: rotate(-45deg) scale(1.12);
+}
+
+@media (max-width: 640px) {
+  .marqueur .epingle {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .marqueur .etiquette {
+    max-width: 9rem;
+    font-size: 1.24rem;
+  }
+}
+
+/* Point propose par un visiteur : meme allure que les autres, dans sa couleur.
+   Il n'est pas cliquable : on ne connait de ce lieu que son nom. */
+.marqueur-propose {
+  cursor: default;
+  pointer-events: none;
+}

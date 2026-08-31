@@ -1,0 +1,20 @@
+# Dependances
+node_modules/
+
+# Secrets : jamais versionnes. L'exemple, lui, documente les variables.
+.env*
+!.env.example
+
+# Donnees d'execution (journal, reservations, points, dessin)
+donnees/*.json
+
+# Liaison Vercel
+.vercel
+
+# Documentation d'outillage installee par l'integration Upstash
+.agents/
+.claude/
+skills-lock.json
+
+# Documents personnels deposes dans donnees/
+donnees/*.pdf

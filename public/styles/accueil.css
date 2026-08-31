@@ -1,0 +1,38 @@
+/* Page d'accueil : grande typographie cartoon, uniquement noir et blanc. */
+.page-accueil {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 1.5rem;
+  background: var(--papier);
+}
+
+.bloc-accueil {
+  max-width: 46rem;
+  text-align: center;
+}
+
+.titre-cartoon {
+  margin: 0.4rem 0 2rem;
+  font-size: clamp(2.4rem, 11vw, 5.5rem);
+  line-height: 1.05;
+  color: var(--papier);
+  text-shadow:
+    3px 0 0 var(--encre),
+    -3px 0 0 var(--encre),
+    0 3px 0 var(--encre),
+    0 -3px 0 var(--encre),
+    3px 3px 0 var(--encre),
+    -3px -3px 0 var(--encre),
+    3px -3px 0 var(--encre),
+    -3px 3px 0 var(--encre);
+  transform: rotate(-3deg);
+}
+
+.rangee-de-boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
