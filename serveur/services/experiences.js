@@ -7,7 +7,7 @@ import { hacherLeMotDePasse } from '../utilitaires/mot-de-passe.js';
 import { formaterHorodatage } from '../utilitaires/date-paris.js';
 
 export const PREFIXE_DES_EXPERIENCES = 'experience-';
-const TENTATIVES_DE_SLUG = 12;
+const TENTATIVES_DE_SLUG = 20;
 
 const cleDeLExperience = (slug) => `${PREFIXE_DES_EXPERIENCES}${slug}`;
 
@@ -24,7 +24,10 @@ export const sansSecret = (experience) => {
 };
 
 // Le slug est tire au sort par le serveur, puis reserve par une ecriture
-// exclusive : deux creations simultanees ne peuvent pas obtenir la meme adresse.
+// exclusive (SET NX sur Redis, ouverture en mode wx sur disque). C'est le
+// stockage lui-meme qui garantit l'unicite : deux creations simultanees ne
+// peuvent pas obtenir la meme adresse, et une experience existante n'est
+// jamais ecrasee, meme si le meme tirage revenait.
 export const creerUneExperience = async ({ lieux, disponibilites }, ville, motDePasse) => {
   const instant = new Date();
   const base = {

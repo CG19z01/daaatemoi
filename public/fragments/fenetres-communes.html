@@ -1,11 +1,39 @@
-<!-- Fenetres partagees par la page de creation et la page invitee : recherche
-     d'un lieu, edition des horaires et choix d'un creneau. Elles sont ecrites
-     une seule fois et inserees par fenetres-communes.js. -->
+<!-- Éléments partagés par la page de création et la page invitée : barre
+     d'outils, bandeau de placement et fenêtres. Écrits une seule fois, insérés
+     par fenetres-communes.js avant tout branchement. -->
+<div class="barre-doutils" role="group" aria-label="Outils de la carte">
+  <div class="groupe-doutils">
+    <button class="outil" type="button" id="boutonFeutre" aria-pressed="true">Feutre</button>
+    <button class="outil" type="button" id="boutonColoriage" aria-pressed="false">Coloriage</button>
+    <button class="outil" type="button" id="boutonTexte" aria-pressed="false">Texte</button>
+    <button class="outil" type="button" id="boutonGomme" aria-pressed="false">Gomme</button>
+  </div>
+  <div class="groupe-doutils">
+    <button class="outil outil-rond" type="button" id="boutonReduireLeTrait" aria-label="Trait plus fin">−</button>
+    <span class="cadre-des-couleurs">
+      <button class="outil outil-couleur" type="button" id="boutonDeLaCouleur" aria-label="Couleur du feutre et du coloriage"></button>
+      <input class="champ-de-la-couleur" type="color" id="roueChromatique" value="#a30dad" tabindex="-1" aria-hidden="true" />
+    </span>
+    <button class="outil outil-rond" type="button" id="boutonAgrandirLeTrait" aria-label="Trait plus épais">+</button>
+    <span class="apercu-du-trait" id="apercuDuTrait" role="img"></span>
+  </div>
+  <div class="groupe-doutils groupe-de-sauvegarde">
+    <button class="outil" type="button" id="boutonSauvegarder">Sauvegarder</button>
+  </div>
+</div>
+
+<p class="message-carte" id="messageCarte" role="status" hidden></p>
+
+<div class="bandeau-de-placement" id="bandeauDePlacement" hidden>
+  <p id="intituleDuPlacement">Touche la carte à l'endroit voulu.</p>
+  <button class="bouton bouton-contour" type="button" id="annulerLePlacement">Annuler</button>
+</div>
+
 <dialog class="fenetre" id="fenetreDeRecherche">
   <form id="formulaireDeRecherche">
     <h2>Chercher un lieu</h2>
-    <label for="champRecherche">Nom du lieu</label>
-    <input id="champRecherche" type="search" maxlength="40" placeholder="Un bar, un musée, un parc…" />
+    <label for="champRecherche">Nom du lieu, ou type de lieu</label>
+    <input id="champRecherche" type="search" maxlength="40" placeholder="Cathédrale, musée, parc, bar…" />
     <div class="actions">
       <button class="bouton bouton-plein" type="submit">Chercher</button>
       <button class="bouton bouton-contour" type="button" id="ajouterALaMain">Ajouter à la main</button>
@@ -53,6 +81,26 @@
     <div class="actions">
       <button class="bouton bouton-contour" type="button" id="annulerLeCreneau">Annuler</button>
       <button class="bouton bouton-plein" type="submit" id="validerLeCreneau">Valider</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="fenetre" id="fenetreDuTexte">
+  <form id="formulaireDuTexte" method="dialog">
+    <h2>Texte sur la carte</h2>
+    <label for="champDuTexte">Ton texte</label>
+    <input id="champDuTexte" type="text" maxlength="120" placeholder="Rendez-vous ici !" />
+    <label for="boutonCouleurDuTexte">Couleur du texte</label>
+    <span class="cadre-des-couleurs">
+      <button class="outil outil-couleur" type="button" id="boutonCouleurDuTexte" aria-label="Couleur du texte"></button>
+      <input class="champ-de-la-couleur" type="color" id="champCouleurDuTexte" value="#000000" tabindex="-1" aria-hidden="true" />
+    </span>
+    <label for="champTailleDuTexte">Taille</label>
+    <input id="champTailleDuTexte" type="range" min="10" max="64" step="2" value="20" />
+    <div class="actions">
+      <button class="bouton bouton-contour" type="button" id="annulerLeTexte">Annuler</button>
+      <button class="bouton bouton-contour" type="button" id="supprimerLeTexte">Supprimer</button>
+      <button class="bouton bouton-plein" type="submit">Enregistrer</button>
     </div>
   </form>
 </dialog>

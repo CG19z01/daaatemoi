@@ -1,6 +1,7 @@
 // Etat de la creation en cours, cote navigateur. Rien n'est enregistre tant
 // que le lien n'est pas partage : le serveur revalidera tout de toute facon.
 export const LIEUX_MAXIMAUX = 5;
+export const COULEUR_DU_POINT_PAR_DEFAUT = '#a30dad';
 export const DISPONIBILITES_MAXIMALES = 12;
 
 const abonnes = [];
@@ -24,7 +25,11 @@ export const definirLaVille = (ville) => {
 export const ajouterUnLieu = (lieu) => {
   if (etat.lieux.length >= LIEUX_MAXIMAUX) return null;
   compteurDeCles += 1;
-  const ajoute = { ...lieu, cle: `lieu-local-${compteurDeCles}` };
+  const ajoute = {
+    couleur: COULEUR_DU_POINT_PAR_DEFAUT,
+    ...lieu,
+    cle: `lieu-local-${compteurDeCles}`,
+  };
   etat.lieux.push(ajoute);
   signaler();
   return ajoute;

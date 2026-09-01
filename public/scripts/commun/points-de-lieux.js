@@ -24,6 +24,8 @@ export const creerLesPointsDeLieux = (couche, auClicSurUnLieu = null) => {
 
     const epingle = document.createElement('span');
     epingle.className = 'epingle';
+    // Couleur propre au lieu, indépendante du feutre et du fond de carte.
+    if (lieu.couleur) epingle.style.backgroundColor = lieu.couleur;
     const etiquette = document.createElement('span');
     etiquette.className = 'etiquette';
     etiquette.textContent = lieu.nom;

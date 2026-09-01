@@ -11,6 +11,7 @@ import { routesCartes } from './routes/cartes.js';
 import { routesCreation } from './routes/creation.js';
 import { routesExperiences } from './routes/experiences.js';
 import { routesDessinDExperience } from './routes/experience-dessin.js';
+import { routesTextesDExperience } from './routes/experience-textes.js';
 import { identifierLeVisiteur } from './middlewares/session-visiteur.js';
 
 verifierConfiguration();
@@ -43,6 +44,7 @@ application.use('/admin', routesAdmin);
 // Montees avant /api : chaque famille de routes garde son propre routeur.
 application.use('/api/creation', routesCreation);
 application.use('/api/experiences', routesDessinDExperience);
+application.use('/api/experiences', routesTextesDExperience);
 application.use('/api/experiences', routesExperiences);
 application.use('/api', routesApi);
 application.use('/cartes', identifierLeVisiteur, routesCartes);

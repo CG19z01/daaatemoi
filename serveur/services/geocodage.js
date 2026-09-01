@@ -30,7 +30,16 @@ const composerLAdresse = (nomDeLaVille) => {
   return adresse;
 };
 
-// Renvoie { nom, pays, latitude, longitude } ou null si la ville est inconnue.
+// Nominatim rend la boite englobante sous la forme [sud, nord, ouest, est].
+const lireLaBoiteEnglobante = (boite) => {
+  if (!Array.isArray(boite) || boite.length !== 4) return null;
+  const [sud, nord, ouest, est] = boite.map(Number);
+  if (![sud, nord, ouest, est].every(Number.isFinite)) return null;
+  if (nord <= sud || est <= ouest) return null;
+  return { sud, nord, ouest, est };
+};
+
+// Renvoie { nom, pays, latitude, longitude, boiteEnglobante } ou null.
 export const geocoderUneVille = async (nomDeLaVille) => {
   await patienterSiNecessaire();
   const reponse = await fetch(composerLAdresse(nomDeLaVille), {
@@ -52,5 +61,6 @@ export const geocoderUneVille = async (nomDeLaVille) => {
     pays: String(premier.address?.country ?? '').slice(0, 80),
     latitude,
     longitude,
+    boiteEnglobante: lireLaBoiteEnglobante(premier.boundingbox),
   };
 };

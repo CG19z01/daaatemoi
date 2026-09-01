@@ -13,3 +13,12 @@ export const chercherDesLieux = async (cleDeLaVille, recherche) => {
 };
 
 export const publierLExperience = (envoi) => envoyer('/api/creation/experiences', envoi);
+
+// Après la publication, le serveur a ouvert l'accès au créateur : il peut donc
+// déposer sur sa propre carte le dessin et les textes préparés avant l'envoi.
+const racineDeLExperience = (slug) => `/api/experiences/${encodeURIComponent(slug)}`;
+
+export const deposerUnTrait = (slug, trait) => envoyer(`${racineDeLExperience(slug)}/dessin`, trait);
+
+export const deposerLesTextes = (slug, textes) =>
+  envoyer(`${racineDeLExperience(slug)}/textes`, { textes }, 'PUT');

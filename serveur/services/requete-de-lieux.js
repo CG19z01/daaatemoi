@@ -1,13 +1,18 @@
-// Requete Overpass de recherche d'un lieu. Deux facons de trouver :
+// Requete Overpass de recherche d'un lieu. Trois facons de trouver :
 //   - par le nom, en tolerant les accents (« cafe » retrouve « Café ») ;
-//   - par la categorie, pour une recherche large (« cinema », « bar »).
+//   - par une categorie francaise connue (« cathedrale », « musee »), traduite
+//     en etiquettes OpenStreetMap, qui sont en anglais ;
+//   - par une categorie tapee directement en anglais, comme repli.
 // Le terme est deja reduit a un jeu de caracteres sur en amont : aucune syntaxe
 // Overpass ni aucun guillemet ne peut se glisser dans la requete.
 import { boiteAutourDuCentre } from './overpass.js';
+import { CATEGORIES_FRANCAISES, FAMILLES } from '../donnees/categories-osm.js';
 
-export const FAMILLES = ['amenity', 'shop', 'leisure', 'tourism'];
-export const RAYON_DE_RECHERCHE_EN_METRES = 5000;
+export { FAMILLES };
 const DELAI_OVERPASS_EN_SECONDES = 25;
+// La recherche depasse un peu la carte : un lieu juste en peripherie reste
+// trouvable, meme si son point sera place a la main sur la carte visible.
+const MARGE_DE_RECHERCHE = 1.4;
 
 // Une lettre tapee sans accent doit retrouver toutes ses variantes accentuees.
 const VARIANTES = {
@@ -21,8 +26,7 @@ const VARIANTES = {
   y: 'yÿ',
 };
 
-const sansAccents = (texte) =>
-  texte.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const sansAccents = (texte) => texte.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 export const motifDuNom = (terme) =>
   [...sansAccents(terme)]
@@ -33,13 +37,21 @@ export const motifDuNom = (terme) =>
 // devient « fast_food ».
 export const motifDeLaCategorie = (terme) => sansAccents(terme).replace(/[ '-]+/g, '_');
 
-export const composerLaRequeteDeLieux = (terme, centre) => {
-  const boite = boiteAutourDuCentre(centre, RAYON_DE_RECHERCHE_EN_METRES);
+// Paires [famille, valeur] correspondant au terme tape, table francaise d'abord.
+export const categoriesVisees = (terme) => {
+  const connu = CATEGORIES_FRANCAISES[sansAccents(terme).replace(/[_-]+/g, ' ').trim()];
+  if (connu) return connu;
+  const valeur = motifDeLaCategorie(terme);
+  return FAMILLES.map((famille) => [famille, valeur]);
+};
+
+export const composerLaRequeteDeLieux = (terme, centre, rayonEnMetres) => {
+  const boite = boiteAutourDuCentre(centre, Math.round(rayonEnMetres * MARGE_DE_RECHERCHE));
   const parLeNom = FAMILLES.map(
     (famille) => `  nwr["name"~"${motifDuNom(terme)}",i]["${famille}"](${boite});`,
   );
-  const parLaCategorie = FAMILLES.map(
-    (famille) => `  nwr["${famille}"~"^${motifDeLaCategorie(terme)}$",i]["name"](${boite});`,
+  const parLaCategorie = categoriesVisees(terme).map(
+    ([famille, valeur]) => `  nwr["${famille}"~"^${valeur}$",i]["name"](${boite});`,
   );
   return [
     `[out:json][timeout:${DELAI_OVERPASS_EN_SECONDES}];`,

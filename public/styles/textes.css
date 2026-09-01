@@ -1,0 +1,35 @@
+/* Zones de texte posées sur la carte. Style cartoon : une écriture épaisse,
+   cernée de blanc pour rester lisible même par-dessus un coloriage. Aucun
+   dégradé, aucune ombre portée. */
+.couche-textes {
+  /* La couche laisse passer les appuis : seuls les textes en captent, et
+     uniquement sous l'outil Texte. */
+  pointer-events: none;
+  z-index: 3;
+}
+
+.texte-de-carte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 14rem;
+  font-family: var(--police-cartoon);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  /* Le contour blanc est tracé sous les lettres : le texte reste net. */
+  paint-order: stroke fill;
+  -webkit-text-stroke: 4px var(--papier);
+  user-select: none;
+  touch-action: none;
+}
+
+.couche-textes.textes-modifiables .texte-de-carte {
+  pointer-events: auto;
+  cursor: move;
+  /* Repère discret : sous l'outil Texte, on voit ce qui est manipulable. */
+  outline: var(--trait-fin) dashed var(--encre);
+  outline-offset: 4px;
+}

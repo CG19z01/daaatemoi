@@ -121,3 +121,9 @@
   font-family: inherit;
   font-size: 1rem;
 }
+
+/* Choix de la couleur du point d'un lieu, dans sa fiche. */
+.couleur-du-point {
+  display: inline-flex;
+  align-items: center;
+}

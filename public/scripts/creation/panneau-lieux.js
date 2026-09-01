@@ -30,6 +30,7 @@ export const brancherLePanneauDesLieux = () => {
       ...etat.lieux.map((lieu) =>
         creerUneFicheDeLieu(lieu, {
           auNomModifie: (modifications) => modifierUnLieu(lieu.cle, modifications),
+          auCouleurModifiee: (couleur) => modifierUnLieu(lieu.cle, { couleur }),
           auPlacement: () => placer(lieu),
           auxHoraires: () =>
             ouvrirLEditionDesHoraires(lieu, (horaires) => modifierUnLieu(lieu.cle, { horaires })),

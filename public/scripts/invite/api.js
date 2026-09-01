@@ -22,8 +22,14 @@ export const envoyerLaReponse = (reponse) => envoyer(`${racine()}/reponse`, repo
 
 export const ajouterDesLieux = async (lieux) => (await envoyer(`${racine()}/lieux`, { lieux })).lieux;
 
-export const modifierLesHoraires = async (identifiant, horaires) =>
-  (await envoyer(`${racine()}/lieux/${encodeURIComponent(identifiant)}`, { horaires }, 'PATCH')).lieux;
+// Correction d'un lieu : ses horaires, ou la couleur de son point.
+export const modifierUnLieu = async (identifiant, modifications) =>
+  (await envoyer(`${racine()}/lieux/${encodeURIComponent(identifiant)}`, modifications, 'PATCH'))
+    .lieux;
+
+export const recupererLesTextes = async () => (await appeler(`${racine()}/textes`)).textes ?? [];
+
+export const enregistrerLesTextes = (textes) => envoyer(`${racine()}/textes`, { textes }, 'PUT');
 
 export const recupererLeDessin = async () => (await appeler(`${racine()}/dessin`)).traits ?? [];
 

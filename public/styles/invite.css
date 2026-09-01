@@ -50,11 +50,6 @@
   width: 100%;
 }
 
-/* La barre d'outils descend sous le bouton du panneau, qui occupe le coin. */
-.page-invite .barre-doutils {
-  top: 4.2rem;
-}
-
 @media (min-width: 701px) {
   .page-invite .barre-doutils {
     max-width: calc(100vw - min(24rem, 100vw) - 2rem);

@@ -17,6 +17,12 @@ import {
 } from '../services/recherche-de-lieux.js';
 import { creerUneExperience } from '../services/experiences.js';
 import { composerLeLien } from '../services/slug.js';
+import { deposerCookie } from '../utilitaires/cookies.js';
+import {
+  creerJetonDAcces,
+  NOM_DU_COOKIE_INVITE,
+  DUREE_DE_L_ACCES_EN_SECONDES,
+} from '../services/acces-invite.js';
 
 export const routesCreation = Router();
 
@@ -93,6 +99,14 @@ routesCreation.post('/experiences', attraper(async (requete, reponse) => {
   if (!ville) return reponse.status(400).json({ erreur: 'Choisis d’abord une ville.' });
 
   const creee = await creerUneExperience(experience, ville, motDePasse);
+  // Le createur vient de choisir le mot de passe : on lui ouvre l'acces a sa
+  // propre carte, pour qu'il y depose ses dessins et ses textes sans le ressaisir.
+  deposerCookie(
+    reponse,
+    NOM_DU_COOKIE_INVITE,
+    creerJetonDAcces(creee.slug),
+    DUREE_DE_L_ACCES_EN_SECONDES,
+  );
   const lien = `${adressePublique(requete)}${composerLeLien(creee.slug)}`;
   return reponse.status(201).json({ slug: creee.slug, lien });
 }));

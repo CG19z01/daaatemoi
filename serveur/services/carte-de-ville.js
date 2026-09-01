@@ -5,8 +5,9 @@ import { entrepot } from './entrepot.js';
 import { geocoderUneVille } from './geocodage.js';
 import { interrogerOverpass } from './overpass.js';
 import { composerLaRequeteDeVille } from './requete-de-ville.js';
-import { construireLeFondDeVille } from './fond-de-ville.js';
+import { construireLeFondDeVille, VERSION_DU_FOND } from './fond-de-ville.js';
 import { enCle } from '../utilitaires/cle.js';
+import { mesurerLaVille } from '../utilitaires/etendue-de-ville.js';
 
 const cleDeLaRecherche = (cle) => `ville-${cle}`;
 const cleDuFond = (cle) => `carte-ville-${cle}`;
@@ -17,11 +18,13 @@ export const recupererLeFondDeVille = (cleDeLaVille) =>
 export const recupererUneVille = (cleDeLaVille) =>
   entrepot.lireDocument(cleDeLaRecherche(enCle(cleDeLaVille)));
 
-const genererLeFond = async (ville) => {
+const genererLeFond = async (ville, mesure) => {
   const dejaGenere = await entrepot.lireDocument(cleDuFond(ville.cle));
-  if (dejaGenere) return dejaGenere;
-  const elements = await interrogerOverpass(composerLaRequeteDeVille(ville));
-  const fond = construireLeFondDeVille(elements, ville);
+  // Un fond produit par une version anterieure est refait : le cadrage evolue
+  // sans qu'il faille vider le cache a la main.
+  if (dejaGenere?.version === VERSION_DU_FOND) return dejaGenere;
+  const elements = await interrogerOverpass(composerLaRequeteDeVille(ville, mesure.rayon));
+  const fond = construireLeFondDeVille(elements, ville, mesure);
   await entrepot.ecrireDocument(cleDuFond(ville.cle), fond);
   return fond;
 };
@@ -42,14 +45,18 @@ export const preparerLaVille = async (nomDemande) => {
 
   const cleResolue = enCle(trouvee.nom) || cleTapee;
   if (!cleResolue) return { erreur: 'Cette ville est introuvable.' };
+  // La taille reelle de la ville decide de l'etendue extraite et du cadrage.
+  const mesure = mesurerLaVille(trouvee.boiteEnglobante, trouvee.latitude);
   const ville = {
     cle: cleResolue,
     nom: trouvee.nom,
     pays: trouvee.pays,
     latitude: trouvee.latitude,
     longitude: trouvee.longitude,
+    rayon: mesure.rayon,
+    etendue: mesure.etendue,
   };
-  await genererLeFond(ville);
+  await genererLeFond(ville, mesure);
   // Enregistree sous le nom tape : la meme recherche reutilise le meme fond.
   if (cleTapee) await entrepot.ecrireDocument(cleDeLaRecherche(cleTapee), ville);
   await entrepot.ecrireDocument(cleDeLaRecherche(ville.cle), ville);

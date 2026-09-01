@@ -12,7 +12,8 @@ Deux expériences cohabitent :
 - **les expériences personnalisées** (`/create`) : n'importe qui compose son propre
   date — une ville, jusqu'à 5 lieux placés à la main, ses disponibilités — puis
   partage un lien protégé par mot de passe, de la forme
-  `/trois-mots-romantiques-for-you`.
+  `/trois-mots-romantiques-for-you`. Sur la carte : Feutre, Coloriage, Texte et
+  Gomme, la gomme n'effaçant que ce que l'utilisateur a ajouté.
 
 Le projet doit être :
 
@@ -132,6 +133,15 @@ en local. Deux formes : les **collections** (journal, réservations, dessins) et
 **documents** (villes, fonds de carte, expériences). L'écriture exclusive
 `creerDocumentSiAbsent` garantit qu'une adresse n'est jamais attribuée deux fois.
 
+Chaque lieu porte la **couleur de son point**, propre à lui et sans rapport avec
+la couleur du feutre. Les **zones de texte** et le **coloriage** vivent dans leurs
+propres collections, `textes-<slug>` et `dessin-<slug>`. Un remplissage ne retient
+que le point visé et sa couleur : la zone est recalculée à l'affichage, sur les
+pixels réellement dessinés, ce qui la garde juste à toute échelle.
+
+Toute position posée sur la carte — point d'un lieu, zone de texte, remplissage —
+est enregistrée **en mètres relatifs au centre de la ville**, jamais en pixels.
+
 Horaires d'une expérience, une entrée par jour :
 
 ```text
@@ -142,6 +152,11 @@ null                             -> horaires non renseignés
 
 À ne pas confondre avec ceux de `serveur/donnees/lieux.js`, propres à la carte de
 Rouen, qui gardent leur forme d'origine.
+
+Le cadrage n'est jamais un zoom fixe : le serveur mesure la zone bâtie de la ville
+(`zone-batie.js`, par percentiles pour ignorer les routes de campagne) et la
+projection l'ajuste ensuite à l'écran. Un fond produit par une version antérieure
+est régénéré, via `VERSION_DU_FOND`.
 
 Créneaux : minutes de 5 en 5 partout, début au plus tôt 2 h avant l'ouverture du
 lieu et au plus tard 1 h avant sa fermeture, plages multiples et fermeture après

@@ -6,7 +6,7 @@ import { brancherLeBoutonDeCopie } from '../commun/copier-lien.js';
 
 const LONGUEUR_MINIMALE_DU_MOT_DE_PASSE = 8;
 
-export const brancherLaPublication = () => {
+export const brancherLaPublication = (depot) => {
   const boutonPartager = document.getElementById('boutonPartager');
   const fenetre = document.getElementById('fenetreDuMotDePasse');
   const formulaire = document.getElementById('formulaireDuMotDePasse');
@@ -51,11 +51,14 @@ export const brancherLaPublication = () => {
     valider.disabled = true;
     message.textContent = 'Enregistrement…';
     try {
-      const { lien } = await publierLExperience(composerLEnvoi(champ.value, confirmation.value));
+      const { slug, lien } = await publierLExperience(composerLEnvoi(champ.value, confirmation.value));
       oublierLeMotDePasse();
+      // Le décor préparé sur la carte rejoint l'expérience qui vient de naître.
+      const depose = depot.aQuelqueChose() ? await depot.deposer(slug) : true;
       fenetre.close();
       champDuLien.value = lien;
       lienDirect.href = lien;
+      document.getElementById('avertissementDuDepot').hidden = depose;
       fenetreDuLien.showModal();
     } catch (probleme) {
       message.textContent = probleme.message;

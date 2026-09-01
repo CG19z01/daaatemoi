@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/styles/panneau.css" />
     <link rel="stylesheet" href="/styles/listes.css" />
     <link rel="stylesheet" href="/styles/recherche.css" />
+    <link rel="stylesheet" href="/styles/outils.css" />
+    <link rel="stylesheet" href="/styles/textes.css" />
     <link rel="stylesheet" href="/styles/creation.css" />
   </head>
   <body class="page-creation">
@@ -19,6 +21,7 @@
       <canvas id="canvasCarte" class="couche"></canvas>
       <canvas id="canvasColoration" class="couche couche-coloration"></canvas>
       <div class="couche couche-marqueurs" id="coucheMarqueurs"></div>
+      <div class="couche couche-textes" id="coucheTextes"></div>
       <p class="carte-vide" id="carteVide">Choisis une ville : sa carte se dessine ici.</p>
     </div>
 
@@ -65,11 +68,6 @@
       </section>
     </aside>
 
-    <div class="bandeau-de-placement" id="bandeauDePlacement" hidden>
-      <p id="intituleDuPlacement">Touche la carte à l’endroit voulu.</p>
-      <button class="bouton bouton-contour" type="button" id="annulerLePlacement">Annuler</button>
-    </div>
-
     <dialog class="fenetre" id="fenetreDuMotDePasse">
       <form id="formulaireDuMotDePasse" method="dialog">
         <h2>Protège ton date</h2>
@@ -90,6 +88,9 @@
       <h2>C’est prêt&nbsp;!</h2>
       <p class="indication">Envoie ce lien à la personne que tu invites.</p>
       <input class="champ-du-lien" id="champDuLien" type="text" readonly />
+      <p class="message" id="avertissementDuDepot" hidden>
+        Ton dessin n’a pas pu être enregistré. Ouvre la page et refais-le.
+      </p>
       <a class="lien-direct" id="lienDirect" href="#" target="_blank" rel="noopener">Ouvrir la page invitée</a>
       <div class="actions">
         <button class="bouton bouton-contour" type="button" id="fermerLeLien">Fermer</button>

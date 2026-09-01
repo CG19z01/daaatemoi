@@ -8,12 +8,16 @@ export const VILLE_DE_TEST = {
   pays: 'Testland',
   latitude: 49.4404591,
   longitude: 1.0939658,
+  rayon: 1800,
+  etendue: { largeur: 1800, profondeur: 1400 },
 };
 
 export const FOND_DE_TEST = {
   source: 'jeu d essai',
   repere: 'm',
+  version: 2,
   centre: { latitude: VILLE_DE_TEST.latitude, longitude: VILLE_DE_TEST.longitude },
+  zone: { minimumX: -900, maximumX: 900, minimumY: -700, maximumY: 700 },
   riviere: [{ largeur: 90, points: [[-800, 0], [800, 120]] }],
   voiesPrincipales: [[[-600, -400], [600, 400]]],
   voiesSecondaires: [[[-300, 300], [300, -300]]],

@@ -85,12 +85,16 @@ vercel deploy --prod
 ## Créer une expérience
 
 1. **La ville.** Nominatim la localise, Overpass extrait son fond de carte
-   (fleuve, voies, parcs) dans un rayon de 2,5 km, simplifié et converti en mètres
-   relatifs au centre : exactement le format du fichier figé de Rouen. Le résultat
-   est mis en cache, une ville n'est extraite qu'une fois.
-2. **Les lieux.** Jusqu'à 5, cherchés parmi les établissements réels d'OpenStreetMap
-   (nom, adresse, catégorie, horaires d'ouverture). Tout reste modifiable, et un lieu
-   absent des données peut être ajouté à la main.
+   (fleuve, voies, parcs), simplifié et converti en mètres relatifs au centre :
+   exactement le format du fichier figé de Rouen. Le rayon d'extraction suit la
+   taille réelle de la ville, et le cadrage se règle sur sa zone bâtie — un village
+   et une métropole ne reçoivent donc pas le même zoom. Le résultat est mis en
+   cache, une ville n'est extraite qu'une fois.
+2. **Les lieux.** Jusqu'à 5, cherchés parmi les lieux réels d'OpenStreetMap :
+   établissements, mais aussi cathédrales, musées, monuments, parcs et points de
+   vue. La recherche comprend le français (« cathédrale », « musée ») et tolère les
+   accents. Chaque lieu porte la couleur de son point. Tout reste modifiable, et un
+   lieu absent des données peut être ajouté à la main.
 3. **Les points.** Aucun n'est placé automatiquement : chaque lieu est posé d'un appui
    sur la carte, puis déplaçable ou supprimable. La position est retenue en mètres,
    elle suit donc la carte sur n'importe quel écran.
@@ -100,6 +104,10 @@ vercel deploy --prod
    Les minutes vont toujours de 5 en 5.
 5. **Le partage.** Un mot de passe (haché avec scrypt, jamais stocké en clair) puis
    un lien à trois mots romantiques, par exemple `/amour-luna-cuore-for-you`.
+
+Sur la carte, quatre outils : **Feutre** (trait au geste maintenu), **Coloriage**
+(un appui remplit la zone visée en suivant les contours), **Texte** (zones de texte
+déplaçables) et **Gomme** (n'efface que ce qui a été ajouté, jamais le fond).
 
 L'invité saisit le mot de passe, dessine sur la carte, retient une des dates
 proposées, en propose jusqu'à 3 autres, et peut ajouter des lieux dans la limite

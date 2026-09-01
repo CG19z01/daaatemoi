@@ -9,7 +9,7 @@ let traitsEnAttente = [];
 let attenteDeLaConfirmation = null;
 
 // Un trait tres long est decoupe, avec un point commun pour eviter les ruptures.
-const decouper = (trait) => {
+export const decouper = (trait) => {
   if (trait.points.length <= POINTS_PAR_ENVOI) return [trait];
   const morceaux = [];
   for (let debut = 0; debut < trait.points.length - 1; debut += POINTS_PAR_ENVOI - 1) {

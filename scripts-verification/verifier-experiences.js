@@ -20,6 +20,8 @@ const { creerClient, verifier, titre, bilan } = await import('./outils-de-test.j
 const { semerLaVille, VILLE_DE_TEST } = await import('./donnees-de-test.js');
 const scenarioCreation = await import('./scenario-creation.js');
 const scenarioInvite = await import('./scenario-invite.js');
+const scenarioCarte = await import('./scenario-carte.js');
+const scenarioRegles = await import('./scenario-regles.js');
 
 const dossierDesDocuments = join(process.cwd(), 'donnees', 'documents');
 
@@ -71,7 +73,14 @@ try {
   await scenarioInvite.verifierLaReponse(invite, slug, experience);
   await scenarioInvite.verifierLesLieuxDeLInvite(invite, slug);
   await scenarioInvite.verifierLeDessin(invite, slug);
+  await scenarioCarte.verifierLaCouleurDesPoints(invite, slug, experience);
+  await scenarioCarte.verifierLesTextes(invite, slug);
+  await scenarioCarte.verifierLeRemplissage(invite, slug);
   await verifierLAdministration(slug);
+  await scenarioRegles.verifierLUniciteDesAdresses();
+  scenarioRegles.verifierLeCadrageDesVilles();
+  scenarioRegles.verifierLesCategoriesDeLieux();
+  scenarioRegles.verifierLeRemplissageDeZone();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

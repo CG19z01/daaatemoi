@@ -9,7 +9,11 @@ import { deposerCookie } from '../utilitaires/cookies.js';
 import { attraper } from '../utilitaires/asynchrone.js';
 import { verifierLeMotDePasse } from '../utilitaires/mot-de-passe.js';
 import { validerLaReponse } from '../utilitaires/validation-reponse.js';
-import { validerLesLieux, LIEUX_MAXIMAUX_PAR_EXPERIENCE } from '../utilitaires/validation-lieux.js';
+import {
+  validerLesLieux,
+  couleurDePointValide,
+  LIEUX_MAXIMAUX_PAR_EXPERIENCE,
+} from '../utilitaires/validation-lieux.js';
 import { nettoyerLesHoraires } from '../utilitaires/validation-horaires.js';
 import { nettoyerTexte } from '../utilitaires/validation.js';
 import {
@@ -107,12 +111,25 @@ routesExperiences.post('/:slug/lieux', protegerLExperience, attraper(async (requ
   return reponse.status(201).json({ lieux: misAJour.lieux });
 }));
 
-// Correction des horaires d'un lieu par l'invite : ils deviennent ceux de
-// l'experience, et le createur les retrouve donc tels quels.
+// Correction d'un lieu deja enregistre : ses horaires et la couleur de son
+// point. Seuls les champs reellement fournis sont touches.
 routesExperiences.patch('/:slug/lieux/:identifiant', protegerLExperience, attraper(async (requete, reponse) => {
   const identifiant = nettoyerTexte(requete.params.identifiant, 40);
-  const horaires = nettoyerLesHoraires(requete.body?.horaires);
-  const misAJour = await modifierUnLieu(requete.adresseDeLExperience, identifiant, { horaires });
+  const modifications = {};
+  if ('horaires' in (requete.body ?? {})) {
+    modifications.horaires = nettoyerLesHoraires(requete.body.horaires);
+  }
+  if ('couleur' in (requete.body ?? {})) {
+    if (!couleurDePointValide(requete.body.couleur)) {
+      return reponse.status(400).json({ erreur: 'Couleur invalide.' });
+    }
+    modifications.couleur = requete.body.couleur;
+  }
+  if (Object.keys(modifications).length === 0) {
+    return reponse.status(400).json({ erreur: 'Rien à modifier.' });
+  }
+
+  const misAJour = await modifierUnLieu(requete.adresseDeLExperience, identifiant, modifications);
   if (!misAJour) return reponse.status(404).json({ erreur: 'Ce lieu n’existe plus.' });
   return reponse.json({ lieux: misAJour.lieux });
 }));

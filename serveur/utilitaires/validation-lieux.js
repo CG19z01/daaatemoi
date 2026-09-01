@@ -11,6 +11,10 @@ const LONGUEUR_MAXIMALE_DE_LA_CATEGORIE = 40;
 // Le fond de carte s'etend au plus a quatre kilometres du centre : un point
 // place bien au-dela ne correspondrait a rien de visible.
 const PORTEE_MAXIMALE_EN_METRES = 8000;
+// Couleur du point sur la carte, propre a chaque lieu. Elle n'a rien a voir
+// avec la couleur du feutre ni avec celle du fond de carte.
+const COULEUR_VALIDE = /^#[0-9a-f]{6}$/i;
+export const COULEUR_DU_POINT_PAR_DEFAUT = '#a30dad';
 
 const estUnNombre = (valeur) => typeof valeur === 'number' && Number.isFinite(valeur);
 
@@ -26,6 +30,9 @@ const validerLePoint = (pointRecu) => {
 };
 
 // Renvoie { lieu } ou { erreur }. L'identifiant est attribue par le serveur.
+// Vrai si la couleur recue est utilisable telle quelle.
+export const couleurDePointValide = (couleur) => COULEUR_VALIDE.test(couleur);
+
 export const validerUnLieu = (lieuRecu, numero, ajoutePar) => {
   const nom = nettoyerTexte(lieuRecu?.nom, LONGUEUR_MAXIMALE_DU_NOM);
   if (nom.length < LONGUEUR_MINIMALE_DU_NOM) return { erreur: 'Chaque lieu a besoin d’un nom.' };
@@ -33,10 +40,13 @@ export const validerUnLieu = (lieuRecu, numero, ajoutePar) => {
   const { erreur, point } = validerLePoint(lieuRecu?.point);
   if (erreur) return { erreur: `${nom} : ${erreur}` };
 
+  // Une couleur incorrecte n'est pas une erreur : on retombe sur celle par defaut.
+  const couleurRecue = lieuRecu?.couleur;
   return {
     lieu: {
       identifiant: `lieu-${numero}`,
       nom,
+      couleur: COULEUR_VALIDE.test(couleurRecue) ? couleurRecue : COULEUR_DU_POINT_PAR_DEFAUT,
       adresse: nettoyerTexte(lieuRecu?.adresse, LONGUEUR_MAXIMALE_DE_L_ADRESSE),
       categorie: nettoyerTexte(lieuRecu?.categorie, LONGUEUR_MAXIMALE_DE_LA_CATEGORIE),
       reference: nettoyerTexte(lieuRecu?.reference, 60) || null,

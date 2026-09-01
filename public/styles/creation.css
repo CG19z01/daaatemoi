@@ -79,3 +79,50 @@
   left: -100vw;
   opacity: 0;
 }
+
+/* La barre d'outils descend sous le bouton du panneau, qui occupe le coin. */
+.page-creation .barre-doutils,
+.page-invite .barre-doutils {
+  top: 4.2rem;
+}
+
+/* Pendant la création, l'expérience n'existe pas encore : le dessin part avec
+   elle au moment du partage, il n'y a donc rien à sauvegarder séparément. */
+.page-creation .groupe-de-sauvegarde {
+  display: none;
+}
+
+/* Les outils n'apparaissent qu'une fois la ville dessinée. */
+.page-creation:not(.ville-choisie) .barre-doutils {
+  display: none;
+}
+
+/* Sur mobile, le panneau occupe le bas de l'écran : la barre d'outils reste
+   donc en haut, dans la zone de carte, et s'enroule si l'écran est étroit.
+   Elle annule le placement en bas que la carte de Rouen, elle, utilise. */
+@media (max-width: 700px) {
+  .page-creation .barre-doutils,
+  .page-invite .barre-doutils {
+    top: 4.2rem;
+    bottom: auto;
+    left: 0.6rem;
+    right: 0.6rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .page-creation .groupe-doutils,
+  .page-invite .groupe-doutils {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Cibles tactiles conservées, libellés un peu plus compacts. */
+  .page-creation .outil,
+  .page-invite .outil {
+    min-height: 2.5rem;
+    padding: 0.4rem 0.7rem;
+  }
+}

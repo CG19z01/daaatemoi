@@ -3,7 +3,13 @@
 // a proteger, et rien de sensible ne transite par le navigateur.
 // Les horaires viennent de l'etiquette opening_hours quand elle existe.
 import { interrogerOverpass } from './overpass.js';
-import { composerLaRequeteDeLieux, FAMILLES, motifDuNom } from './requete-de-lieux.js';
+import {
+  composerLaRequeteDeLieux,
+  FAMILLES,
+  motifDuNom,
+  categoriesVisees,
+} from './requete-de-lieux.js';
+import { RAYON_MINIMAL_EN_METRES } from '../utilitaires/etendue-de-ville.js';
 import { analyserLesHorairesOsm } from '../utilitaires/horaires-osm.js';
 
 export const LONGUEUR_MINIMALE_DE_LA_RECHERCHE = 2;
@@ -34,7 +40,11 @@ const laCategorie = (etiquettes) => {
   return '';
 };
 
-const convertirUnResultat = (element) => {
+// Vrai si l'element porte bien l'une des etiquettes visees par la recherche.
+const correspondALaCategorie = (etiquettes, categories) =>
+  categories.some(([famille, valeur]) => etiquettes[famille] === valeur);
+
+const convertirUnResultat = (element, categories) => {
   const etiquettes = element.tags ?? {};
   const latitude = element.lat ?? element.center?.lat;
   const longitude = element.lon ?? element.center?.lon;
@@ -49,20 +59,30 @@ const convertirUnResultat = (element) => {
     longitude,
     horaires,
     horairesTrouves: horaires !== null,
+    estDuTypeCherche: correspondALaCategorie(etiquettes, categories),
   };
 };
 
-// Les lieux dont le nom contient le terme passent devant ceux trouves par leur
-// seule categorie, et les mieux renseignes devant les autres.
+// Classement, du plus pertinent au moins pertinent :
+//   - le lieu est vraiment du type cherche (une cathedrale quand on cherche
+//     « cathedrale »), et non un commerce qui en porte le nom ;
+//   - son nom contient le terme ;
+//   - ses horaires sont connus.
+// Sans ce premier critere, « Hotel de la Cathedrale » passerait devant la
+// cathedrale elle-meme, qui n'affiche pas d'horaires.
 const rang = (lieu, expressionDuNom) =>
-  Number(expressionDuNom.test(lieu.nom)) * 2 + Number(lieu.horairesTrouves);
+  Number(lieu.estDuTypeCherche) * 4 +
+  Number(expressionDuNom.test(lieu.nom)) * 2 +
+  Number(lieu.horairesTrouves);
 
-export const rechercherDesLieux = async (terme, centre) => {
-  const elements = await interrogerOverpass(composerLaRequeteDeLieux(terme, centre));
+export const rechercherDesLieux = async (terme, ville) => {
+  const rayon = Number(ville.rayon) > 0 ? Number(ville.rayon) : RAYON_MINIMAL_EN_METRES;
+  const elements = await interrogerOverpass(composerLaRequeteDeLieux(terme, ville, rayon));
   const expressionDuNom = new RegExp(motifDuNom(terme), 'i');
+  const categories = categoriesVisees(terme);
   const vus = new Set();
   return elements
-    .map(convertirUnResultat)
+    .map((element) => convertirUnResultat(element, categories))
     .filter(Boolean)
     .filter((lieu) => !vus.has(lieu.reference) && vus.add(lieu.reference))
     .sort((premier, second) => rang(second, expressionDuNom) - rang(premier, expressionDuNom))

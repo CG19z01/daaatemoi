@@ -8,6 +8,9 @@ export const PAS_DE_TAILLE = 8;
 
 export const MODE_FEUTRE = 'feutre';
 export const MODE_GOMME = 'gomme';
+// Le remplissage ne trace rien : il ne retient que le point vise et la couleur.
+// La zone est recalculee a l'affichage par la fonction fournie a la scene.
+export const MODE_REMPLISSAGE = 'remplissage';
 
 const EXPRESSION_COULEUR = /^#[0-9a-f]{6}$/i;
 // En dessous de cette distance, un point n'apporte rien au trace.
@@ -23,6 +26,7 @@ export const creerColoration = (canvas) => {
   let traits = [];
   let traitEnCours = null;
   let auTraitTermine = null;
+  let auRemplissage = null;
 
   const preparerLOutil = (trait) => {
     contexte.globalAlpha = 1;
@@ -36,6 +40,8 @@ export const creerColoration = (canvas) => {
 
   const tracer = (trait) => {
     if (!projection || trait.points.length === 0) return;
+    // Un remplissage est rejoue par la scene, qui seule connait la carte.
+    if (trait.mode === MODE_REMPLISSAGE) return auRemplissage?.(trait);
     preparerLOutil(trait);
     contexte.beginPath();
     trait.points.forEach(([x, y], index) => {
@@ -112,8 +118,21 @@ export const creerColoration = (canvas) => {
     rejouer();
   };
 
+  // Un remplissage termine rejoint le dessin comme n'importe quel trait.
+  const ajouterUnRemplissage = (trait) => {
+    traits.push(trait);
+    tracer(trait);
+    auTraitTermine?.(trait);
+  };
+
   return {
     ajouterPoint,
+    ajouterUnRemplissage,
+    // Le remplissage peint directement sur cette couche.
+    leContexte: () => contexte,
+    definirLeRemplissage: (fonction) => {
+      auRemplissage = fonction;
+    },
     interrompreLeTrait,
     definirLeMode,
     definirLaCouleur,

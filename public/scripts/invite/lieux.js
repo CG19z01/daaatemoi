@@ -2,7 +2,7 @@
 // tant que la limite globale de cinq n'est pas atteinte.
 // Un lieu ajoute est place a la main, jamais automatiquement.
 import { etat, surChangement, definirLesLieux, LIEUX_MAXIMAUX } from './etat.js';
-import { ajouterDesLieux, modifierLesHoraires } from './api.js';
+import { ajouterDesLieux, modifierUnLieu } from './api.js';
 import { creerUneFicheDeLieu } from '../commun/fiche-de-lieu.js';
 import { ouvrirLaRecherche } from '../commun/recherche-de-lieux.js';
 import { ouvrirLEditionDesHoraires } from '../commun/edition-horaires.js';
@@ -31,22 +31,32 @@ export const brancherLesLieux = () => {
       `Touche la carte à l’endroit de « ${lieu.nom} »`,
     );
 
-  // Les horaires corriges sont enregistres : ils deviennent ceux de l'experience.
+  // Toute correction d'un lieu passe par le serveur : le créateur la retrouve.
+  const corriger = async (lieu, modifications, intitule) => {
+    message.textContent = intitule;
+    try {
+      definirLesLieux(await modifierUnLieu(lieu.identifiant, modifications));
+      message.textContent = '';
+    } catch (erreur) {
+      message.textContent = erreur.message;
+    }
+  };
+
   const corrigerLesHoraires = (lieu) =>
-    ouvrirLEditionDesHoraires(lieu, async (horaires) => {
-      message.textContent = 'Enregistrement des horaires…';
-      try {
-        definirLesLieux(await modifierLesHoraires(lieu.identifiant, horaires));
-        message.textContent = '';
-      } catch (erreur) {
-        message.textContent = erreur.message;
-      }
-    });
+    ouvrirLEditionDesHoraires(lieu, (horaires) =>
+      corriger(lieu, { horaires }, 'Enregistrement des horaires…'),
+    );
 
   const rafraichir = () => {
     const lieux = etat.experience?.lieux ?? [];
     liste.replaceChildren(
-      ...lieux.map((lieu) => creerUneFicheDeLieu(lieu, { auxHoraires: () => corrigerLesHoraires(lieu) })),
+      ...lieux.map((lieu) =>
+        creerUneFicheDeLieu(lieu, {
+          auxHoraires: () => corrigerLesHoraires(lieu),
+          auCouleurModifiee: (couleur) =>
+            corriger(lieu, { couleur }, 'Enregistrement de la couleur…'),
+        }),
+      ),
     );
     compteur.textContent = `${lieux.length} / ${LIEUX_MAXIMAUX}`;
     bouton.disabled = lieux.length >= LIEUX_MAXIMAUX;

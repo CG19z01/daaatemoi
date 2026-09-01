@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/marqueurs.css" />
     <link rel="stylesheet" href="/styles/fenetres.css" />
     <link rel="stylesheet" href="/styles/outils.css" />
+    <link rel="stylesheet" href="/styles/textes.css" />
     <link rel="stylesheet" href="/styles/panneau.css" />
     <link rel="stylesheet" href="/styles/listes.css" />
     <link rel="stylesheet" href="/styles/recherche.css" />
@@ -22,6 +23,7 @@
       <canvas id="canvasCarte" class="couche"></canvas>
       <canvas id="canvasColoration" class="couche couche-coloration"></canvas>
       <div class="couche couche-marqueurs" id="coucheMarqueurs"></div>
+      <div class="couche couche-textes" id="coucheTextes"></div>
     </div>
 
     <button class="bouton bouton-plein bouton-du-panneau" type="button" id="boutonDuPanneau" aria-expanded="true">
@@ -68,39 +70,6 @@
         </section>
       </div>
     </aside>
-
-    <div class="barre-doutils" role="group" aria-label="Outils de dessin">
-      <div class="groupe-doutils">
-        <button class="outil" type="button" id="boutonFeutre" aria-pressed="true">Feutre</button>
-        <button class="outil" type="button" id="boutonGomme" aria-pressed="false">Gomme</button>
-      </div>
-      <div class="groupe-doutils">
-        <button class="outil outil-rond" type="button" id="boutonReduireLeTrait" aria-label="Trait plus fin">−</button>
-        <span class="cadre-des-couleurs">
-          <button class="outil outil-couleur" type="button" id="boutonDeLaCouleur" aria-label="Couleur du feutre"></button>
-          <input
-            class="champ-de-la-couleur"
-            type="color"
-            id="roueChromatique"
-            value="#a30dad"
-            tabindex="-1"
-            aria-hidden="true"
-          />
-        </span>
-        <button class="outil outil-rond" type="button" id="boutonAgrandirLeTrait" aria-label="Trait plus épais">+</button>
-        <span class="apercu-du-trait" id="apercuDuTrait" role="img"></span>
-      </div>
-      <div class="groupe-doutils">
-        <button class="outil" type="button" id="boutonSauvegarder">Sauvegarder</button>
-      </div>
-    </div>
-
-    <p class="message-carte" id="messageCarte" role="status" hidden></p>
-
-    <div class="bandeau-de-placement" id="bandeauDePlacement" hidden>
-      <p id="intituleDuPlacement">Touche la carte à l’endroit voulu.</p>
-      <button class="bouton bouton-contour" type="button" id="annulerLePlacement">Annuler</button>
-    </div>
 
     <div class="ecran-dacces" id="ecranDacces">
       <form class="panneau-cartoon cadre-dacces" id="formulaireDacces">

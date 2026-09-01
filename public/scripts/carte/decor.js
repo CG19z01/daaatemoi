@@ -7,7 +7,9 @@ import { creerGrilleDOccupation } from './occupation.js';
 
 const MARGE_DANS_LA_CASE = 10;
 const PAS_DE_LA_GRILLE = EMPREINTE_MAXIMALE + MARGE_DANS_LA_CASE;
-const LIMITE_DE_LA_VILLE = 3400;
+// Portee par defaut : celle de la carte de Rouen. Une experience sur une autre
+// ville fournit la sienne, pour que les batiments couvrent toute la vue.
+const LIMITE_PAR_DEFAUT = 3400;
 const PAS_DE_L_OCCUPATION = 12;
 const RAYON_DES_VOIES_PRINCIPALES = 15;
 const RAYON_DES_VOIES_SECONDAIRES = 9;
@@ -18,8 +20,8 @@ const ESSAIS_DE_PLACEMENT = 4;
 const GRAINE = 20260825;
 
 // Tout ce qui vient du fond de carte reel devient interdit a la construction.
-const preparerLaGrille = (fond, positionsDesLieux) => {
-  const grille = creerGrilleDOccupation(LIMITE_DE_LA_VILLE + PAS_DE_LA_GRILLE, PAS_DE_L_OCCUPATION);
+const preparerLaGrille = (fond, positionsDesLieux, limiteDeLaVille) => {
+  const grille = creerGrilleDOccupation(limiteDeLaVille + PAS_DE_LA_GRILLE, PAS_DE_L_OCCUPATION);
   for (const bras of fond.riviere) {
     grille.marquerUneLigne(bras.points, bras.largeur / 2 + MARGE_AUTOUR_DU_FLEUVE);
   }
@@ -37,14 +39,14 @@ const preparerLaGrille = (fond, positionsDesLieux) => {
   return grille;
 };
 
-export const construireDecor = (fond, positionsDesLieux = []) => {
-  const grille = preparerLaGrille(fond, positionsDesLieux);
+export const construireDecor = (fond, positionsDesLieux = [], limiteDeLaVille = LIMITE_PAR_DEFAUT) => {
+  const grille = preparerLaGrille(fond, positionsDesLieux, limiteDeLaVille);
   const aleatoire = creerAleatoire(GRAINE);
   const choisirUnBatiment = creerSelecteurDeBatiments(aleatoire);
   const lesBatiments = [];
 
-  for (let x = -LIMITE_DE_LA_VILLE; x <= LIMITE_DE_LA_VILLE; x += PAS_DE_LA_GRILLE) {
-    for (let y = -LIMITE_DE_LA_VILLE; y <= LIMITE_DE_LA_VILLE; y += PAS_DE_LA_GRILLE) {
+  for (let x = -limiteDeLaVille; x <= limiteDeLaVille; x += PAS_DE_LA_GRILLE) {
+    for (let y = -limiteDeLaVille; y <= limiteDeLaVille; y += PAS_DE_LA_GRILLE) {
       if (aleatoire() < PROPORTION_DE_CASES_VIDES) continue;
       const batiment = choisirUnBatiment();
       const placeLibreEnX = Math.max(0, PAS_DE_LA_GRILLE - MARGE_DANS_LA_CASE - batiment.largeur);
