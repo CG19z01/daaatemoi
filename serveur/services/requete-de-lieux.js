@@ -9,10 +9,13 @@ import { boiteAutourDuCentre } from './overpass.js';
 import { CATEGORIES_FRANCAISES, FAMILLES } from '../donnees/categories-osm.js';
 
 export { FAMILLES };
-const DELAI_OVERPASS_EN_SECONDES = 25;
+const DELAI_OVERPASS_EN_SECONDES = 30;
 // La recherche depasse un peu la carte : un lieu juste en peripherie reste
 // trouvable, meme si son point sera place a la main sur la carte visible.
 const MARGE_DE_RECHERCHE = 1.4;
+// Au-dela, la requete devient trop lourde pour les instances publiques, qui
+// finissent par refuser. Ce rayon couvre deja largement la carte affichee.
+const RAYON_MAXIMAL_DE_RECHERCHE = 3500;
 
 // Une lettre tapee sans accent doit retrouver toutes ses variantes accentuees.
 const VARIANTES = {
@@ -46,9 +49,15 @@ export const categoriesVisees = (terme) => {
 };
 
 export const composerLaRequeteDeLieux = (terme, centre, rayonEnMetres) => {
-  const boite = boiteAutourDuCentre(centre, Math.round(rayonEnMetres * MARGE_DE_RECHERCHE));
+  const rayonDeRecherche = Math.min(
+    RAYON_MAXIMAL_DE_RECHERCHE,
+    Math.round(rayonEnMetres * MARGE_DE_RECHERCHE),
+  );
+  const boite = boiteAutourDuCentre(centre, rayonDeRecherche);
+  // La famille d'abord, le nom ensuite : Overpass s'appuie sur son index de
+  // cles, puis n'applique l'expression du nom qu'au sous-ensemble retenu.
   const parLeNom = FAMILLES.map(
-    (famille) => `  nwr["name"~"${motifDuNom(terme)}",i]["${famille}"](${boite});`,
+    (famille) => `  nwr["${famille}"]["name"~"${motifDuNom(terme)}",i](${boite});`,
   );
   const parLaCategorie = categoriesVisees(terme).map(
     ([famille, valeur]) => `  nwr["${famille}"~"^${valeur}$",i]["name"](${boite});`,
@@ -59,6 +68,6 @@ export const composerLaRequeteDeLieux = (terme, centre, rayonEnMetres) => {
     ...parLeNom,
     ...parLaCategorie,
     ');',
-    'out center 60;',
+    'out center 40;',
   ].join('\n');
 };

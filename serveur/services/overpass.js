@@ -7,7 +7,7 @@ import { configuration } from '../config.js';
 // Chaque appelant fixe donc sa patience : avec trois instances et deux passages,
 // le pire des cas reste bien en deca de la limite d'une fonction serverless.
 export const DELAI_DU_FOND_DE_VILLE = 55000;
-export const DELAI_DE_LA_RECHERCHE = 28000;
+export const DELAI_DE_LA_RECHERCHE = 40000;
 // Les instances publiques refusent parfois une requete par simple surcharge :
 // un second passage, apres une courte pause, suffit le plus souvent.
 const PASSAGES = 2;
