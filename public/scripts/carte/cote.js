@@ -19,38 +19,50 @@ export const decalerVersLEau = (points, distance) =>
     ];
   });
 
-// Étendue d'eau que borde un trait de côte : le tracé, puis le même tracé
-// repoussé au large et parcouru en sens inverse. Le polygone ainsi fermé
-// couvre toute la mer visible, du rivage jusqu'au bord de la carte.
-export const polygoneVersLEau = (points, profondeur) => [
-  ...points,
-  ...decalerVersLEau(points, profondeur).reverse(),
-];
+// Découpe le littoral en segments élémentaires, une seule fois.
+const enSegments = (littoral) => {
+  const segments = [];
+  for (const trace of littoral) {
+    for (let rang = 1; rang < trace.length; rang += 1) {
+      const [ax, ay] = trace[rang - 1];
+      const [bx, by] = trace[rang];
+      segments.push({ ax, ay, ecartX: bx - ax, ecartY: by - ay });
+    }
+  }
+  return segments;
+};
 
-// Test « ce point est-il au large ? », prêt à être appelé des milliers de fois.
-// Chaque étendue garde sa boîte englobante : la plupart des points sont écartés
-// par une simple comparaison, sans parcourir le contour.
-export const creerTestDeLaMer = (littoral, profondeur) => {
-  const etendues = littoral.map((trace) => {
-    const contour = polygoneVersLEau(trace, profondeur);
-    const abscisses = contour.map(([x]) => x);
-    const ordonnees = contour.map(([, y]) => y);
-    return {
-      contour,
-      minimumX: Math.min(...abscisses),
-      maximumX: Math.max(...abscisses),
-      minimumY: Math.min(...ordonnees),
-      maximumY: Math.max(...ordonnees),
-    };
-  });
+// Distance d'un point à un segment, et côté sur lequel il se trouve.
+const examiner = (segment, x, y) => {
+  const { ax, ay, ecartX, ecartY } = segment;
+  const longueurCarree = ecartX * ecartX + ecartY * ecartY;
+  const avancement =
+    longueurCarree === 0
+      ? 0
+      : Math.max(0, Math.min(1, ((x - ax) * ecartX + (y - ay) * ecartY) / longueurCarree));
+  const distance = Math.hypot(x - (ax + avancement * ecartX), y - (ay + avancement * ecartY));
+  // Produit vectoriel négatif : le point est à droite du sens du tracé, donc
+  // du côté de l'eau.
+  return { distance, aLEau: ecartX * (y - ay) - ecartY * (x - ax) < 0 };
+};
 
-  return (x, y, estDansLePolygone) =>
-    etendues.some(
-      (etendue) =>
-        x >= etendue.minimumX &&
-        x <= etendue.maximumX &&
-        y >= etendue.minimumY &&
-        y <= etendue.maximumY &&
-        estDansLePolygone(x, y, etendue.contour),
-    );
+// Renvoie une fonction (x, y) -> { aLEau, distance }.
+//
+// On cherche le segment de côte le plus proche, puis on regarde de quel côté
+// on se trouve. Fermer la mer en un polygone paraissait plus simple, mais un
+// littoral découpé en vingt morceaux produisait des contours qui se
+// recouvraient et s'annulaient : toute une ville pouvait alors passer pour de
+// l'eau. Le segment le plus proche, lui, ne se contredit jamais.
+export const creerTestDeLaMer = (littoral) => {
+  const segments = enSegments(littoral);
+  if (segments.length === 0) return () => ({ aLEau: false, distance: Infinity });
+
+  return (x, y) => {
+    let resultat = { aLEau: false, distance: Infinity };
+    for (const segment of segments) {
+      const examen = examiner(segment, x, y);
+      if (examen.distance < resultat.distance) resultat = examen;
+    }
+    return resultat;
+  };
 };

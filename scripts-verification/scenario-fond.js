@@ -92,3 +92,37 @@ export const verifierLeDecor = () => {
     `une terre libre est bâtie presque case par case (${pleine.lesBatiments.length}/${cases})`,
   );
 };
+
+export const verifierUnLittoralMorcele = () => {
+  titre('Littoral rendu en plusieurs tronçons');
+  // Overpass découpe souvent une même côte en une dizaine de morceaux, dont de
+  // très courts près d'un port. Fermer chaque morceau en polygone donnait des
+  // contours qui se recouvraient et s'annulaient : toute la ville de Dieppe
+  // passait alors pour de l'eau, et 28 maisons seulement subsistaient, au large.
+  const morceaux = [
+    [[0, -2000], [0, -1200]],
+    [[0, -1200], [0, -1190]],
+    [[0, -1190], [0, -400]],
+    [[0, -400], [0, -395]],
+    [[0, -395], [0, 600]],
+    [[0, 600], [0, 2000]],
+  ];
+  const fond = {
+    riviere: [],
+    littoral: morceaux,
+    plansDEau: [],
+    voiesPrincipales: [],
+    voiesSecondaires: [],
+    parcs: [],
+  };
+
+  const { lesBatiments } = construireDecor(fond, [], 1500);
+  verifier(
+    lesBatiments.length > 300,
+    `la terre reste bâtie malgré un littoral morcelé (${lesBatiments.length} bâtiments)`,
+  );
+  verifier(
+    lesBatiments.every((batiment) => batiment.x < 0),
+    'aucun bâtiment n’est posé au large, même avec des tronçons très courts',
+  );
+};

@@ -85,6 +85,7 @@ try {
   scenarioFond.verifierLeTriDuFond();
   scenarioFond.verifierLeCoteDeLEau();
   scenarioFond.verifierLeDecor();
+  scenarioFond.verifierUnLittoralMorcele();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);
