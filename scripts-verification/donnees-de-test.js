@@ -1,6 +1,7 @@
 // Jeu d'essai : une ville et un fond de carte fictifs, ecrits directement dans
 // l'entrepot. Les tests n'appellent donc aucun service exterieur.
 import { JOURS_DE_LA_SEMAINE } from '../serveur/utilitaires/jours.js';
+import { VERSION_DU_FOND } from '../serveur/services/fond-de-ville.js';
 
 export const VILLE_DE_TEST = {
   cle: 'ville-de-test',
@@ -10,12 +11,13 @@ export const VILLE_DE_TEST = {
   longitude: 1.0939658,
   rayon: 1800,
   etendue: { largeur: 1800, profondeur: 1400 },
+  versionDuFond: VERSION_DU_FOND,
 };
 
 export const FOND_DE_TEST = {
   source: 'jeu d essai',
   repere: 'm',
-  version: 2,
+  version: VERSION_DU_FOND,
   centre: { latitude: VILLE_DE_TEST.latitude, longitude: VILLE_DE_TEST.longitude },
   zone: { minimumX: -900, maximumX: 900, minimumY: -700, maximumY: 700 },
   riviere: [{ largeur: 90, points: [[-800, 0], [800, 120]] }],

@@ -38,7 +38,10 @@ export const preparerLaVille = async (nomDemande) => {
   // reste possible, seul le cache par nom tape est alors saute.
   const cleTapee = enCle(nomTape);
   const dejaConnue = cleTapee ? await entrepot.lireDocument(cleDeLaRecherche(cleTapee)) : null;
-  if (dejaConnue) return { ville: dejaConnue };
+  // La ville retient la version du fond qu'elle a servi a produire. Une ville
+  // enregistree avant une evolution du cadrage est donc refaite, sans quoi son
+  // ancien fond resterait servi indefiniment.
+  if (dejaConnue?.versionDuFond === VERSION_DU_FOND) return { ville: dejaConnue };
 
   const trouvee = await geocoderUneVille(nomDemande);
   if (!trouvee) return { erreur: 'Cette ville est introuvable.' };
@@ -55,6 +58,7 @@ export const preparerLaVille = async (nomDemande) => {
     longitude: trouvee.longitude,
     rayon: mesure.rayon,
     etendue: mesure.etendue,
+    versionDuFond: VERSION_DU_FOND,
   };
   await genererLeFond(ville, mesure);
   // Enregistree sous le nom tape : la meme recherche reutilise le meme fond.
