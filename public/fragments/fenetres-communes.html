@@ -1,0 +1,58 @@
+<!-- Fenetres partagees par la page de creation et la page invitee : recherche
+     d'un lieu, edition des horaires et choix d'un creneau. Elles sont ecrites
+     une seule fois et inserees par fenetres-communes.js. -->
+<dialog class="fenetre" id="fenetreDeRecherche">
+  <form id="formulaireDeRecherche">
+    <h2>Chercher un lieu</h2>
+    <label for="champRecherche">Nom du lieu</label>
+    <input id="champRecherche" type="search" maxlength="40" placeholder="Un bar, un musée, un parc…" />
+    <div class="actions">
+      <button class="bouton bouton-plein" type="submit">Chercher</button>
+      <button class="bouton bouton-contour" type="button" id="ajouterALaMain">Ajouter à la main</button>
+    </div>
+    <p class="message" id="messageDeRecherche" role="status"></p>
+    <div class="resultats-de-recherche" id="resultatsDeRecherche"></div>
+    <div class="actions">
+      <button class="bouton bouton-contour" type="button" id="annulerLaRecherche">Fermer</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="fenetre fenetre-large" id="fenetreDesHoraires">
+  <form id="formulaireDesHoraires" method="dialog">
+    <h2 id="titreDesHoraires">Horaires</h2>
+    <p class="indication">Corrige-les librement, ou laisse « Non renseignés ».</p>
+    <ul class="liste-des-horaires" id="listeDesHoraires"></ul>
+    <div class="actions">
+      <button class="bouton bouton-contour" type="button" id="annulerLesHoraires">Annuler</button>
+      <button class="bouton bouton-plein" type="submit">Enregistrer</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="fenetre" id="fenetreDeCreneau">
+  <form id="formulaireDuCreneau" method="dialog">
+    <h2 id="titreDuCreneau">Nouveau créneau</h2>
+    <label for="champDateDuCreneau">Date</label>
+    <input id="champDateDuCreneau" type="date" required />
+    <label for="champLieuDuCreneau">Lieu</label>
+    <select id="champLieuDuCreneau"></select>
+    <label for="champHeureDeDebut">De</label>
+    <div class="paire-dheure">
+      <select id="champHeureDeDebut" aria-label="Heure de début"></select>
+      <span>:</span>
+      <select id="champMinuteDeDebut" aria-label="Minutes de début"></select>
+    </div>
+    <label for="champHeureDeFin">À</label>
+    <div class="paire-dheure">
+      <select id="champHeureDeFin" aria-label="Heure de fin"></select>
+      <span>:</span>
+      <select id="champMinuteDeFin" aria-label="Minutes de fin"></select>
+    </div>
+    <p class="message" id="messageDuCreneau" role="status"></p>
+    <div class="actions">
+      <button class="bouton bouton-contour" type="button" id="annulerLeCreneau">Annuler</button>
+      <button class="bouton bouton-plein" type="submit" id="validerLeCreneau">Valider</button>
+    </div>
+  </form>
+</dialog>

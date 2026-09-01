@@ -79,3 +79,16 @@
   cursor: default;
   pointer-events: none;
 }
+
+/* Lieu ajoute par la personne invitee : epingle blanche, pour la distinguer
+   d'un coup d'oeil des lieux poses par le createur. */
+.marqueur-invite .epingle {
+  background: var(--papier);
+}
+
+/* Repere purement indicatif (balise span, sans action) : il ne doit pas
+   intercepter l'appui, sinon on ne pourrait pas dessiner par-dessus. */
+span.marqueur {
+  cursor: default;
+  pointer-events: none;
+}

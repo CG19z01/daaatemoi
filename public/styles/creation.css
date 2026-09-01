@@ -1,0 +1,81 @@
+/* Page de creation : la carte occupe le fond, le panneau s'installe a cote.
+   Le blocage des gestes reste sur la scene uniquement : le panneau, lui, doit
+   pouvoir defiler au doigt sur un telephone. */
+.page-creation,
+.page-invite {
+  height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* La carte laisse la place au panneau sur grand ecran. */
+@media (min-width: 701px) {
+  .page-creation .scene,
+  .page-invite .scene {
+    right: min(24rem, 100vw);
+    width: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-creation .scene,
+  .page-invite .scene {
+    bottom: 62vh;
+    height: auto;
+  }
+}
+
+/* Message affiche tant qu'aucune ville n'a ete choisie. */
+.carte-vide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(20rem, 80%);
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-cartoon);
+  background: var(--papier);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.carte-vide[hidden] {
+  display: none;
+}
+
+.fenetre-large {
+  width: min(30rem, calc(100vw - 2rem));
+}
+
+.champ-du-lien {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.lien-direct {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: var(--encre);
+  font-size: 0.85rem;
+}
+
+/* Confirmation de copie : le bouton s'inverse un court instant. */
+.est-copie {
+  background: var(--papier);
+  color: var(--encre);
+}
+
+/* Champ technique du repli de copie : present, mais jamais visible. */
+.champ-de-copie {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  opacity: 0;
+}

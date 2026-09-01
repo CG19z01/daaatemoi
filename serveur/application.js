@@ -8,6 +8,9 @@ import { routesPages } from './routes/pages.js';
 import { routesApi } from './routes/api.js';
 import { routesAdmin } from './routes/admin.js';
 import { routesCartes } from './routes/cartes.js';
+import { routesCreation } from './routes/creation.js';
+import { routesExperiences } from './routes/experiences.js';
+import { routesDessinDExperience } from './routes/experience-dessin.js';
 import { identifierLeVisiteur } from './middlewares/session-visiteur.js';
 
 verifierConfiguration();
@@ -28,12 +31,19 @@ application.use((requete, reponse, suite) => {
   suite();
 });
 
-application.use(express.json({ limit: '8kb' }));
+// 32 ko : de quoi accueillir une experience complete (5 lieux et leurs
+// horaires) ou un long trait de coloriage, sans ouvrir la porte a plus.
+application.use(express.json({ limit: '32kb' }));
 application.use('/styles', express.static(join(dossierPublic, 'styles')));
 application.use('/scripts', express.static(join(dossierPublic, 'scripts')));
 application.use('/donnees', express.static(join(dossierPublic, 'donnees')));
+application.use('/fragments', express.static(join(dossierPublic, 'fragments')));
 
 application.use('/admin', routesAdmin);
+// Montees avant /api : chaque famille de routes garde son propre routeur.
+application.use('/api/creation', routesCreation);
+application.use('/api/experiences', routesDessinDExperience);
+application.use('/api/experiences', routesExperiences);
 application.use('/api', routesApi);
 application.use('/cartes', identifierLeVisiteur, routesCartes);
 application.use('/', routesPages);

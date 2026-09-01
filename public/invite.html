@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Viens on se date !</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='4' width='24' height='24' fill='none' stroke='black' stroke-width='4'/></svg>" />
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/carte.css" />
+    <link rel="stylesheet" href="/styles/marqueurs.css" />
+    <link rel="stylesheet" href="/styles/fenetres.css" />
+    <link rel="stylesheet" href="/styles/outils.css" />
+    <link rel="stylesheet" href="/styles/panneau.css" />
+    <link rel="stylesheet" href="/styles/listes.css" />
+    <link rel="stylesheet" href="/styles/recherche.css" />
+    <link rel="stylesheet" href="/styles/creation.css" />
+    <link rel="stylesheet" href="/styles/invite.css" />
+  </head>
+  <body class="page-invite">
+    <div class="scene" id="scene">
+      <canvas id="canvasCarte" class="couche"></canvas>
+      <canvas id="canvasColoration" class="couche couche-coloration"></canvas>
+      <div class="couche couche-marqueurs" id="coucheMarqueurs"></div>
+    </div>
+
+    <button class="bouton bouton-plein bouton-du-panneau" type="button" id="boutonDuPanneau" aria-expanded="true">
+      Voir la carte
+    </button>
+
+    <aside class="panneau" id="panneau">
+      <h1 class="titre-cartoon titre-du-panneau" id="titreDuPanneau">Viens on se date&nbsp;!</h1>
+
+      <div id="cadreDeLExperience" hidden>
+        <section class="etape">
+          <h2>Les dates proposées</h2>
+          <p class="indication" id="aucuneDisponibilite" hidden>
+            Aucune date proposée pour l’instant : propose la tienne&nbsp;!
+          </p>
+          <ul class="liste-des-creneaux" id="listeDesDisponibilites"></ul>
+        </section>
+
+        <section class="etape">
+          <h2>Proposer une autre date <span class="compteur" id="compteurDesPropositions">0 / 3</span></h2>
+          <p class="indication">Tu peux proposer jusqu’à 3 dates, toutes différentes.</p>
+          <ul class="liste-des-creneaux" id="listeDesPropositions"></ul>
+          <button class="bouton bouton-contour bouton-detape" type="button" id="boutonProposerUneDate">
+            Proposer une date
+          </button>
+        </section>
+
+        <section class="etape">
+          <h2>Les lieux <span class="compteur" id="compteurDesLieux">0 / 5</span></h2>
+          <p class="indication">Consulte les lieux, ou ajoute le tien et place-le sur la carte.</p>
+          <ul class="liste-des-lieux" id="listeDesLieux"></ul>
+          <p class="message" id="messageDesLieux" role="status"></p>
+          <button class="bouton bouton-contour bouton-detape" type="button" id="boutonAjouterUnLieu">
+            Ajouter un lieu
+          </button>
+        </section>
+
+        <section class="etape">
+          <h2>Ma réponse</h2>
+          <button class="bouton bouton-plein bouton-detape" type="button" id="boutonEnvoyerLaReponse" disabled>
+            Envoyer ma réponse
+          </button>
+          <p class="message" id="messageDeLaReponse" role="status"></p>
+        </section>
+      </div>
+    </aside>
+
+    <div class="barre-doutils" role="group" aria-label="Outils de dessin">
+      <div class="groupe-doutils">
+        <button class="outil" type="button" id="boutonFeutre" aria-pressed="true">Feutre</button>
+        <button class="outil" type="button" id="boutonGomme" aria-pressed="false">Gomme</button>
+      </div>
+      <div class="groupe-doutils">
+        <button class="outil outil-rond" type="button" id="boutonReduireLeTrait" aria-label="Trait plus fin">−</button>
+        <span class="cadre-des-couleurs">
+          <button class="outil outil-couleur" type="button" id="boutonDeLaCouleur" aria-label="Couleur du feutre"></button>
+          <input
+            class="champ-de-la-couleur"
+            type="color"
+            id="roueChromatique"
+            value="#a30dad"
+            tabindex="-1"
+            aria-hidden="true"
+          />
+        </span>
+        <button class="outil outil-rond" type="button" id="boutonAgrandirLeTrait" aria-label="Trait plus épais">+</button>
+        <span class="apercu-du-trait" id="apercuDuTrait" role="img"></span>
+      </div>
+      <div class="groupe-doutils">
+        <button class="outil" type="button" id="boutonSauvegarder">Sauvegarder</button>
+      </div>
+    </div>
+
+    <p class="message-carte" id="messageCarte" role="status" hidden></p>
+
+    <div class="bandeau-de-placement" id="bandeauDePlacement" hidden>
+      <p id="intituleDuPlacement">Touche la carte à l’endroit voulu.</p>
+      <button class="bouton bouton-contour" type="button" id="annulerLePlacement">Annuler</button>
+    </div>
+
+    <div class="ecran-dacces" id="ecranDacces">
+      <form class="panneau-cartoon cadre-dacces" id="formulaireDacces">
+        <h1 class="titre-cartoon">Quelqu’un pense à toi&nbsp;💜</h1>
+        <label for="champDuMotDePasse">Le mot de passe</label>
+        <input id="champDuMotDePasse" type="password" autocomplete="current-password" maxlength="128" required />
+        <button class="bouton bouton-plein" type="submit" id="validerLacces">Entrer</button>
+        <p class="message" id="messageDacces" role="status"></p>
+      </form>
+    </div>
+
+    <script type="module" src="/scripts/invite/principal.js"></script>
+  </body>
+</html>

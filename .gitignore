@@ -8,6 +8,9 @@ node_modules/
 # Donnees d'execution (journal, reservations, points, dessin)
 donnees/*.json
 
+# Documents d'execution (experiences, villes et fonds de carte generes)
+donnees/documents/
+
 # Liaison Vercel
 .vercel
 

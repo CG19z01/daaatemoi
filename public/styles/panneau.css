@@ -1,0 +1,122 @@
+/* Panneau lateral des pages de creation et d'invitation : un carnet pose a
+   cote de la carte, avec le meme trait epais que le reste du site. */
+.panneau {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: min(24rem, 100vw);
+  padding: 1.1rem 1.1rem 5rem;
+  overflow-y: auto;
+  border-left: var(--trait-epais) solid var(--encre);
+  background: var(--papier);
+  overscroll-behavior: contain;
+}
+
+.titre-du-panneau {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.etape {
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.1rem;
+  border-bottom: var(--trait-fin) dashed var(--encre);
+}
+
+.etape:last-of-type {
+  border-bottom: none;
+}
+
+.etape h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+}
+
+.compteur {
+  padding: 0.1rem 0.55rem;
+  border: var(--trait-fin) solid var(--encre);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.indication {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+}
+
+.panneau label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.panneau input[type='text'],
+.panneau input[type='search'],
+.panneau select {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* Toutes les listes du panneau : sans puce, en colonne. */
+.liste-des-lieux,
+.liste-des-creneaux,
+.liste-des-horaires {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0 0 0.7rem;
+  padding: 0;
+  list-style: none;
+}
+
+.bouton-detape {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+/* Bouton de repli, utile des que la carte et le panneau se disputent l'ecran. */
+.bouton-du-panneau {
+  position: fixed;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 6;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+.panneau.est-replie {
+  transform: translateX(100%);
+}
+
+@media (max-width: 700px) {
+  .panneau {
+    top: auto;
+    left: 0;
+    width: 100vw;
+    max-height: 62vh;
+    padding-bottom: 1.4rem;
+    border-top: var(--trait-epais) solid var(--encre);
+    border-left: none;
+  }
+
+  .panneau.est-replie {
+    transform: translateY(100%);
+  }
+}

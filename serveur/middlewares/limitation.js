@@ -5,11 +5,17 @@ const FENETRE_EN_MILLISECONDES = 10 * 60 * 1000;
 
 const compteurs = new Map();
 
-const cleDuVisiteur = (requete) =>
-  `${requete.identifiantDeSession ?? 'sans-session'}|${requete.ip ?? 'inconnue'}`;
+// Chaque usage a son propre compteur : une recherche de lieux ne consomme pas
+// le quota de creation, et inversement.
+const cleDuVisiteur = (requete, nomDuCompteur) =>
+  `${nomDuCompteur}|${requete.identifiantDeSession ?? 'sans-session'}|${requete.ip ?? 'inconnue'}`;
 
-export const envoiAutorise = (requete, nombreMaximal) => {
-  const cle = cleDuVisiteur(requete);
+// Compteur lie a la seule adresse : vider ses cookies ne le remet pas a zero.
+// Il protege les appels couteux, qui interrogent des services exterieurs.
+const cleDeLAdresse = (requete, nomDuCompteur) =>
+  `${nomDuCompteur}|adresse|${requete.ip ?? 'inconnue'}`;
+
+const autoriser = (cle, nombreMaximal) => {
   const compteur = compteurs.get(cle);
   const maintenant = Date.now();
 
@@ -21,3 +27,9 @@ export const envoiAutorise = (requete, nombreMaximal) => {
   compteur.nombre += 1;
   return true;
 };
+
+export const envoiAutorise = (requete, nombreMaximal, nomDuCompteur = 'envois') =>
+  autoriser(cleDuVisiteur(requete, nomDuCompteur), nombreMaximal);
+
+export const envoiAutoriseParAdresse = (requete, nombreMaximal, nomDuCompteur) =>
+  autoriser(cleDeLAdresse(requete, nomDuCompteur), nombreMaximal);

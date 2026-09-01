@@ -1,15 +1,30 @@
 // Projection geographique vers un rendu pseudo-3D : la carte est inclinee et cisaillee.
 // En portrait, le monde entier pivote d'un quart de tour pour que son axe long
 // suive la hauteur de l'ecran : le dessin reste lisible sans rien deplacer.
-export const CENTRE = { latitude: 49.4375, longitude: 1.0985 };
+// Centre historique du projet. Une experience creee sur une autre ville
+// remplace ce centre par le sien : tout le reste du rendu est inchange.
+const CENTRE_DE_ROUEN = { latitude: 49.4375, longitude: 1.0985 };
 
 const METRES_PAR_DEGRE_LATITUDE = 110574;
-const METRES_PAR_DEGRE_LONGITUDE = 111320 * Math.cos((CENTRE.latitude * Math.PI) / 180);
+const METRES_PAR_DEGRE_LONGITUDE_A_L_EQUATEUR = 111320;
+
+const metresParDegreLongitude = (latitude) =>
+  METRES_PAR_DEGRE_LONGITUDE_A_L_EQUATEUR * Math.cos((latitude * Math.PI) / 180);
+
+let centreDuMonde = CENTRE_DE_ROUEN;
+let metresParDegreLongitudeActuels = metresParDegreLongitude(CENTRE_DE_ROUEN.latitude);
+
+export const definirLeCentreDuMonde = (centre) => {
+  if (typeof centre?.latitude !== 'number' || typeof centre?.longitude !== 'number') return;
+  centreDuMonde = { latitude: centre.latitude, longitude: centre.longitude };
+  metresParDegreLongitudeActuels = metresParDegreLongitude(centre.latitude);
+};
+
 const INCLINAISON = 0.55;
 const CISAILLEMENT_PAYSAGE = 0.25;
 const CISAILLEMENT_PORTRAIT = 0.18;
 const MARGE_AUTOUR_DES_LIEUX = 300;
-const ETENDUE_PAR_DEFAUT = { largeur: 2500, profondeur: 2700 };
+export const ETENDUE_PAR_DEFAUT = { largeur: 2500, profondeur: 2700 };
 
 let mondePivote = false;
 
@@ -21,14 +36,14 @@ export const definirLOrientationDuMonde = (pivote) => {
 export const pivoterDesMetres = (x, y) => (mondePivote ? { x: y, y: -x } : { x, y });
 
 // Rotation inverse : de la vue pivotee vers les metres bruts.
-const redresserDesMetres = (x, y) => (mondePivote ? { x: -y, y: x } : { x, y });
+export const redresserDesMetres = (x, y) => (mondePivote ? { x: -y, y: x } : { x, y });
 
 // Des metres du monde vers une latitude et une longitude.
 export const versCoordonnees = ({ x, y }) => {
   const brut = redresserDesMetres(x, y);
   return {
-    latitude: CENTRE.latitude + brut.y / METRES_PAR_DEGRE_LATITUDE,
-    longitude: CENTRE.longitude + brut.x / METRES_PAR_DEGRE_LONGITUDE,
+    latitude: centreDuMonde.latitude + brut.y / METRES_PAR_DEGRE_LATITUDE,
+    longitude: centreDuMonde.longitude + brut.x / metresParDegreLongitudeActuels,
   };
 };
 
@@ -37,8 +52,8 @@ export const aDesCoordonnees = (lieu) =>
 
 export const versMetres = ({ latitude, longitude }) =>
   pivoterDesMetres(
-    (longitude - CENTRE.longitude) * METRES_PAR_DEGRE_LONGITUDE,
-    (latitude - CENTRE.latitude) * METRES_PAR_DEGRE_LATITUDE,
+    (longitude - centreDuMonde.longitude) * metresParDegreLongitudeActuels,
+    (latitude - centreDuMonde.latitude) * METRES_PAR_DEGRE_LATITUDE,
   );
 
 // Le cadre s'ajuste aux lieux places : ni bande vide, ni zoom inutile.

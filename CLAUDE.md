@@ -2,7 +2,17 @@
 
 ## Projet
 
-Site web interactif de proposition de rendez-vous à Rouen.
+Plateforme de propositions de rendez-vous illustrées, en noir et blanc au trait.
+
+Deux expériences cohabitent :
+
+- **la carte de Rouen d'origine** (`/carte`) : trois lieux choisis, coloriage
+  partagé, réservation, journal des clics et administration. Elle fonctionne :
+  elle ne se modifie pas sans demande explicite.
+- **les expériences personnalisées** (`/create`) : n'importe qui compose son propre
+  date — une ville, jusqu'à 5 lieux placés à la main, ses disponibilités — puis
+  partage un lien protégé par mot de passe, de la forme
+  `/trois-mots-romantiques-for-you`.
 
 Le projet doit être :
 
@@ -31,6 +41,8 @@ Toujours respecter les règles suivantes avant d'écrire ou modifier du code.
 8. Toujours privilégier la lisibilité.
 9. Toujours vérifier le projet après modification importante.
 10. Corriger les erreurs détectées avant de terminer.
+11. Ne jamais casser la carte de Rouen, l'administration ni les rendez-vous existants.
+12. Lancer `npm test` avant de considérer une modification terminée.
 
 ---
 
@@ -80,10 +92,87 @@ Cela concerne :
 listeDesLieux
 lieuSelectionne
 dateDeReservation
-heureDeReservation
 enregistrerReservation
 recupererLesLieux
-sessionActive
-heureDuDernierAcces
 journalDesClics
 verifierAuthentification
+composerUnSlug
+hacherLeMotDePasse
+plagesDeCreneaux
+placementEnCours
+```
+
+---
+
+# Architecture
+
+```text
+serveur/routes/           une famille de routes par fichier
+serveur/services/         métier et accès aux données
+serveur/utilitaires/      fonctions pures : validation, horaires, géométrie, mots de passe
+serveur/middlewares/      session visiteur, protections, limitation des envois
+serveur/donnees/          sources fixes : lieux de Rouen, vocabulaire des adresses
+
+public/scripts/carte/     carte de Rouen, dont les modules servent aussi ailleurs
+public/scripts/commun/    scène de carte, placement, horaires, créneaux, fenêtres
+public/scripts/creation/  page /create
+public/scripts/invite/    page invitée
+public/fragments/         fenêtres partagées par /create et la page invitée
+```
+
+Regarder `public/scripts/commun/` avant d'écrire un nouveau module : la scène de
+carte, le placement d'un point et les sélecteurs d'heure y servent déjà les deux pages.
+
+---
+
+# Données
+
+`serveur/services/entrepot.js` choisit seul : Upstash Redis en ligne, fichiers JSON
+en local. Deux formes : les **collections** (journal, réservations, dessins) et les
+**documents** (villes, fonds de carte, expériences). L'écriture exclusive
+`creerDocumentSiAbsent` garantit qu'une adresse n'est jamais attribuée deux fois.
+
+Horaires d'une expérience, une entrée par jour :
+
+```text
+null                             -> horaires non renseignés
+[]                               -> fermé ce jour-là
+[{ ouverture, fermeture }, ...]  -> une ou plusieurs plages d'ouverture
+```
+
+À ne pas confondre avec ceux de `serveur/donnees/lieux.js`, propres à la carte de
+Rouen, qui gardent leur forme d'origine.
+
+Créneaux : minutes de 5 en 5 partout, début au plus tôt 2 h avant l'ouverture du
+lieu et au plus tard 1 h avant sa fermeture, plages multiples et fermeture après
+minuit comprises. Source unique `serveur/utilitaires/creneaux.js`, reprise à
+l'identique dans `public/scripts/commun/creneaux.js` pour ne proposer que des heures
+valables — le serveur reste seul juge.
+
+---
+
+# Sécurité
+
+- Rien de ce qui vient du navigateur n'est repris tel quel : slug, lieux, horaires,
+  dates et positions des points sont tous revalidés côté serveur.
+- Le slug est tiré au sort par le serveur, jamais proposé par le navigateur.
+- Les mots de passe des expériences sont hachés avec scrypt
+  (`serveur/utilitaires/mot-de-passe.js`). Aucune empreinte ne quitte le serveur.
+- Un lien inexistant et un mauvais mot de passe donnent exactement la même réponse.
+- Limites à faire respecter : 5 lieux par expérience, 3 propositions par invité.
+- Aucun secret côté navigateur. Nominatim et Overpass (OpenStreetMap) ne demandent
+  ni compte ni clé, et sont appelés depuis le serveur. Avant d'ajouter un autre
+  service, vérifier qu'il n'impose pas une clé à cacher, et le documenter
+  dans `.env.example`.
+
+---
+
+# Vérifications
+
+```bash
+npm run verifier   # syntaxe, limite de 150 lignes, identifiants des pages
+npm test           # les vérifications ci-dessus + les tests de bout en bout
+```
+
+Les tests couvrent la création, les règles horaires, l'accès invité, les limites et
+l'administration. En ajouter dès qu'une règle métier nouvelle apparaît.

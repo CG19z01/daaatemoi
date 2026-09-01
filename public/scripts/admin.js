@@ -1,6 +1,7 @@
 // Page d'administration : tout est verifie cote serveur, le navigateur n'affiche que le resultat.
 import { enDateFrancaise } from './dates.js';
 import { afficherLesPointsProposes } from './admin-points.js';
+import { afficherLesExperiences } from './admin-experiences.js';
 const blocConnexion = document.getElementById('blocConnexion');
 const blocTableauDeBord = document.getElementById('blocTableauDeBord');
 const messageConnexion = document.getElementById('messageConnexion');
@@ -53,12 +54,14 @@ const effacerLeColoriage = async () => {
 };
 
 const chargerLesDonnees = async () => {
-  const [journal, reservations, points, dessin] = await Promise.all([
+  const [journal, reservations, points, dessin, experiences] = await Promise.all([
     appeler('/admin/api/journal'),
     appeler('/admin/api/reservations'),
     appeler('/admin/api/lieux-proposes'),
     appeler('/admin/api/dessin'),
+    appeler('/admin/api/experiences'),
   ]);
+  afficherLesExperiences(experiences.experiences ?? []);
   nombreDeTraits = dessin.nombreDeTraits;
   document.getElementById('resumeDuColoriage').textContent =
     nombreDeTraits === 0 ? 'Aucun trait enregistré.' : `${nombreDeTraits} trait(s) enregistré(s).`;

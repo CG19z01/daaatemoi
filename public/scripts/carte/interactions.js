@@ -19,7 +19,9 @@ const bloquerLesGestesDeZoom = (scene) => {
 import { placementEnCours } from './placement.js';
 
 // Le coloriage libre demande un appui : la carte ne se colore pas au simple survol.
-export const brancherLaColoration = (scene, coloration) => {
+// estSuspendu permet a une autre page (creation, invitation) de fournir sa
+// propre condition de mise en pause, sans dupliquer ce branchement.
+export const brancherLaColoration = (scene, coloration, estSuspendu = placementEnCours) => {
   let dessinEnCours = false;
 
   const ajouterDepuisLEvenement = (evenement) => {
@@ -36,7 +38,7 @@ export const brancherLaColoration = (scene, coloration) => {
     // Un clic sur un point appelle sa propre action : on ne dessine pas dessus.
     if (evenement.target.closest('.marqueur')) return;
     // Pendant le placement d'un point, l'appui sert a viser, pas a colorier.
-    if (placementEnCours()) return;
+    if (estSuspendu()) return;
     dessinEnCours = true;
     ajouterDepuisLEvenement(evenement);
   });

@@ -42,4 +42,32 @@ export const entrepotRedis = {
     return elements.map(analyser).filter(Boolean);
   },
 
+  lireDocument: async (cle) => analyser(await client().get(cle)) ?? null,
+
+  ecrireDocument: async (cle, valeur) => {
+    await client().set(cle, JSON.stringify(valeur));
+    return valeur;
+  },
+
+  // SET ... NX : l'ecriture n'a lieu que si la cle est libre. C'est l'operation
+  // atomique qui garantit qu'un slug ne peut jamais etre attribue deux fois.
+  creerDocumentSiAbsent: async (cle, valeur) => {
+    const resultat = await client().set(cle, JSON.stringify(valeur), { nx: true });
+    return resultat === 'OK';
+  },
+
+  // Parcours par curseur plutot que KEYS : Redis n'est jamais bloque.
+  listerLesCles: async (prefixe) => {
+    const cles = [];
+    let curseur = '0';
+    do {
+      const [suivant, trouvees] = await client().scan(curseur, {
+        match: `${prefixe}*`,
+        count: 200,
+      });
+      cles.push(...trouvees);
+      curseur = String(suivant);
+    } while (curseur !== '0');
+    return cles;
+  },
 };

@@ -1,8 +1,12 @@
 # Viens on se date !
 
-Site interactif de proposition de rendez-vous à Rouen : une page d'accueil,
-une carte cartoon en fausse 3D, un effet de coloration au doigt ou à la souris,
-une réservation, un journal des clics et une page d'administration protégée.
+Plateforme de propositions de rendez-vous illustrées. Deux expériences cohabitent :
+
+- **la carte de Rouen d'origine** (`/carte`) : carte cartoon en fausse 3D, coloration
+  au doigt ou à la souris, réservation, journal des clics et administration protégée ;
+- **les expériences personnalisées** (`/create`) : n'importe qui compose son propre
+  date — une ville, jusqu'à 5 lieux placés à la main, ses disponibilités — puis
+  partage un lien protégé par mot de passe à la personne qu'il invite.
 
 **En ligne : https://daaatemoi.vercel.app**
 
@@ -11,7 +15,10 @@ une réservation, un journal des clics et une page d'administration protégée.
 - **Node.js 20+ / Express** (unique dépendance de production)
 - **HTML, CSS et JavaScript modules** côté navigateur, sans framework ni étape de build
 - **Canvas 2D** pour la carte (projection latitude/longitude vers une vue inclinée), dessinée à partir d'un extrait **OpenStreetMap** figé dans `public/donnees/carte-rouen.json` : aucune tuile ni appel réseau externe à l'exécution
-- **Stockage JSON** dans `donnees/` : ni base de données, ni service tiers
+- **Stockage JSON** dans `donnees/` en local, **Upstash Redis** en ligne
+- **OpenStreetMap** pour les villes et les lieux : Nominatim pour localiser une ville,
+  Overpass pour extraire son fond de carte et rechercher des établissements réels.
+  Ni compte, ni clé API, donc aucun secret à protéger côté navigateur.
 
 ## Démarrage
 
@@ -20,7 +27,8 @@ npm install
 cp .env.example .env   # puis renseigner les valeurs
 npm start              # http://localhost:3000
 npm run dev            # rechargement automatique
-npm run verifier       # syntaxe + limite de 150 lignes par fichier
+npm run verifier       # syntaxe, limite de 150 lignes, identifiants des pages
+npm test               # les vérifications ci-dessus + les tests de bout en bout
 ```
 
 ## Variables d'environnement
@@ -36,6 +44,14 @@ npm run verifier       # syntaxe + limite de 150 lignes par fichier
 | `NTFY_SUJET` | sujet ntfy notifié à chaque rendez-vous (facultatif) | `sujet-long-et-impossible-a-deviner` |
 | `NTFY_ADRESSE` | instance ntfy (facultatif) | `https://ntfy.sh` |
 | `NTFY_JETON` | authentification ntfy, si l'instance l'exige (facultatif) | vide |
+| `SITE_ADRESSE_PUBLIQUE` | adresse du site pour composer le lien partagé (facultatif : Vercel fournit `VERCEL_PROJECT_PRODUCTION_URL`, sinon l'hôte de la requête est utilisé) | `https://daaatemoi.vercel.app` |
+| `OSM_AGENT` | identification de l'appelant auprès d'OpenStreetMap (recommandé) | `daaatemoi/1.0 (contact@exemple.fr)` |
+| `NOMINATIM_ADRESSE` | instance de géocodage (facultatif) | `https://nominatim.openstreetmap.org` |
+| `OVERPASS_ADRESSES` | instances Overpass, séparées par des virgules (facultatif) | valeurs par défaut |
+
+Aucune de ces variables n'est un secret : les services OpenStreetMap utilisés sont
+ouverts et ne demandent pas de clé. Les seuls secrets restent `SECRET_SIGNATURE`,
+les identifiants d'administration, les jetons Upstash et le sujet ntfy.
 
 Secret aléatoire : `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
 
@@ -61,8 +77,33 @@ vercel deploy --prod
 ## Pages
 
 - `/` : « Viens on se date ! »
-- `/carte` : carte interactive de Rouen
+- `/carte` : carte interactive de Rouen (expérience d'origine, inchangée)
+- `/create` : création d'une expérience personnalisée
+- `/trois-mots-romantiques-for-you` : page invitée, protégée par mot de passe
 - `/admin` : administration (non listée dans la navigation, authentification serveur)
+
+## Créer une expérience
+
+1. **La ville.** Nominatim la localise, Overpass extrait son fond de carte
+   (fleuve, voies, parcs) dans un rayon de 2,5 km, simplifié et converti en mètres
+   relatifs au centre : exactement le format du fichier figé de Rouen. Le résultat
+   est mis en cache, une ville n'est extraite qu'une fois.
+2. **Les lieux.** Jusqu'à 5, cherchés parmi les établissements réels d'OpenStreetMap
+   (nom, adresse, catégorie, horaires d'ouverture). Tout reste modifiable, et un lieu
+   absent des données peut être ajouté à la main.
+3. **Les points.** Aucun n'est placé automatiquement : chaque lieu est posé d'un appui
+   sur la carte, puis déplaçable ou supprimable. La position est retenue en mètres,
+   elle suit donc la carte sur n'importe quel écran.
+4. **Les disponibilités.** Plusieurs dates, avec un début et une fin. Les heures
+   proposées commencent au plus tôt 2 h avant l'ouverture du lieu et au plus tard
+   1 h avant sa fermeture, plages multiples et fermeture après minuit comprises.
+   Les minutes vont toujours de 5 en 5.
+5. **Le partage.** Un mot de passe (haché avec scrypt, jamais stocké en clair) puis
+   un lien à trois mots romantiques, par exemple `/amour-luna-cuore-for-you`.
+
+L'invité saisit le mot de passe, dessine sur la carte, retient une des dates
+proposées, en propose jusqu'à 3 autres, et peut ajouter des lieux dans la limite
+globale de 5. Tout est revalidé côté serveur.
 
 ## Modifier les lieux
 
@@ -81,10 +122,17 @@ Toute diffusion publique du site doit conserver cette attribution.
 
 ```
 serveur/            configuration, routes, services, middlewares, utilitaires
-serveur/donnees/    liste des lieux (source unique)
+serveur/donnees/    liste des lieux de Rouen, vocabulaire des adresses
+serveur/services/   entrepôt, expériences, cartographie OpenStreetMap
+serveur/utilitaires/ validations, horaires, créneaux, mots de passe, géométrie
 public/             pages, styles et scripts du navigateur
 public/scripts/carte/  projection, fond de carte, décor, rendu, marqueurs, coloration, réservation
-public/donnees/     fond de carte réel (Seine, voies, parcs) extrait d'OpenStreetMap
+public/scripts/commun/ carte réutilisable, placement, horaires, créneaux, fenêtres partagées
+public/scripts/creation/ page /create
+public/scripts/invite/   page invitée
+public/fragments/   fenêtres partagées par les deux nouvelles pages
+public/donnees/     fond de carte figé de Rouen, extrait d'OpenStreetMap
 donnees/            journal des clics et réservations (JSON, généré)
-scripts-verification/  contrôle de la limite de 150 lignes
+donnees/documents/  villes, fonds de carte et expériences (JSON, généré)
+scripts-verification/  syntaxe, limite de 150 lignes, cohérence des pages, tests
 ```

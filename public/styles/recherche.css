@@ -1,0 +1,28 @@
+/* Resultats de la recherche de lieux, dans la fenetre partagee par la page de
+   creation et la page invitee. */
+.resultats-de-recherche {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 45vh;
+  overflow-y: auto;
+}
+
+.resultat-de-recherche {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.6rem;
+  border: var(--trait-fin) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.resultat-de-recherche:active {
+  transform: translate(2px, 2px);
+}

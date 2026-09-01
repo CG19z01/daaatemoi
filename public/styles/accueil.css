@@ -36,3 +36,12 @@
   justify-content: center;
 }
 
+
+/* Acces discret a la creation d'un date personnalise, sans voler la vedette
+   aux deux boutons de la page. */
+.lien-de-creation {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--encre);
+  font-size: 1rem;
+}

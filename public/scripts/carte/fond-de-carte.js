@@ -7,7 +7,7 @@ const FOND_VIDE = { riviere: [], voiesPrincipales: [], voiesSecondaires: [], par
 const listeDeLignes = (valeur) => (Array.isArray(valeur) ? valeur : []);
 
 // On ne fait pas confiance au fichier : chaque partie est verifiee avant usage.
-const nettoyerLeFond = (fond) => ({
+export const nettoyerLeFond = (fond) => ({
   riviere: listeDeLignes(fond?.riviere)
     .filter((bras) => Array.isArray(bras?.points) && bras.points.length >= 2)
     .map((bras) => ({ largeur: Number(bras.largeur) || 120, points: bras.points })),

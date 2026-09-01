@@ -1,0 +1,123 @@
+/* Elements de liste partages : fiche d'un lieu, ligne de creneau, ligne
+   d'horaires et resultats de recherche. Meme trait epais que le reste du site. */
+.fiche-de-lieu,
+.ligne-de-creneau {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.65rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+}
+
+/* Un lieu deja place sur la carte se distingue par un second trait. */
+.fiche-de-lieu.est-placee {
+  outline: var(--trait-fin) solid var(--encre);
+  outline-offset: 3px;
+}
+
+.champ-du-lieu {
+  width: 100%;
+  padding: 0.4rem 0.55rem;
+  border: var(--trait-fin) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.adresse-du-lieu,
+.horaires-du-lieu {
+  font-size: 0.8rem;
+}
+
+.horaires-du-lieu {
+  font-style: italic;
+}
+
+.actions-du-lieu,
+.actions-du-creneau {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Cibles tactiles confortables, meme quand trois boutons se suivent. */
+.action-du-lieu,
+.action-du-creneau {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.ligne-de-creneau.est-choisie {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+.ligne-de-creneau.est-choisie .action-du-creneau {
+  background: var(--papier);
+  color: var(--encre);
+}
+
+/* Une journee dans l'editeur d'horaires. */
+.ligne-horaire {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ligne-horaire .jour {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.etat-du-jour,
+.champ-heure {
+  padding: 0.35rem 0.45rem;
+  border: var(--trait-fin) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.plages-du-jour {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.plages-du-jour[hidden] {
+  display: none;
+}
+
+.plage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Deux listes deroulantes cote a cote pour une heure. */
+.paire-dheure {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.paire-dheure select {
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border: var(--trait-epais) solid var(--encre);
+  border-radius: var(--rayon-petit);
+  background: var(--papier);
+  color: var(--encre);
+  font-family: inherit;
+  font-size: 1rem;
+}

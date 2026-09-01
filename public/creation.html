@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Crée ton date</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='4' width='24' height='24' fill='none' stroke='black' stroke-width='4'/></svg>" />
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/carte.css" />
+    <link rel="stylesheet" href="/styles/marqueurs.css" />
+    <link rel="stylesheet" href="/styles/fenetres.css" />
+    <link rel="stylesheet" href="/styles/panneau.css" />
+    <link rel="stylesheet" href="/styles/listes.css" />
+    <link rel="stylesheet" href="/styles/recherche.css" />
+    <link rel="stylesheet" href="/styles/creation.css" />
+  </head>
+  <body class="page-creation">
+    <div class="scene" id="scene">
+      <canvas id="canvasCarte" class="couche"></canvas>
+      <canvas id="canvasColoration" class="couche couche-coloration"></canvas>
+      <div class="couche couche-marqueurs" id="coucheMarqueurs"></div>
+      <p class="carte-vide" id="carteVide">Choisis une ville : sa carte se dessine ici.</p>
+    </div>
+
+    <button class="bouton bouton-plein bouton-du-panneau" type="button" id="boutonDuPanneau" aria-expanded="true">
+      Voir la carte
+    </button>
+
+    <aside class="panneau" id="panneau">
+      <h1 class="titre-cartoon titre-du-panneau">Crée ton date&nbsp;!</h1>
+
+      <section class="etape">
+        <h2>1. La ville</h2>
+        <form id="formulaireVille">
+          <label for="champVille">Dans quelle ville&nbsp;?</label>
+          <input id="champVille" type="text" maxlength="80" placeholder="Rouen, Paris, Rome…" required />
+          <button class="bouton bouton-plein bouton-detape" type="submit" id="boutonVille">Dessiner la carte</button>
+        </form>
+        <p class="message" id="messageVille" role="status"></p>
+      </section>
+
+      <section class="etape" id="etapeLieux" hidden>
+        <h2>2. Les lieux <span class="compteur" id="compteurDesLieux">0 / 5</span></h2>
+        <p class="indication">Ajoute jusqu’à 5 lieux, puis place chacun d’eux sur la carte.</p>
+        <ul class="liste-des-lieux" id="listeDesLieux"></ul>
+        <button class="bouton bouton-contour bouton-detape" type="button" id="boutonAjouterUnLieu">
+          Ajouter un lieu
+        </button>
+      </section>
+
+      <section class="etape" id="etapeDisponibilites" hidden>
+        <h2>3. Tes disponibilités</h2>
+        <p class="indication">Propose une ou plusieurs dates, avec un début et une fin.</p>
+        <ul class="liste-des-creneaux" id="listeDesDisponibilites"></ul>
+        <button class="bouton bouton-contour bouton-detape" type="button" id="boutonAjouterUneDate">
+          Ajouter une date
+        </button>
+      </section>
+
+      <section class="etape" id="etapePartage" hidden>
+        <h2>4. Le partage</h2>
+        <button class="bouton bouton-plein bouton-detape" type="button" id="boutonPartager">
+          Partager le lien
+        </button>
+      </section>
+    </aside>
+
+    <div class="bandeau-de-placement" id="bandeauDePlacement" hidden>
+      <p id="intituleDuPlacement">Touche la carte à l’endroit voulu.</p>
+      <button class="bouton bouton-contour" type="button" id="annulerLePlacement">Annuler</button>
+    </div>
+
+    <dialog class="fenetre" id="fenetreDuMotDePasse">
+      <form id="formulaireDuMotDePasse" method="dialog">
+        <h2>Protège ton date</h2>
+        <p class="indication">Ce mot de passe sera demandé à la personne invitée.</p>
+        <label for="champMotDePasse">Mot de passe</label>
+        <input id="champMotDePasse" type="password" autocomplete="new-password" minlength="8" maxlength="128" required />
+        <label for="champConfirmation">Confirmation</label>
+        <input id="champConfirmation" type="password" autocomplete="new-password" minlength="8" maxlength="128" required />
+        <p class="message" id="messageDuMotDePasse" role="status"></p>
+        <div class="actions">
+          <button class="bouton bouton-contour" type="button" id="annulerLeMotDePasse">Annuler</button>
+          <button class="bouton bouton-plein" type="submit" id="validerLeMotDePasse">Créer le lien</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="fenetre" id="fenetreDuLien">
+      <h2>C’est prêt&nbsp;!</h2>
+      <p class="indication">Envoie ce lien à la personne que tu invites.</p>
+      <input class="champ-du-lien" id="champDuLien" type="text" readonly />
+      <a class="lien-direct" id="lienDirect" href="#" target="_blank" rel="noopener">Ouvrir la page invitée</a>
+      <div class="actions">
+        <button class="bouton bouton-contour" type="button" id="fermerLeLien">Fermer</button>
+        <button class="bouton bouton-plein" type="button" id="boutonCopierLeLien">Copier le lien</button>
+      </div>
+    </dialog>
+
+    <script type="module" src="/scripts/creation/principal.js"></script>
+  </body>
+</html>

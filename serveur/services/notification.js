@@ -5,6 +5,7 @@ import { formaterUneDateIso } from '../utilitaires/date-paris.js';
 
 const TITRE_DU_RENDEZ_VOUS = 'Nouveau date 💜';
 const TITRE_DE_LA_PROPOSITION = 'Autre endroit proposé 💜';
+const TITRE_DE_LA_REPONSE = 'Réponse à une invitation 💜';
 // Le premier appel sortant d'une instance froide est lent : on laisse du temps,
 // et on retente une fois pour absorber un incident passager.
 const DELAI_MAXIMAL_EN_MILLISECONDES = 6000;
@@ -89,3 +90,23 @@ export const prevenirDUneProposition = (proposition) =>
     ].join('\n'),
     etiquette: 'round_pushpin',
   });
+
+// Reponse d'un invite a une experience : le creneau retenu et ses alternatives.
+// Une seule notification par reponse, pour ne pas alerter inutilement.
+const decrireUnCreneau = (creneau) =>
+  `${formaterUneDateIso(creneau.date)} de ${creneau.heureDeDebut} à ${creneau.heureDeFin}`;
+
+export const prevenirDUneReponse = (experience, reponse) => {
+  const lignes = [`Expérience : ${experience.slug} (${experience.ville?.nom ?? 'ville inconnue'})`, ''];
+  if (reponse.rendezVousChoisi) {
+    lignes.push('RENDEZ-VOUS CHOISI', decrireUnCreneau(reponse.rendezVousChoisi));
+  }
+  if (reponse.propositions.length > 0) {
+    lignes.push('', 'AUTRES DATES PROPOSÉES', ...reponse.propositions.map(decrireUnCreneau));
+  }
+  return envoyerUneNotification({
+    titre: TITRE_DE_LA_REPONSE,
+    message: lignes.join('\n'),
+    etiquette: 'love_letter',
+  });
+};

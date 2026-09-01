@@ -18,9 +18,11 @@ const decouper = (trait) => {
   return morceaux;
 };
 
-export const chargerLeDessin = async () => {
+// La page invitee fournit ses propres fonctions d'appel : chaque experience a
+// son dessin, la carte de Rouen garde le sien.
+export const chargerLeDessin = async (recuperer = recupererLeDessin) => {
   try {
-    return await recupererLeDessin();
+    return await recuperer();
   } catch {
     // Sans le dessin commun, la carte reste utilisable.
     return [];
@@ -44,7 +46,7 @@ const signaler = (texte) => {
   }, DUREE_DE_LA_CONFIRMATION);
 };
 
-const enregistrer = async (bouton) => {
+const enregistrer = async (bouton, envoyer) => {
   if (bouton.disabled) return;
   const aEnvoyer = traitsEnAttente;
   if (aEnvoyer.length === 0) return confirmer(bouton);
@@ -52,7 +54,7 @@ const enregistrer = async (bouton) => {
   bouton.textContent = 'Envoi...';
   try {
     for (const trait of aEnvoyer) {
-      for (const morceau of decouper(trait)) await envoyerUnTrait(morceau);
+      for (const morceau of decouper(trait)) await envoyer(morceau);
     }
     traitsEnAttente = traitsEnAttente.slice(aEnvoyer.length);
     confirmer(bouton);
@@ -64,8 +66,8 @@ const enregistrer = async (bouton) => {
   }
 };
 
-export const brancherLeDessinPartage = (coloration) => {
+export const brancherLeDessinPartage = (coloration, envoyer = envoyerUnTrait) => {
   coloration.surTraitTermine((trait) => traitsEnAttente.push(trait));
   const bouton = document.getElementById('boutonSauvegarder');
-  bouton.addEventListener('click', () => enregistrer(bouton));
+  bouton.addEventListener('click', () => enregistrer(bouton, envoyer));
 };
