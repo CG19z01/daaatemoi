@@ -1,5 +1,5 @@
-// Requete Overpass servant a extraire le fond de carte d'une ville : le fleuve
-// ou les canaux, le reseau de voies et les parcs. Une seule requete pour les
+// Requete Overpass servant a extraire le fond de carte d'une ville : l'eau
+// (fleuve, canaux, trait de cote, plans d'eau), le reseau de voies et les parcs. Une seule requete pour les
 // quatre familles, le tri se fait ensuite a partir des etiquettes.
 // Le rayon depend de la taille reelle de la ville, jamais d'une valeur fixe.
 import { boiteAutourDuCentre } from './overpass.js';
@@ -15,6 +15,8 @@ export const composerLaRequeteDeVille = (centre, rayonEnMetres) => {
     `[out:json][timeout:${DELAI_OVERPASS_EN_SECONDES}];`,
     '(',
     `  way["waterway"~"^(river|canal)$"](${boite});`,
+    `  way["natural"="coastline"](${boite});`,
+    `  way["natural"="water"](${boite});`,
     `  way["highway"~"^(${VOIES_PRINCIPALES})(_link)?$"](${boite});`,
     `  way["highway"~"^(${VOIES_SECONDAIRES})$"](${boite});`,
     `  way["leisure"~"^(park|garden)$"](${boite});`,

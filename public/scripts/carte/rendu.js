@@ -3,6 +3,7 @@ import { dessinerBatiment } from './batiments.js';
 import { BLANC } from './trait.js';
 import { dessinerLaSeine } from './seine.js';
 import { dessinerLesParcs, dessinerLeReseauDeVoies } from './rendu-fond.js';
+import { dessinerLeLittoral, dessinerLesPlansDEau } from './mer.js';
 
 const dessinerLeSol = (contexte, largeur, hauteur) => {
   contexte.globalAlpha = 1;
@@ -24,7 +25,9 @@ export const dessinerLaCarte = (contexte, fond, decor, projection, taille) => {
   contexte.clearRect(0, 0, taille.largeur, taille.hauteur);
   dessinerLeSol(contexte, taille.largeur, taille.hauteur);
   dessinerLesParcs(contexte, fond.parcs, projection);
+  dessinerLesPlansDEau(contexte, fond.plansDEau, projection);
   dessinerLaSeine(contexte, fond.riviere, projection);
+  dessinerLeLittoral(contexte, fond.littoral, projection);
   dessinerLeReseauDeVoies(contexte, fond, projection);
   dessinerLesBatiments(contexte, decor.lesBatiments, projection, taille);
 };

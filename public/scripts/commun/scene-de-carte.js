@@ -8,7 +8,7 @@ import {
   pivoterDesMetres,
 } from '../carte/projection.js';
 import { construireDecor } from '../carte/decor.js';
-import { orienterLeFond, nettoyerLeFond } from '../carte/fond-de-carte.js';
+import { nettoyerLeFond } from '../carte/fond-de-carte.js';
 import { dessinerLaCarte } from '../carte/rendu.js';
 import { creerColoration } from '../carte/coloration.js';
 import { cadreDeLaZone, limiteDuDecor } from './cadre-de-ville.js';
@@ -23,21 +23,18 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
   const auxRedimensionnements = [];
 
   let fondBrut = null;
-  let fondOriente = null;
   let zone = null;
   let cadre = null;
   let decor = null;
   let projection = null;
-  let enPortrait = null;
 
-  // Le monde pivote d'un quart de tour en portrait : cadre et décor sont refaits.
-  const preparerLOrientation = (portrait) => {
-    if (enPortrait === portrait) return;
-    enPortrait = portrait;
-    definirLOrientationDuMonde(portrait);
-    fondOriente = orienterLeFond(fondBrut, portrait);
+  // Le nord reste toujours en haut : la carte ne pivote jamais, quelle que soit
+  // l'orientation de l'écran. Seule l'échelle s'adapte à la place disponible.
+  const preparerLaVue = () => {
+    if (decor) return;
+    definirLOrientationDuMonde(false);
     cadre = cadreDeLaZone(zone);
-    decor = construireDecor(fondOriente, [], limiteDuDecor(cadre));
+    decor = construireDecor(fondBrut, [], limiteDuDecor(cadre));
   };
 
   const redimensionner = () => {
@@ -45,7 +42,7 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     const largeur = scene.clientWidth;
     const hauteur = scene.clientHeight;
     if (largeur === 0 || hauteur === 0) return;
-    preparerLOrientation(hauteur > largeur);
+    preparerLaVue();
 
     const ratio = Math.min(window.devicePixelRatio || 1, RATIO_MAXIMUM);
     canvasCarte.width = Math.round(largeur * ratio);
@@ -56,7 +53,7 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     projection = creerProjection(largeur, hauteur, cadre);
     // La carte est redessinee avant le coloriage : un remplissage relit ses
     // pixels pour retrouver la zone, il lui faut donc une carte a jour.
-    dessinerLaCarte(contexteCarte, fondOriente, decor, projection, { largeur, hauteur });
+    dessinerLaCarte(contexteCarte, fondBrut, decor, projection, { largeur, hauteur });
     coloration.redimensionner(largeur, hauteur, ratio, projection);
     for (const rappel of auxRedimensionnements) rappel(projection);
   };
@@ -67,7 +64,7 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     definirLeCentreDuMonde(centre ?? fond?.centre);
     zone = fond?.zone ?? null;
     fondBrut = nettoyerLeFond(fond);
-    enPortrait = null;
+    decor = null;
     redimensionner();
   };
 

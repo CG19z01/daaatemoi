@@ -4,6 +4,7 @@ import { creerAleatoire } from './hasard.js';
 import { creerSelecteurDeBatiments } from './selection-batiments.js';
 import { EMPREINTE_MAXIMALE } from './modeles-batiments.js';
 import { creerGrilleDOccupation } from './occupation.js';
+import { decalerVersLEau } from './cote.js';
 
 const MARGE_DANS_LA_CASE = 10;
 const PAS_DE_LA_GRILLE = EMPREINTE_MAXIMALE + MARGE_DANS_LA_CASE;
@@ -14,6 +15,10 @@ const PAS_DE_L_OCCUPATION = 12;
 const RAYON_DES_VOIES_PRINCIPALES = 15;
 const RAYON_DES_VOIES_SECONDAIRES = 9;
 const MARGE_AUTOUR_DU_FLEUVE = 20;
+// Bande interdite au large du trait de cote : sans elle, des maisons se
+// construiraient sur la mer, du cote ou aucune donnee ne dit qu'il y a de l'eau.
+const DISTANCES_AU_LARGE = [80, 240, 420, 620, 820];
+const RAYON_AU_LARGE = 140;
 const RAYON_AUTOUR_DES_LIEUX = 55;
 const PROPORTION_DE_CASES_VIDES = 0.06;
 const ESSAIS_DE_PLACEMENT = 4;
@@ -32,6 +37,13 @@ const preparerLaGrille = (fond, positionsDesLieux, limiteDeLaVille) => {
     grille.marquerUneLigne(voie, RAYON_DES_VOIES_SECONDAIRES);
   }
   for (const parc of fond.parcs) grille.marquerUnPolygone(parc);
+  for (const plan of fond.plansDEau) grille.marquerUnPolygone(plan);
+  for (const trace of fond.littoral) {
+    grille.marquerUneLigne(trace, RAYON_AU_LARGE);
+    for (const distance of DISTANCES_AU_LARGE) {
+      grille.marquerUneLigne(decalerVersLEau(trace, distance), RAYON_AU_LARGE);
+    }
+  }
   // Un segment de longueur nulle marque simplement un disque autour du point.
   for (const lieu of positionsDesLieux) {
     grille.marquerUneLigne([[lieu.x, lieu.y], [lieu.x, lieu.y]], RAYON_AUTOUR_DES_LIEUX);

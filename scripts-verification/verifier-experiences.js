@@ -22,6 +22,7 @@ const scenarioCreation = await import('./scenario-creation.js');
 const scenarioInvite = await import('./scenario-invite.js');
 const scenarioCarte = await import('./scenario-carte.js');
 const scenarioRegles = await import('./scenario-regles.js');
+const scenarioFond = await import('./scenario-fond.js');
 
 const dossierDesDocuments = join(process.cwd(), 'donnees', 'documents');
 
@@ -81,6 +82,8 @@ try {
   scenarioRegles.verifierLeCadrageDesVilles();
   scenarioRegles.verifierLesCategoriesDeLieux();
   scenarioRegles.verifierLeRemplissageDeZone();
+  scenarioFond.verifierLeTriDuFond();
+  scenarioFond.verifierLeCoteDeLEau();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

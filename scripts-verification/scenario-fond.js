@@ -1,0 +1,47 @@
+// Vérifications du fond de carte : répartition des éléments OpenStreetMap et
+// allègement des villes trop denses.
+import { verifier, titre } from './outils-de-test.js';
+import { classer, eclaircir, MAXIMUM } from '../serveur/services/tri-du-fond.js';
+import { decalerVersLEau } from '../public/scripts/carte/cote.js';
+
+export const verifierLeTriDuFond = () => {
+  titre('Composition du fond de carte');
+
+  verifier(classer({ natural: 'coastline' }) === 'littoral', 'un trait de côte est reconnu');
+  verifier(classer({ natural: 'water' }) === 'plansDEau', 'un plan d’eau est reconnu');
+  verifier(classer({ waterway: 'river' }) === 'riviere', 'un fleuve reste un fleuve');
+  verifier(classer({ highway: 'primary' }) === 'voiesPrincipales', 'une voie principale est reconnue');
+  verifier(classer({ highway: 'residential' }) === 'voiesSecondaires', 'une rue est reconnue');
+  verifier(classer({ leisure: 'park' }) === 'parcs', 'un parc est reconnu');
+  verifier(classer({ building: 'yes' }) === null, 'le reste est ignoré');
+
+  titre('Allègement d’une ville dense');
+  // Mille rues numérotées d'ouest en est : après allègement, il doit rester des
+  // rues des deux côtés de la ville, pas seulement du côté arrivé en premier.
+  const rues = Array.from({ length: 1000 }, (rien, rang) => rang);
+  const allegees = eclaircir(rues, 100);
+  verifier(allegees.length === 100, 'le nombre de tracés est ramené à la limite');
+  verifier(allegees[0] < 50, 'le début de la ville est conservé');
+  verifier(allegees.at(-1) > 950, 'la fin de la ville est conservée aussi');
+  const ecarts = allegees.slice(1).map((valeur, rang) => valeur - allegees[rang]);
+  verifier(
+    Math.max(...ecarts) - Math.min(...ecarts) <= 1,
+    'les tracés retenus sont répartis régulièrement, sans quartier oublié',
+  );
+  verifier(eclaircir([1, 2, 3], 100).length === 3, 'une petite ville n’est pas touchée');
+  verifier(MAXIMUM.voiesSecondaires > 5000, 'la limite des rues laisse de la marge');
+};
+
+export const verifierLeCoteDeLEau = () => {
+  titre('Côté eau d’un trait de côte');
+  // Un trait de côte qui va vers le nord : par convention OpenStreetMap, la
+  // terre est à gauche (ouest) et l'eau à droite (est).
+  const versLeNord = [[0, 0], [0, 100], [0, 200]];
+  const versLEau = decalerVersLEau(versLeNord, 50);
+  verifier(versLEau[1][0] > 0, 'l’écume est bien tracée du côté de l’eau');
+  verifier(Math.round(versLEau[1][1]) === 100, 'le décalage reste perpendiculaire au trait');
+  verifier(
+    decalerVersLEau(versLeNord, 50).length === versLeNord.length,
+    'le tracé décalé garde le même nombre de points',
+  );
+};
