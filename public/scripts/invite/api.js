@@ -13,6 +13,10 @@ const racine = () => `/api/experiences/${encodeURIComponent(adresseDeLExperience
 
 export const seConnecter = (motDePasse) => envoyer(`${racine()}/connexion`, { motDePasse });
 
+// Aperçu public : la ville seule, pour dessiner la carte derrière la demande de
+// mot de passe. Aucun contenu de l'expérience n'est accessible avant connexion.
+export const recupererLaVille = async () => (await appeler(`${racine()}/ville`)).ville;
+
 export const chargerLExperience = async () => (await appeler(racine())).experience;
 
 export const chargerLeFondDeVille = async (cle) =>

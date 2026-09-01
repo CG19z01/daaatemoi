@@ -11,7 +11,6 @@ const envoyerPage = (nomDuFichier) => (requete, reponse) =>
   reponse.sendFile(join(dossierPublic, nomDuFichier));
 
 routesPages.get('/', identifierLeVisiteur, envoyerPage('index.html'));
-routesPages.get('/carte', identifierLeVisiteur, envoyerPage('carte.html'));
 routesPages.get('/create', identifierLeVisiteur, envoyerPage('creation.html'));
 
 // Page invitee : seules les adresses de la forme "trois-mots-romantiques-for-you"

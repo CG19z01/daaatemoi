@@ -7,7 +7,7 @@ import { dirname, join, relative, resolve } from 'node:path';
 // Fragments inseres au chargement : leurs identifiants comptent aussi.
 const PAGES = [
   { page: 'public/index.html', fragments: [] },
-  { page: 'public/carte.html', fragments: [] },
+  { page: 'public/introuvable.html', fragments: [] },
   { page: 'public/admin.html', fragments: [] },
   { page: 'public/creation.html', fragments: ['public/fragments/fenetres-communes.html'] },
   { page: 'public/invite.html', fragments: ['public/fragments/fenetres-communes.html'] },

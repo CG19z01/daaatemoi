@@ -31,17 +31,18 @@
   transform: rotate(-45deg);
 }
 
+/* Le nom d'un lieu se lit toujours en entier : il revient a la ligne plutot
+   que d'etre coupe par des points de suspension. */
 .marqueur .etiquette {
-  max-width: 12rem;
+  max-width: min(16rem, calc(100vw - 2rem));
   padding: 2px 9px;
   border: 2px solid var(--encre);
   background: var(--papier);
   font-size: 1.4rem;
   line-height: 1.2;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 /* Les trois points se signalent pendant exactement 5 s au chargement
@@ -74,7 +75,7 @@
   }
 
   .marqueur .etiquette {
-    max-width: 9rem;
+    max-width: min(11rem, calc(100vw - 2rem));
     font-size: 1.24rem;
   }
 }

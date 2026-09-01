@@ -45,3 +45,10 @@
   color: var(--encre);
   font-size: 1rem;
 }
+
+/* Page « rien par ici » : même mise en page que l'accueil, un mot en plus. */
+.texte-introuvable {
+  max-width: 28rem;
+  margin: 0 auto 1.6rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+}

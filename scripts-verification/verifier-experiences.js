@@ -21,6 +21,7 @@ const { semerLaVille, VILLE_DE_TEST } = await import('./donnees-de-test.js');
 const scenarioCreation = await import('./scenario-creation.js');
 const scenarioInvite = await import('./scenario-invite.js');
 const scenarioCarte = await import('./scenario-carte.js');
+const scenarioAcces = await import('./scenario-acces.js');
 const scenarioRegles = await import('./scenario-regles.js');
 const scenarioFond = await import('./scenario-fond.js');
 const scenarioDecor = await import('./scenario-decor.js');
@@ -69,6 +70,9 @@ try {
   const { slug, motDePasse } = await scenarioCreation.verifierLaCreation(nouveauClient);
   await scenarioCreation.verifierLesReglesHoraires(nouveauClient);
   await scenarioCreation.verifierLaLimitationDesCreations(nouveauClient);
+
+  await scenarioAcces.verifierLAncienneCarte(nouveauClient());
+  await scenarioAcces.verifierLApercuPublic(nouveauClient(), slug);
 
   const invite = creerClient(adresseDeBase);
   const experience = await scenarioInvite.verifierLAccesInvite(invite, { slug, motDePasse });

@@ -92,7 +92,15 @@
   .tableau {
     display: block;
     overflow-x: auto;
-    white-space: nowrap;
+  }
+
+  /* Le nom d'un lieu revient a la ligne plutot que d'obliger a faire defiler
+     le tableau sur toute sa longueur : il se lit toujours en entier. */
+  .tableau th,
+  .tableau td {
+    min-width: 7rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 

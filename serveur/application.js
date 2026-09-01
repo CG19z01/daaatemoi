@@ -12,6 +12,7 @@ import { routesCreation } from './routes/creation.js';
 import { routesExperiences } from './routes/experiences.js';
 import { routesDessinDExperience } from './routes/experience-dessin.js';
 import { routesTextesDExperience } from './routes/experience-textes.js';
+import { routesApercuDExperience } from './routes/experience-apercu.js';
 import { identifierLeVisiteur } from './middlewares/session-visiteur.js';
 
 verifierConfiguration();
@@ -45,12 +46,20 @@ application.use('/admin', routesAdmin);
 application.use('/api/creation', routesCreation);
 application.use('/api/experiences', routesDessinDExperience);
 application.use('/api/experiences', routesTextesDExperience);
+application.use('/api/experiences', routesApercuDExperience);
 application.use('/api/experiences', routesExperiences);
 application.use('/api', routesApi);
 application.use('/cartes', identifierLeVisiteur, routesCartes);
 application.use('/', routesPages);
 
-application.use((requete, reponse) => reponse.status(404).json({ erreur: 'Page introuvable.' }));
+// Chemin inconnu : un navigateur recoit une page lisible, un appel d'interface
+// recoit du JSON. Aucune redirection, donc aucune boucle possible.
+application.use((requete, reponse) => {
+  if (!requete.path.startsWith('/api') && requete.accepts('html')) {
+    return reponse.status(404).sendFile(join(dossierPublic, 'introuvable.html'));
+  }
+  return reponse.status(404).json({ erreur: 'Page introuvable.' });
+});
 
 application.use((erreur, requete, reponse, suite) => {
   if (erreur.type === 'entity.parse.failed' || erreur.type === 'entity.too.large') {

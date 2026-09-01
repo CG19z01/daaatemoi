@@ -1,5 +1,7 @@
-/* Page invitee : un ecran de mot de passe couvre tout tant que l'acces n'est
-   pas ouvert. Rien de l'experience n'est visible derriere. */
+/* Page invitee : la carte de la ville se dessine derriere, et l'ecran de mot de
+   passe se pose par-dessus. Il couvre toute la page, donc il intercepte tous les
+   gestes : impossible de dessiner ou de deplacer quoi que ce soit avant d'etre
+   entre. Le contenu de l'experience, lui, n'est charge qu'apres validation. */
 .ecran-dacces {
   position: fixed;
   inset: 0;
@@ -8,7 +10,9 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: var(--papier);
+  /* Voile clair : on devine la ville sans pouvoir la lire ni y toucher. */
+  background: rgba(255, 255, 255, 0.78);
+  touch-action: none;
 }
 
 .ecran-dacces[hidden] {

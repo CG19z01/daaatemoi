@@ -4,16 +4,14 @@
 
 Plateforme de propositions de rendez-vous illustrées, en noir et blanc au trait.
 
-Deux expériences cohabitent :
+Sur `/create`, n'importe qui compose son propre date — une ville, jusqu'à 5 lieux
+placés à la main, ses disponibilités — puis partage un lien protégé par mot de
+passe, de la forme `/trois-mots-romantiques-for-you`. Sur la carte : Feutre,
+Coloriage, Texte et Gomme, la gomme n'effaçant que ce que l'utilisateur a ajouté.
 
-- **la carte de Rouen d'origine** (`/carte`) : trois lieux choisis, coloriage
-  partagé, réservation, journal des clics et administration. Elle fonctionne :
-  elle ne se modifie pas sans demande explicite.
-- **les expériences personnalisées** (`/create`) : n'importe qui compose son propre
-  date — une ville, jusqu'à 5 lieux placés à la main, ses disponibilités — puis
-  partage un lien protégé par mot de passe, de la forme
-  `/trois-mots-romantiques-for-you`. Sur la carte : Feutre, Coloriage, Texte et
-  Gomme, la gomme n'effaçant que ce que l'utilisateur a ajouté.
+La carte de Rouen d'origine (`/carte`) a été retirée. Son moteur de rendu, lui,
+est resté : c'est celui qu'utilisent toutes les cartes de ville. L'administration
+conserve le journal, les points proposés et les rendez-vous d'alors.
 
 Le projet doit être :
 
@@ -42,7 +40,7 @@ Toujours respecter les règles suivantes avant d'écrire ou modifier du code.
 8. Toujours privilégier la lisibilité.
 9. Toujours vérifier le projet après modification importante.
 10. Corriger les erreurs détectées avant de terminer.
-11. Ne jamais casser la carte de Rouen, l'administration ni les rendez-vous existants.
+11. Ne jamais casser l'administration ni les rendez-vous déjà enregistrés.
 12. Lancer `npm test` avant de considérer une modification terminée.
 
 ---
@@ -114,7 +112,7 @@ serveur/utilitaires/      fonctions pures : validation, horaires, géométrie, m
 serveur/middlewares/      session visiteur, protections, limitation des envois
 serveur/donnees/          sources fixes : lieux de Rouen, vocabulaire des adresses
 
-public/scripts/carte/     carte de Rouen, dont les modules servent aussi ailleurs
+public/scripts/carte/     moteur de la carte : projection, décor, rendu, coloriage
 public/scripts/commun/    scène de carte, placement, horaires, créneaux, fenêtres
 public/scripts/creation/  page /create
 public/scripts/invite/    page invitée
@@ -150,8 +148,8 @@ null                             -> horaires non renseignés
 [{ ouverture, fermeture }, ...]  -> une ou plusieurs plages d'ouverture
 ```
 
-À ne pas confondre avec ceux de `serveur/donnees/lieux.js`, propres à la carte de
-Rouen, qui gardent leur forme d'origine.
+À ne pas confondre avec ceux de `serveur/donnees/lieux.js`, hérités de la carte de
+Rouen et toujours lus par l'administration, qui gardent leur forme d'origine.
 
 Le cadrage n'est jamais un zoom fixe : le serveur mesure la zone bâtie de la ville
 (`zone-batie.js`, par percentiles pour ignorer les routes de campagne) et la

@@ -1,5 +1,16 @@
 /* Elements de liste partages : fiche d'un lieu, ligne de creneau, ligne
-   d'horaires et resultats de recherche. Meme trait epais que le reste du site. */
+   d'horaires et resultats de recherche. Meme trait epais que le reste du site.
+   Les noms sont toujours lisibles en entier : ils reviennent a la ligne, et un
+   mot interminable est coupe plutot que de deborder de l'ecran. */
+.fiche-de-lieu strong,
+.fiche-de-lieu span,
+.ligne-de-creneau span,
+.resultat-de-recherche strong,
+.resultat-de-recherche span,
+.resultat-de-recherche em {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .fiche-de-lieu,
 .ligne-de-creneau {
   display: flex;

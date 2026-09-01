@@ -7,6 +7,7 @@ import { brancherLeDessinPartage, chargerLeDessin } from '../carte/dessin-partag
 import { etat, surChangement, definirLExperience } from './etat.js';
 import {
   chargerLExperience,
+  recupererLaVille,
   chargerLeFondDeVille,
   recupererLeDessin,
   envoyerUnTrait,
@@ -58,12 +59,33 @@ const brancherLePanneau = () => {
   });
 };
 
+// La carte s'affiche avant même le mot de passe : l'écran de saisie se pose
+// par-dessus et intercepte tous les gestes. Rien du contenu de l'expérience
+// n'est chargé à ce stade.
+let villeAffichee = null;
+
+const afficherLaVille = async (ville) => {
+  if (villeAffichee === ville.cle) return;
+  atelier.scene.definirLaVille(await chargerLeFondDeVille(ville.cle), ville);
+  villeAffichee = ville.cle;
+};
+
+const preparerLeFond = async () => {
+  try {
+    const ville = await recupererLaVille();
+    document.getElementById('titreDuPanneau').textContent = `Un date à ${ville.nom}`;
+    await afficherLaVille(ville);
+  } catch {
+    // Sans la carte de fond, l'écran de mot de passe reste parfaitement utilisable.
+  }
+};
+
 const demarrer = async () => {
   const experience = await chargerLExperience();
   definirLExperience(experience);
   document.getElementById('titreDuPanneau').textContent = `Un date à ${experience.ville.nom}`;
   document.getElementById('cadreDeLExperience').hidden = false;
-  atelier.scene.definirLaVille(await chargerLeFondDeVille(experience.ville.cle), experience.ville);
+  await afficherLaVille(experience.ville);
   atelier.scene.coloration.ajouterDesTraits(await chargerLeDessin(recupererLeDessin));
   atelier.textes.definir(await recupererLesTextes());
   atelier.textes.repositionner(atelier.scene.laProjection());
@@ -75,3 +97,4 @@ brancherLesLieux();
 brancherLEnvoiDeLaReponse();
 brancherLePanneau();
 brancherLaConnexion(demarrer);
+preparerLeFond();

@@ -1,12 +1,14 @@
 # Viens on se date !
 
-Plateforme de propositions de rendez-vous illustrées. Deux expériences cohabitent :
+Plateforme de propositions de rendez-vous illustrées. N'importe qui compose son
+propre date sur `/create` — une ville, jusqu'à 5 lieux placés à la main, ses
+disponibilités — puis partage un lien protégé par mot de passe à la personne
+qu'il invite. Les cartes sont dessinées au trait, en noir et blanc, dans un style
+cartoon en fausse 3D.
 
-- **la carte de Rouen d'origine** (`/carte`) : carte cartoon en fausse 3D, coloration
-  au doigt ou à la souris, réservation, journal des clics et administration protégée ;
-- **les expériences personnalisées** (`/create`) : n'importe qui compose son propre
-  date — une ville, jusqu'à 5 lieux placés à la main, ses disponibilités — puis
-  partage un lien protégé par mot de passe à la personne qu'il invite.
+La carte de Rouen d'origine (`/carte`) a été retirée ; son moteur de rendu sert
+désormais à toutes les villes, et l'administration conserve les rendez-vous et le
+journal d'alors.
 
 **En ligne : https://daaatemoi.vercel.app**
 
@@ -14,7 +16,7 @@ Plateforme de propositions de rendez-vous illustrées. Deux expériences cohabit
 
 - **Node.js 20+ / Express** (unique dépendance de production)
 - **HTML, CSS et JavaScript modules** côté navigateur, sans framework ni étape de build
-- **Canvas 2D** pour la carte (projection latitude/longitude vers une vue inclinée), dessinée à partir d'un extrait **OpenStreetMap** figé dans `public/donnees/carte-rouen.json` : aucune tuile ni appel réseau externe à l'exécution
+- **Canvas 2D** pour la carte (projection latitude/longitude vers une vue inclinée), dessinée à partir d'un extrait **OpenStreetMap** converti en mètres : aucune tuile, aucun appel réseau depuis le navigateur
 - **Stockage JSON** dans `donnees/` en local, **Upstash Redis** en ligne
 - **OpenStreetMap** pour les villes et les lieux : Nominatim pour localiser une ville,
   Overpass pour extraire son fond de carte et rechercher des établissements réels.
@@ -77,9 +79,10 @@ vercel deploy --prod
 ## Pages
 
 - `/` : « Viens on se date ! »
-- `/carte` : carte interactive de Rouen (expérience d'origine, inchangée)
 - `/create` : création d'une expérience personnalisée
-- `/trois-mots-romantiques-for-you` : page invitée, protégée par mot de passe
+- `/trois-mots-romantiques-for-you` : page invitée. La carte de la ville s'affiche
+  aussitôt, et la demande de mot de passe se pose par-dessus : le contenu de
+  l'expérience n'est chargé qu'après validation, vérifiée côté serveur.
 - `/admin` : administration (non listée dans la navigation, authentification serveur)
 
 ## Créer une expérience
@@ -134,12 +137,12 @@ serveur/donnees/    liste des lieux de Rouen, vocabulaire des adresses
 serveur/services/   entrepôt, expériences, cartographie OpenStreetMap
 serveur/utilitaires/ validations, horaires, créneaux, mots de passe, géométrie
 public/             pages, styles et scripts du navigateur
-public/scripts/carte/  projection, fond de carte, décor, rendu, marqueurs, coloration, réservation
+public/scripts/carte/  moteur de la carte : projection, fond, décor, rendu, mer, coloriage
 public/scripts/commun/ carte réutilisable, placement, horaires, créneaux, fenêtres partagées
 public/scripts/creation/ page /create
 public/scripts/invite/   page invitée
 public/fragments/   fenêtres partagées par les deux nouvelles pages
-public/donnees/     fond de carte figé de Rouen, extrait d'OpenStreetMap
+public/donnees/     fond de carte figé de Rouen, conservé depuis la première version
 donnees/            journal des clics et réservations (JSON, généré)
 donnees/documents/  villes, fonds de carte et expériences (JSON, généré)
 scripts-verification/  syntaxe, limite de 150 lignes, cohérence des pages, tests
