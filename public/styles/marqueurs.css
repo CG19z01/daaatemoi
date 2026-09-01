@@ -1,13 +1,20 @@
-/* Les trois points de la carte : epingles cartoon, cernees de noir. */
+/* Les points de la carte : epingles cartoon, cernees de noir.
+   L'etiquette est placee au-dessus et l'epingle en dessous, pour que la pointe
+   de l'epingle se retrouve tout en bas : c'est elle qui designe le lieu, et
+   c'est sur elle que le marqueur est ancre. */
 .marqueur {
+  --taille-de-lepingle: 2.5rem;
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 2px;
-  padding: 0;
+  /* Pivotee d'un quart de tour, la pointe depasse le carre de l'epingle de
+     (racine de 2 / 2 - 1 / 2) de son cote. Ce retrait ramene la pointe
+     exactement au bas du marqueur, la ou la carte pose le lieu. */
+  padding: 0 0 calc(var(--taille-de-lepingle) * 0.2071);
   border: none;
   background: none;
   cursor: pointer;
@@ -16,8 +23,8 @@
 }
 
 .marqueur .epingle {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--taille-de-lepingle);
+  height: var(--taille-de-lepingle);
   border: 4px solid var(--encre);
   border-radius: 50% 50% 50% 0;
   background: var(--violet);
@@ -62,9 +69,8 @@
 }
 
 @media (max-width: 640px) {
-  .marqueur .epingle {
-    width: 2.2rem;
-    height: 2.2rem;
+  .marqueur {
+    --taille-de-lepingle: 2.2rem;
   }
 
   .marqueur .etiquette {

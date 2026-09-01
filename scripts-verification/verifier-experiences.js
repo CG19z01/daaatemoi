@@ -23,6 +23,7 @@ const scenarioInvite = await import('./scenario-invite.js');
 const scenarioCarte = await import('./scenario-carte.js');
 const scenarioRegles = await import('./scenario-regles.js');
 const scenarioFond = await import('./scenario-fond.js');
+const scenarioDecor = await import('./scenario-decor.js');
 
 const dossierDesDocuments = join(process.cwd(), 'donnees', 'documents');
 
@@ -84,8 +85,9 @@ try {
   scenarioRegles.verifierLeRemplissageDeZone();
   scenarioFond.verifierLeTriDuFond();
   scenarioFond.verifierLeCoteDeLEau();
-  scenarioFond.verifierLeDecor();
-  scenarioFond.verifierUnLittoralMorcele();
+  scenarioDecor.verifierLeDecor();
+  scenarioDecor.verifierUnLittoralMorcele();
+  scenarioDecor.verifierLaSecuriteDesVoies();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);
