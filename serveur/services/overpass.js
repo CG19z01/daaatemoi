@@ -3,7 +3,11 @@
 // donc les adresses configurees les unes apres les autres.
 import { configuration } from '../config.js';
 
-const DELAI_MAXIMAL_EN_MILLISECONDES = 55000;
+// Extraire le fond d'une ville est long ; chercher un lieu doit rester court.
+// Chaque appelant fixe donc sa patience : avec trois instances et deux passages,
+// le pire des cas reste bien en deca de la limite d'une fonction serverless.
+export const DELAI_DU_FOND_DE_VILLE = 55000;
+export const DELAI_DE_LA_RECHERCHE = 28000;
 // Les instances publiques refusent parfois une requete par simple surcharge :
 // un second passage, apres une courte pause, suffit le plus souvent.
 const PASSAGES = 2;
@@ -11,7 +15,7 @@ const PAUSE_ENTRE_PASSAGES = 1500;
 
 const attendre = (duree) => new Promise((terminer) => setTimeout(terminer, duree));
 
-const interroger = async (serveur, requete) => {
+const interroger = async (serveur, requete, delaiMaximal) => {
   const reponse = await fetch(serveur, {
     method: 'POST',
     headers: {
@@ -20,7 +24,7 @@ const interroger = async (serveur, requete) => {
       Accept: 'application/json',
     },
     body: new URLSearchParams({ data: requete }).toString(),
-    signal: AbortSignal.timeout(DELAI_MAXIMAL_EN_MILLISECONDES),
+    signal: AbortSignal.timeout(delaiMaximal),
   });
   if (!reponse.ok) throw new Error(`statut ${reponse.status}`);
   // Une instance saturee repond une page HTML avec un statut 200 : on le detecte.
@@ -31,12 +35,12 @@ const interroger = async (serveur, requete) => {
 
 // Renvoie la liste des elements OpenStreetMap, ou leve si aucune instance
 // n'a pu repondre. Seul le type d'erreur est journalise.
-export const interrogerOverpass = async (requete) => {
+export const interrogerOverpass = async (requete, delaiMaximal = DELAI_DU_FOND_DE_VILLE) => {
   let dernierProbleme = 'aucun serveur configure';
   for (let passage = 1; passage <= PASSAGES; passage += 1) {
     for (const serveur of configuration.serveursOverpass) {
       try {
-        const donnees = await interroger(serveur, requete);
+        const donnees = await interroger(serveur, requete, delaiMaximal);
         return Array.isArray(donnees?.elements) ? donnees.elements : [];
       } catch (erreur) {
         dernierProbleme = erreur.name === 'Error' ? erreur.message : erreur.name;

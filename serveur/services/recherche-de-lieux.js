@@ -2,7 +2,7 @@
 // (OpenStreetMap). Gratuit, sans compte ni cle API : il n'y a donc aucun secret
 // a proteger, et rien de sensible ne transite par le navigateur.
 // Les horaires viennent de l'etiquette opening_hours quand elle existe.
-import { interrogerOverpass } from './overpass.js';
+import { interrogerOverpass, DELAI_DE_LA_RECHERCHE } from './overpass.js';
 import {
   composerLaRequeteDeLieux,
   FAMILLES,
@@ -77,7 +77,10 @@ const rang = (lieu, expressionDuNom) =>
 
 export const rechercherDesLieux = async (terme, ville) => {
   const rayon = Number(ville.rayon) > 0 ? Number(ville.rayon) : RAYON_MINIMAL_EN_METRES;
-  const elements = await interrogerOverpass(composerLaRequeteDeLieux(terme, ville, rayon));
+  const elements = await interrogerOverpass(
+    composerLaRequeteDeLieux(terme, ville, rayon),
+    DELAI_DE_LA_RECHERCHE,
+  );
   const expressionDuNom = new RegExp(motifDuNom(terme), 'i');
   const categories = categoriesVisees(terme);
   const vus = new Set();
