@@ -84,6 +84,7 @@ try {
   scenarioRegles.verifierLeRemplissageDeZone();
   scenarioFond.verifierLeTriDuFond();
   scenarioFond.verifierLeCoteDeLEau();
+  scenarioFond.verifierLeDecor();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

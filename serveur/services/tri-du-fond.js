@@ -11,6 +11,7 @@ export const classer = (etiquettes = {}) => {
   if (etiquettes.waterway === 'river' || etiquettes.waterway === 'canal') return 'riviere';
   if (etiquettes.natural === 'coastline') return 'littoral';
   if (etiquettes.natural === 'water') return 'plansDEau';
+  if (etiquettes.landuse === 'reservoir' || etiquettes.landuse === 'basin') return 'plansDEau';
   if (etiquettes.leisure === 'park' || etiquettes.leisure === 'garden') return 'parcs';
   if (EST_PRINCIPALE.test(etiquettes.highway ?? '')) return 'voiesPrincipales';
   if (EST_SECONDAIRE.test(etiquettes.highway ?? '')) return 'voiesSecondaires';
@@ -22,7 +23,9 @@ export const classer = (etiquettes = {}) => {
 export const MAXIMUM = {
   riviere: 120,
   littoral: 400,
-  plansDEau: 400,
+  // Une mare compte autant qu'un lac : tous les plans d'eau sont conserves,
+  // puisque ce sont les seuls endroits que la carte laisse vides.
+  plansDEau: 1500,
   voiesPrincipales: 2600,
   voiesSecondaires: 6000,
   parcs: 400,

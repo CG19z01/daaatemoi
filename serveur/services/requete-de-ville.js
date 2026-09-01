@@ -17,6 +17,7 @@ export const composerLaRequeteDeVille = (centre, rayonEnMetres) => {
     `  way["waterway"~"^(river|canal)$"](${boite});`,
     `  way["natural"="coastline"](${boite});`,
     `  way["natural"="water"](${boite});`,
+    `  way["landuse"~"^(reservoir|basin)$"](${boite});`,
     `  way["highway"~"^(${VOIES_PRINCIPALES})(_link)?$"](${boite});`,
     `  way["highway"~"^(${VOIES_SECONDAIRES})$"](${boite});`,
     `  way["leisure"~"^(park|garden)$"](${boite});`,

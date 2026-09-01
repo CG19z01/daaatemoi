@@ -3,6 +3,8 @@
 import { verifier, titre } from './outils-de-test.js';
 import { classer, eclaircir, MAXIMUM } from '../serveur/services/tri-du-fond.js';
 import { decalerVersLEau } from '../public/scripts/carte/cote.js';
+import { construireDecor } from '../public/scripts/carte/decor.js';
+import { estDansLePolygone } from '../public/scripts/carte/occupation.js';
 
 export const verifierLeTriDuFond = () => {
   titre('Composition du fond de carte');
@@ -43,5 +45,50 @@ export const verifierLeCoteDeLEau = () => {
   verifier(
     decalerVersLEau(versLeNord, 50).length === versLeNord.length,
     'le tracé décalé garde le même nombre de points',
+  );
+};
+
+const carre = (x, y, cote) => [
+  [x, y],
+  [x + cote, y],
+  [x + cote, y + cote],
+  [x, y + cote],
+  [x, y],
+];
+
+export const verifierLeDecor = () => {
+  titre('Ville bâtie, eau laissée vide');
+  // Trait de côte orienté vers le nord : par convention, la mer est à l'est.
+  const mare = carre(-900, -900, 260);
+  const fond = {
+    riviere: [],
+    littoral: [[[0, -2000], [0, 0], [0, 2000]]],
+    plansDEau: [mare],
+    voiesPrincipales: [],
+    voiesSecondaires: [],
+    parcs: [],
+  };
+
+  const { lesBatiments } = construireDecor(fond, [], 1500);
+  verifier(lesBatiments.length > 300, `la terre se couvre de bâtiments (${lesBatiments.length})`);
+  verifier(
+    lesBatiments.every((batiment) => batiment.x < 0),
+    'aucun bâtiment n’est construit au large',
+  );
+  verifier(
+    lesBatiments.every((batiment) => !estDansLePolygone(batiment.x, batiment.y, mare)),
+    'aucun bâtiment n’est construit dans un plan d’eau, même petit',
+  );
+
+  // Sans eau ni voie, il ne doit rester aucun vide voulu dans la ville.
+  const pleine = construireDecor(
+    { riviere: [], littoral: [], plansDEau: [], voiesPrincipales: [], voiesSecondaires: [], parcs: [] },
+    [],
+    700,
+  );
+  const cases = Math.ceil((700 * 2) / 70) ** 2;
+  verifier(
+    pleine.lesBatiments.length >= cases * 0.95,
+    `une terre libre est bâtie presque case par case (${pleine.lesBatiments.length}/${cases})`,
   );
 };

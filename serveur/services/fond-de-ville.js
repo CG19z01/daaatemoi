@@ -14,7 +14,7 @@ import { classer, eclaircirLeFond } from './tri-du-fond.js';
 // Marque de fabrique du fond. Un fond produit par une version antérieure est
 // régénéré : c'est ce qui permet de faire évoluer le rendu sans vider le cache
 // à la main, en local comme en production.
-export const VERSION_DU_FOND = 3;
+export const VERSION_DU_FOND = 4;
 
 // Plus la ville est grande, plus le tracé est simplifié : le fond garde ainsi
 // un poids comparable, qu'il couvre un village ou une métropole.
@@ -45,7 +45,8 @@ const largeurDuCoursDEau = (etiquettes) => {
 };
 
 const ajouterUneSurface = (fond, famille, points, limite) => {
-  if (points.length < 4 || horsDeLaZone(points, limite)) return;
+  // Trois points suffisent : une petite mare ne doit pas disparaitre.
+  if (points.length < 3 || horsDeLaZone(points, limite)) return;
   fond[famille].push(points);
 };
 

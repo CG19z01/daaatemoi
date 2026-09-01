@@ -18,3 +18,39 @@ export const decalerVersLEau = (points, distance) =>
       point[1] - (ecartX / longueur) * distance,
     ];
   });
+
+// Étendue d'eau que borde un trait de côte : le tracé, puis le même tracé
+// repoussé au large et parcouru en sens inverse. Le polygone ainsi fermé
+// couvre toute la mer visible, du rivage jusqu'au bord de la carte.
+export const polygoneVersLEau = (points, profondeur) => [
+  ...points,
+  ...decalerVersLEau(points, profondeur).reverse(),
+];
+
+// Test « ce point est-il au large ? », prêt à être appelé des milliers de fois.
+// Chaque étendue garde sa boîte englobante : la plupart des points sont écartés
+// par une simple comparaison, sans parcourir le contour.
+export const creerTestDeLaMer = (littoral, profondeur) => {
+  const etendues = littoral.map((trace) => {
+    const contour = polygoneVersLEau(trace, profondeur);
+    const abscisses = contour.map(([x]) => x);
+    const ordonnees = contour.map(([, y]) => y);
+    return {
+      contour,
+      minimumX: Math.min(...abscisses),
+      maximumX: Math.max(...abscisses),
+      minimumY: Math.min(...ordonnees),
+      maximumY: Math.max(...ordonnees),
+    };
+  });
+
+  return (x, y, estDansLePolygone) =>
+    etendues.some(
+      (etendue) =>
+        x >= etendue.minimumX &&
+        x <= etendue.maximumX &&
+        y >= etendue.minimumY &&
+        y <= etendue.maximumY &&
+        estDansLePolygone(x, y, etendue.contour),
+    );
+};

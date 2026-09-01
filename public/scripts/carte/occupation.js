@@ -1,5 +1,18 @@
 // Grille d'occupation : marque le fleuve, les voies et les parcs pour qu'aucun
 // batiment ne soit place dessus. Une case vaut 1 des qu'elle est prise.
+// Vrai si le point tombe a l'interieur du contour. Sert aussi bien a la grille
+// qu'au decor, pour ecarter tout ce qui se trouve sur l'eau.
+export const estDansLePolygone = (x, y, points) => {
+  let dedans = false;
+  for (let a = 0, b = points.length - 1; a < points.length; b = a, a += 1) {
+    const [ax, ay] = points[a];
+    const [bx, by] = points[b];
+    const traverse = ay > y !== by > y;
+    if (traverse && x < ((bx - ax) * (y - ay)) / (by - ay) + ax) dedans = !dedans;
+  }
+  return dedans;
+};
+
 export const creerGrilleDOccupation = (limite, pas) => {
   const cotes = Math.ceil((limite * 2) / pas) + 1;
   const cases = new Uint8Array(cotes * cotes);
@@ -37,17 +50,6 @@ export const creerGrilleDOccupation = (limite, pas) => {
         );
       }
     }
-  };
-
-  const estDansLePolygone = (x, y, points) => {
-    let dedans = false;
-    for (let a = 0, b = points.length - 1; a < points.length; b = a, a += 1) {
-      const [ax, ay] = points[a];
-      const [bx, by] = points[b];
-      const traverse = ay > y !== by > y;
-      if (traverse && x < ((bx - ax) * (y - ay)) / (by - ay) + ax) dedans = !dedans;
-    }
-    return dedans;
   };
 
   // Un parc est marque en entier, contour compris.
