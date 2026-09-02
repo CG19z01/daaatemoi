@@ -20,7 +20,10 @@ export const verifierLaCreation = async (nouveauClient) => {
   const slug = creation.donnees.slug ?? '';
   verifier(SLUG_VALIDE.test(slug), `l adresse "${slug}" fait trois mots latins separes par des tirets`);
   verifier(slug.split('-').length === 3, 'l adresse contient exactement trois mots');
-  verifier(/^[a-z-]+$/.test(slug), 'l adresse n utilise que des lettres latines et des tirets');
+  verifier(
+    /^[a-z_-]+$/.test(slug),
+    'l adresse n utilise que des lettres latines, des tirets et des tirets bas',
+  );
   verifier(
     typeof creation.donnees.lien === 'string' && creation.donnees.lien.endsWith(`${slug}-for-you`),
     'le lien partage se termine par -for-you',

@@ -170,7 +170,9 @@ valables — le serveur reste seul juge.
   dates et positions des points sont tous revalidés côté serveur.
 - Le slug est tiré au sort par le serveur, jamais proposé par le navigateur. Ses
 mots viennent de `serveur/donnees/mots-romantiques.txt`, lu au démarrage :
-ajouter un mot, c'est ajouter une ligne, rien d'autre à toucher.
+ajouter un mot, c'est ajouter une ligne, rien d'autre à toucher. Une expression
+en plusieurs mots s'écrit avec des tirets bas (`mo_leannan`) — le tiret, lui,
+sépare les trois mots de l'adresse.
 - Les mots de passe des expériences sont hachés avec scrypt
   (`serveur/utilitaires/mot-de-passe.js`). Aucune empreinte ne quitte le serveur.
 - Un lien inexistant et un mauvais mot de passe donnent exactement la même réponse.

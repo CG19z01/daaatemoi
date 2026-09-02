@@ -86,6 +86,7 @@ try {
   await verifierLAdministration(slug);
   await scenarioRegles.verifierLUniciteDesAdresses();
   scenarioMots.verifierLaBanqueDeMots();
+  scenarioMots.verifierLesExpressionsLiees();
   scenarioRegles.verifierLeCadrageDesVilles();
   scenarioRegles.verifierLesCategoriesDeLieux();
   scenarioRegles.verifierLeRemplissageDeZone();

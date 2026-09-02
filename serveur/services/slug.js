@@ -9,20 +9,26 @@ const NOMBRE_DE_MOTS = 3;
 // Le lien partage ajoute ce suffixe a l'adresse a trois mots.
 export const SUFFIXE_DU_LIEN = '-for-you';
 
-// Exactement trois groupes de lettres latines, separes par des tirets.
-export const SLUG_VALIDE = /^[a-z]{2,20}(-[a-z]{2,20}){2}$/;
+// Exactement trois mots separes par des tirets. Un mot est fait de lettres
+// latines ; une expression qui en compte plusieurs les relie par un tiret bas,
+// qui ne se confond donc jamais avec le tiret separant les trois mots.
+const MOT = '[a-z]+(?:_[a-z]+)*';
+export const SLUG_VALIDE = new RegExp(`^(?=.{2,20}(?:-|$))${MOT}(?:-(?=.{2,20}(?:-|$))${MOT}){2}$`);
 
 // Accents retires, tout caractere hors alphabet latin ecarte : un mot venu
-// d'une autre ecriture ne peut pas se glisser dans une adresse.
+// d'une autre ecriture ne peut pas se glisser dans une adresse. Le tiret bas,
+// lui, est conserve : il relie les morceaux d'une expression.
 export const normaliserUnMot = (mot) =>
   String(mot)
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .replace(/[^a-z]/g, '');
+    .replace(/[^a-z_]/g, '')
+    .replace(/^_+|_+$/g, '')
+    .replace(/_{2,}/g, '_');
 
 const vocabulaire = [...new Set(motsRomantiques.map(normaliserUnMot))].filter(
-  (mot) => mot.length >= 2 && mot.length <= 20,
+  (mot) => mot.length >= 2 && mot.length <= 20 && /^[a-z]+(?:_[a-z]+)*$/.test(mot),
 );
 
 export const nombreDeMotsDisponibles = () => vocabulaire.length;

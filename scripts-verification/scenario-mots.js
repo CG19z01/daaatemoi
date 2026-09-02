@@ -8,8 +8,8 @@ export const verifierLaBanqueDeMots = () => {
   titre('Banque de mots des adresses');
   verifier(motsRomantiques.length > 500, `la banque est chargée depuis son fichier (${motsRomantiques.length} mots)`);
   verifier(
-    motsRomantiques.every((mot) => /^[a-z]{2,20}$/.test(mot)),
-    'chaque mot tient en lettres latines minuscules, sans accent ni espace',
+    motsRomantiques.every((mot) => /^[a-z]+(?:_[a-z]+)*$/.test(mot) && mot.length <= 20),
+    'chaque mot tient en lettres latines minuscules, les expressions liées par un tiret bas',
   );
   verifier(
     new Set(motsRomantiques).size === motsRomantiques.length,
@@ -24,4 +24,26 @@ export const verifierLaBanqueDeMots = () => {
     tirages.every((slug) => extraireLeSlug(`${slug}-for-you`) === slug),
     'chaque adresse se retrouve intacte dans son lien -for-you',
   );
+};
+
+export const verifierLesExpressionsLiees = () => {
+  titre('Expressions tenant en plusieurs mots');
+  const liees = motsRomantiques.filter((mot) => mot.includes('_'));
+  verifier(liees.length > 100, `les expressions liées par un tiret bas sont là (${liees.length})`);
+  verifier(
+    liees.every((mot) => SLUG_VALIDE.test(`${mot}-cuore-amour`)),
+    'chacune forme une adresse valable une fois placée dans un lien',
+  );
+
+  // Le tiret bas relie, il ne sépare pas : il ne doit jamais border un mot.
+  const refusees = [
+    ['a-b-c', 'un mot d’une seule lettre'],
+    ['_leannan-cuore-amour', 'un tiret bas en tête'],
+    ['leannan_-cuore-amour', 'un tiret bas en fin'],
+    ['mo__leannan-cuore-amour', 'deux tirets bas à la suite'],
+    ['mo_leannan-cuore', 'deux mots au lieu de trois'],
+  ];
+  for (const [forme, raison] of refusees) {
+    verifier(!SLUG_VALIDE.test(forme), `${raison} est refusé`);
+  }
 };

@@ -5,9 +5,10 @@ import { join } from 'node:path';
 import { dossierRacine } from '../chemins.js';
 
 const dossierDesDocuments = join(dossierRacine, 'donnees', 'documents');
-// Une cle ne contient que des minuscules, des chiffres et des tirets :
-// aucun chemin ne peut donc etre remonte depuis une valeur exterieure.
-const CLE_VALIDE = /^[a-z0-9-]{1,120}$/;
+// Une cle ne contient que des minuscules, des chiffres, des tirets et des
+// tirets bas : aucun chemin ne peut donc etre remonte depuis une valeur
+// exterieure. Le tiret bas vient des expressions en plusieurs mots des adresses.
+const CLE_VALIDE = /^[a-z0-9_-]{1,120}$/;
 
 const cheminDuDocument = (cle) => {
   if (!CLE_VALIDE.test(cle)) throw new Error('Cle de document invalide.');

@@ -107,9 +107,11 @@ vercel deploy --prod
    Les minutes vont toujours de 5 en 5.
 5. **Le partage.** Un mot de passe (haché avec scrypt, jamais stocké en clair) puis
    un lien à trois mots romantiques, par exemple `/amour-luna-cuore-for-you`.
-   Les mots viennent de `serveur/donnees/mots-romantiques.txt` : 2 341 mots dans
-   112 langues, soit près de 12,8 milliards d'adresses possibles. Le fichier se
-   complète à la main, un mot par ligne.
+   Les mots viennent de `serveur/donnees/mots-romantiques.txt` : 2 477 mots dans
+   112 langues, soit plus de 15 milliards d'adresses possibles. Le fichier se
+   complète à la main, un mot par ligne ; une expression tenant en plusieurs mots
+   s'écrit avec des tirets bas (`mo_leannan`), qui ne se confondent pas avec les
+   tirets séparant les trois mots de l'adresse.
 
 Sur la carte, quatre outils : **Feutre** (trait au geste maintenu), **Coloriage**
 (un appui remplit la zone visée en suivant les contours), **Texte** (zones de texte

@@ -5,12 +5,16 @@
 #   un mot par ligne, en minuscules latines sans accent
 #   #          commentaire, ignore
 #
+# Une expression qui tient en plusieurs mots s ecrit avec des tirets bas :
+#   mo_leannan, hua_jai, lanmou_mwen. Une adresse vaut trois de ces mots,
+#   separes par des tirets ; le tiret bas ne les coupe donc pas.
+#
 # Le serveur lit ce fichier au demarrage. Ajouter un mot, c est ajouter une
 # ligne : rien d autre a toucher. Les doublons entre langues sont ecartes.
 #
-# 2341 mots, 112 langues.
+# 2477 mots, 112 langues.
 # Une adresse tire 3 mots distincts et l ordre compte :
-# 2341 x 2340 x 2339 = 12 812 901 660 adresses possibles.
+# 2477 x 2476 x 2475 = 15 179 303 700 adresses possibles.
 
 [ALBANAIS]
 dashuri
@@ -28,6 +32,11 @@ embelsira
 drite
 sy
 buze
+e_embel
+i_dashur
+e_dashura
+dashuri_forever
+me_ke
 
 [ALLEMAND]
 liebe
@@ -240,6 +249,7 @@ varmo
 fideleco
 flamo
 revado
+amo_mia
 
 [FINNOIS]
 rakkaus
@@ -301,6 +311,8 @@ fealltachd
 aisling
 reul
 gaol
+gu_siorraidh
+mo_leannan
 
 [GREC]
 agapi
@@ -358,6 +370,8 @@ teas
 dilseacht
 realta
 cumann
+go_deo
+mo_stoir
 
 [ITALIEN]
 amore
@@ -520,6 +534,7 @@ doce
 paixaozinha
 afeto
 estrela
+minha_vida
 
 [ROUMAIN]
 iubire
@@ -554,6 +569,8 @@ nezhnost
 kotenok
 milyj
 lyubimyj
+ob_yatiya
+schast_ye
 
 [SERBE]
 san
@@ -657,6 +674,10 @@ ozhibiiige
 nibiish
 mikwam
 miigwech
+sans_accents
+ayoor_anoshni
+taa_aanii
+shil_hozho
 
 [LAKOTA]
 thehila
@@ -673,6 +694,10 @@ wacinyan
 cantewaste
 cantognaka
 cantekiya
+w_waste
+cante_skuya
+o_waste
+cante_maske
 
 [INUKTITUT]
 nagligivat
@@ -732,6 +757,9 @@ okla
 haksi
 hihlah
 salik
+chim_achukma
+pisa_achukma
+sv_lashpa
 
 [INNU-AIMUN]
 shakieu
@@ -772,6 +800,7 @@ cualnezqui
 netlazohtlaliztli
 tlahuil
 tlapal
+nozo_holy
 
 [MAYA KICHE]
 loqoj
@@ -834,6 +863,8 @@ galu
 muat
 ua
 nega
+in_yaakunet
+an_sabedi
 
 [GARIFUNA]
 isieni
@@ -875,6 +906,7 @@ rait
 piuro
 tuktan
 plun
+latwan_laya
 
 [ZAPOTEC]
 tzaa
@@ -934,6 +966,7 @@ manman
 lavi
 bel
 sansyon
+ti_ke
 
 [CRÉOLE GUADELOUPÉEN]
 tch
@@ -942,12 +975,17 @@ kylen
 pasyon
 souri
 sipozisyon
+ti_tch
+ti_kien
+lanmou_mwen
 
 [CRÉOLE MARTINIQUAIS]
 tche
 douse
 kares
 plizi
+kout_tche
+ti_doudou
 
 [TAINO]
 guani
@@ -983,6 +1021,8 @@ companero
 soo
 luz
 fawor
+un_brasa
+un_dunami
 
 [QUECHUA]
 munay
@@ -1022,6 +1062,9 @@ mbyja
 mbae
 rohayhu
 poty
+che_rahu
+che_kamba
+che_ama
 
 [AYMARA]
 munasia
@@ -1081,6 +1124,7 @@ miuchi
 kepeshi
 tepichi
 alepajee
+ais_piamale
 
 [NHEENGATU]
 saiso
@@ -1168,6 +1212,7 @@ azizi
 mahabba
 khaleel
 shoq
+ya_ayni
 
 [HÉBREU]
 ahava
@@ -1189,6 +1234,7 @@ yakira
 oz
 dodai
 chemad
+bat_yaan
 
 [TURC]
 ask
@@ -1232,6 +1278,7 @@ shoghe
 roya
 omid
 hamrah
+doostat_daram
 
 [ARMÉNIEN]
 ser
@@ -1253,6 +1300,7 @@ havatarim
 anverj
 pahi
 gohar
+im_ser
 
 [GÉORGIEN]
 siqvaruli
@@ -1272,6 +1320,9 @@ vaskvlavi
 tsatskhli
 mudam
 alersi
+chemo_kargao
+chemo_sivotkhle
+chemo_gulo
 
 [KAZAKH]
 makhabbat
@@ -1468,6 +1519,7 @@ sparsh
 premika
 nat
 sobat
+maza_sobat
 
 [SINHALA]
 adare
@@ -1529,6 +1581,8 @@ tapat
 pagsinta
 paghanga
 alindog
+pag_ibig
+pag_asa
 
 [VIETNAMIEN]
 thuong
@@ -1536,6 +1590,21 @@ yeu
 om
 hon
 nho
+nguoi_yeu
+trai_tim
+thuong_yeu
+ngot_ngao
+tam_hon
+doi_toi
+mai_mai
+em_yeu
+anh_yeu
+am_ap
+tri_ky
+quyen_ru
+gan_bo
+khat_khao
+diu_dang
 
 [THAÏ]
 rak
@@ -1549,6 +1618,14 @@ fa
 dao
 saad
 suay
+hua_jai
+saen_rak
+kwam_rak
+phuk_phan
+ob_oon
+rom_yen
+jing_jai
+kid_teeng
 
 [MALAIS]
 janji
@@ -1569,6 +1646,10 @@ pka
 bong
 un
 komnot
+srolanh_neak
+srey_laor
+srolanh_khnaek
+srey_khmeng
 
 [BIRMAN]
 ahchit
@@ -1610,6 +1691,9 @@ xianyi
 baogui
 shengming
 qingyi
+qin_ai_de
+xian_ai
+re_ai
 
 [JAPONAIS]
 koi
@@ -1652,6 +1736,23 @@ yeongwon
 ngoi
 sam
 sweet
+po_pei
+oi_yan
+sui_sui
+teuk_so
+lyun_oi
+yuet_ding
+yan_sang
+fan_hei
+hon_wun
+tai_tip
+gan_ban
+so_ji
+ji_sam
+yuet_leung
+syu_fuk
+chan_chai
+ji_gei
 
 [MONGOL]
 khair
@@ -1728,6 +1829,7 @@ afei
 noufi
 smou
 ouro
+az_jargal
 
 [SWAHILI]
 mapenzi
@@ -1771,6 +1873,7 @@ tauraro
 haske
 kyau
 kwadayi
+har_abada
 
 [YORUBA]
 ife
@@ -1790,6 +1893,9 @@ irawo
 imole
 ewa
 fe
+gba_mora
+fi_enu_ko
+titi_lai
 
 [IGBO]
 ihunanya
@@ -1826,6 +1932,10 @@ hoode
 jaangol
 lobbo
 poofngol
+onye_alumu
+elu_igwe
+mmuo_ozi
+ikwasi_obi
 
 [WOLOF]
 nob
@@ -1847,6 +1957,7 @@ biddew
 leer
 rafet
 bgg
+ba_faw
 
 [BAMBARA]
 kanu
@@ -1886,6 +1997,7 @@ nsoromma
 hann
 afeboo
 apere
+foo_abada
 
 [EWE]
 lolo
@@ -1906,6 +2018,8 @@ kekeli
 atsu
 tegbee
 dzro
+lolo_tyo
+kpla_asi
 
 [FON]
 wanyi
@@ -1944,6 +2058,7 @@ neere
 gomde
 wakat
 kudum
+m_ma
 
 [LINGALA]
 bolingo
@@ -2023,6 +2138,9 @@ wa
 tongoro
 lozi
 ye
+ndoye_mingi
+tene_ti_biani
+lakue_lakue
 
 [FANG]
 nying
@@ -2086,6 +2204,7 @@ urjii
 ifa
 bareeda
 hawwii
+bara_bara
 
 [SOMALI]
 jacayl
@@ -2208,6 +2327,9 @@ naleli
 leseli
 bontle
 takatso
+ho_kopa
+ho_meka
+ka_ho_sa_feleng
 
 [SETSWANA]
 lorato
@@ -2226,6 +2348,7 @@ boammaruri
 naledi
 lesedi
 keleletso
+go_ya_go_ile
 
 [SHONA]
 rudo
@@ -2265,6 +2388,7 @@ manu
 hookahi
 pilialoha
 pau
+aloha_wau
 
 [TAHITIEN]
 aroha
@@ -2302,6 +2426,7 @@ whetu
 oranga
 ataahua
 hiahia
+hoa_here
 
 [SAMOAN]
 alofa
@@ -2354,6 +2479,8 @@ korua
 maurua
 umu
 henua
+hoa_aroha
+poki_aroha
 
 [WALLISIEN]
 kaiga
@@ -2483,6 +2610,17 @@ fia
 manana
 maolek
 taotao
+dodomo_dina
+veilomani_dina
+pasin_bilong_pas
+mekim_bel
+stap_wantaim
+mi_lovem_yu
+stap_wetem
+namo_herea
+bala_na_vana
+bartur_marum
+na_ka
 
 [PALAUAN]
 reng
@@ -2504,6 +2642,7 @@ ungil
 buuch
 blai
 tedei
+betik_a_reng
 
 [GILBERTAIN / KIRIBATI]
 tangira
@@ -2521,6 +2660,7 @@ itoi
 oota
 raoiroi
 kawai
+aki_toki
 
 [MARSHALLAIS]
 yokwe
@@ -2576,155 +2716,3 @@ warlu
 karu
 miyi
 nyinami
-
-# ====================================================================
-# ENTREES ECARTEES : elles tiennent en plusieurs mots.
-#
-# Une adresse vaut exactement trois mots separes par des tirets ; un mot qui
-# contient une espace en ajouterait un quatrieme. Elles sont conservees ici
-# pour que tu puisses les reecrire en un seul mot si tu le souhaites : il
-# suffit alors de retirer le # devant la ligne et de coller les morceaux.
-#
-# [ALBANAIS] e embel
-# [ALBANAIS] i dashur
-# [ALBANAIS] e dashura
-# [ALBANAIS] dashuri forever
-# [ALBANAIS] me ke
-# [ESPÉRANTO] amo mia
-# [GAÉLIQUE ÉCOSSAIS] gu siorraidh
-# [GAÉLIQUE ÉCOSSAIS] mo leannan
-# [IRLANDAIS] go deo
-# [IRLANDAIS] mo stoir
-# [IRLANDAIS] mo leannan
-# [PORTUGAIS] minha vida
-# [RUSSE] ob yatiya
-# [RUSSE] schast ye
-# [TCHÈQUE] sans accents
-# [TCHÈQUE] ayoor anoshni
-# [TCHÈQUE] taa aanii
-# [TCHÈQUE] shil hozho
-# [LAKOTA] w waste
-# [LAKOTA] cante skuya
-# [LAKOTA] o waste
-# [LAKOTA] cante maske
-# [CHOCTAW] chim achukma
-# [CHOCTAW] pisa achukma
-# [CHOCTAW] sv lashpa
-# [INNU-AIMUN] nozo holy
-# [MAYA YUCATEQUE] in yaakunet
-# [MAYA YUCATEQUE] an sabedi
-# [MISKITO] latwan laya
-# [CRÉOLE HAÏTIEN] ti ke
-# [CRÉOLE GUADELOUPÉEN] ti tch
-# [CRÉOLE GUADELOUPÉEN] ti kien
-# [CRÉOLE GUADELOUPÉEN] lanmou mwen
-# [CRÉOLE MARTINIQUAIS] kout tche
-# [CRÉOLE MARTINIQUAIS] ti doudou
-# [CRÉOLE MARTINIQUAIS] lanmou mwen
-# [PAPIAMENTO] un brasa
-# [PAPIAMENTO] un dunami
-# [GUARANI] che rahu
-# [GUARANI] che kamba
-# [GUARANI] che ama
-# [WAYUU] ais piamale
-# [TUPI-GUARANI] sans accents
-# [ARABE] ya ayni
-# [HÉBREU] bat yaan
-# [PERSAN] doostat daram
-# [ARMÉNIEN] im ser
-# [GÉORGIEN] chemo kargao
-# [GÉORGIEN] chemo sivotkhle
-# [GÉORGIEN] chemo gulo
-# [MARATHI] maza sobat
-# [INDONÉSIEN] pag ibig
-# [INDONÉSIEN] pag asa
-# [VIETNAMIEN] nguoi yeu
-# [VIETNAMIEN] trai tim
-# [VIETNAMIEN] thuong yeu
-# [VIETNAMIEN] ngot ngao
-# [VIETNAMIEN] tam hon
-# [VIETNAMIEN] doi toi
-# [VIETNAMIEN] mai mai
-# [VIETNAMIEN] em yeu
-# [VIETNAMIEN] anh yeu
-# [VIETNAMIEN] am ap
-# [VIETNAMIEN] tri ky
-# [VIETNAMIEN] quyen ru
-# [VIETNAMIEN] gan bo
-# [VIETNAMIEN] khat khao
-# [VIETNAMIEN] diu dang
-# [THAÏ] hua jai
-# [THAÏ] saen rak
-# [THAÏ] kwam rak
-# [THAÏ] phuk phan
-# [THAÏ] ob oon
-# [THAÏ] rom yen
-# [THAÏ] jing jai
-# [THAÏ] kid teeng
-# [KHMER] srolanh neak
-# [KHMER] srey laor
-# [KHMER] srolanh khnaek
-# [KHMER] srey khmeng
-# [MANDARIN] qin ai de
-# [MANDARIN] xian ai
-# [MANDARIN] re ai
-# [CORÉEN] po pei
-# [CORÉEN] oi yan
-# [CORÉEN] sui sui
-# [CORÉEN] teuk so
-# [CORÉEN] lyun oi
-# [CORÉEN] yuet ding
-# [CORÉEN] yan sang
-# [CORÉEN] fan hei
-# [CORÉEN] hon wun
-# [CORÉEN] tai tip
-# [CORÉEN] gan ban
-# [CORÉEN] so ji
-# [CORÉEN] ji sam
-# [CORÉEN] yuet leung
-# [CORÉEN] syu fuk
-# [CORÉEN] chan chai
-# [CORÉEN] ji gei
-# [MONGOL] az jargal
-# [MONGOL] sans accents
-# [HAOUSSA] har abada
-# [YORUBA] gba mora
-# [YORUBA] fi enu ko
-# [YORUBA] titi lai
-# [IGBO] onye alumu
-# [IGBO] elu igwe
-# [IGBO] mmuo ozi
-# [IGBO] ikwasi obi
-# [IGBO] titi lai
-# [WOLOF] ba faw
-# [BAMBARA] foo abada
-# [EWE] lolo tyo
-# [EWE] kpla asi
-# [FON] m ma
-# [SANGO] ndoye mingi
-# [SANGO] tene ti biani
-# [SANGO] lakue lakue
-# [OROMO] bara bara
-# [XHOSA] ho kopa
-# [XHOSA] ho meka
-# [XHOSA] ka ho sa feleng
-# [SETSWANA] go ya go ile
-# [SHONA] sans accents
-# [HAWAÏEN] aloha wau
-# [TAHITIEN] hoa here
-# [TONGAN] hoa aroha
-# [TONGAN] poki aroha
-# [FIDJIEN] dodomo dina
-# [FIDJIEN] veilomani dina
-# [FIDJIEN] pasin bilong pas
-# [FIDJIEN] mekim bel
-# [FIDJIEN] stap wantaim
-# [FIDJIEN] mi lovem yu
-# [FIDJIEN] stap wetem
-# [FIDJIEN] namo herea
-# [FIDJIEN] namo herea
-# [FIDJIEN] bala na vana
-# [FIDJIEN] bartur marum
-# [FIDJIEN] na ka
-# [PALAUAN] betik a reng
-# [GILBERTAIN / KIRIBATI] aki toki
