@@ -12,15 +12,18 @@
 # Le serveur lit ce fichier au demarrage. Ajouter un mot, c est ajouter une
 # ligne : rien d autre a toucher. Les doublons entre langues sont ecartes.
 #
-# 2477 mots, 112 langues.
+# Les mots ecartes sont conserves en commentaire a la fin du fichier, avec la
+# raison. Pour en reprendre un, il suffit de retirer le # et de le remonter
+# dans son bloc.
+#
+# 1656 mots, 109 langues.
 # Une adresse tire 3 mots distincts et l ordre compte :
-# 2477 x 2476 x 2475 = 15 179 303 700 adresses possibles.
+# 1656 x 1655 x 1654 = 4 533 084 720 adresses possibles.
 
 [ALBANAIS]
 dashuri
 zemer
 shpirt
-mefal
 puthje
 perqafim
 jeta
@@ -28,15 +31,11 @@ enderr
 deshire
 pasion
 besnikeri
-embelsira
 drite
-sy
 buze
 e_embel
 i_dashur
 e_dashura
-dashuri_forever
-me_ke
 
 [ALLEMAND]
 liebe
@@ -55,7 +54,6 @@ treue
 waerme
 sehnsucht
 zuneigung
-wohlgefuehl
 stern
 wunsch
 zauber
@@ -67,14 +65,12 @@ sweetheart
 honey
 affection
 passion
-hug
 kiss
 forever
 heart
 crush
 desire
 treasure
-tenderness
 devotion
 soulmate
 warmth
@@ -91,12 +87,10 @@ besarkada
 gozoa
 bizitza
 lorea
-karkara
 irribarre
 ametsa
 samurtasuna
 leialtasuna
-zortea
 begiak
 xarma
 betiko
@@ -105,18 +99,15 @@ izarra
 gogoa
 
 [BIÉLORUSSE]
-kachanodze
 serca
 kachanic
 pacelunak
 abdymki
 dusa
-sonca
 kachany
 kachanaya
 niznasc
 strasc
-marja
 vecnasc
 radaasc
 krasota
@@ -124,20 +115,15 @@ zycce
 daragi
 zabota
 scascie
-tyulpan
 
 [BULGARE]
 lyubov
 sartse
 tseluvka
-pregradka
 laskav
-skapai
 dusha
 strast
 vechnost
-nezhost
-slantse
 mechta
 lyubimi
 radost
@@ -149,18 +135,14 @@ mily
 
 [CATALAN]
 estimo
-cor
 estimada
-besit
 abracada
 dolcor
 vida
 estima
-tremolor
 passio
 sempitern
 tendresa
-cel
 peto
 desig
 tresor
@@ -181,7 +163,6 @@ njeznost
 zauvijek
 poljupci
 sreca
-sunce
 vjecnost
 vatra
 zelja
@@ -192,7 +173,6 @@ milovanje
 kaerlighed
 hjerte
 kram
-kys
 skat
 elskede
 soed
@@ -200,15 +180,12 @@ evighed
 lidenskab
 oemhed
 sjael
-liv
 forelsket
 oenske
 varme
 troskab
 droem
-lys
 stjerne
-skatje
 
 [ESPAGNOL]
 amor
@@ -231,7 +208,6 @@ enamorado
 afecto
 
 [ESPÉRANTO]
-amo
 koro
 karulo
 kiso
@@ -283,7 +259,6 @@ coeur
 douceur
 toujours
 flamme
-ame
 desir
 fiances
 caresse
@@ -295,19 +270,14 @@ adoration
 [GAÉLIQUE ÉCOSSAIS]
 gradh
 cridhe
-pog
-glacadh
 milis
 beatha
 anam
 pasain
 caoimhneis
 ionmhas
-deas
-cainnt
 solas
 blaths
-fealltachd
 aisling
 reul
 gaol
@@ -320,7 +290,6 @@ kardia
 fili
 agkalia
 glyka
-zoi
 psychi
 pathos
 aioniotita
@@ -333,7 +302,6 @@ latreia
 zestasia
 pisti
 oneiro
-fos
 asteri
 
 [HONGROIS]
@@ -356,20 +324,15 @@ huseg
 alom
 feny
 csillag
-szepsep
 
 [IRLANDAIS]
-gra
 croi
-embraces
 paision
 cinealtas
 alainn
-labhairt
 teas
 dilseacht
 realta
-cumann
 go_deo
 mo_stoir
 
@@ -445,7 +408,6 @@ neznost
 sakano
 zelba
 obozavanje
-son
 svetlost
 zvezda
 ubavina
@@ -455,7 +417,6 @@ sreka
 liefde
 hartje
 liefje
-kus
 knuffel
 zoet
 eeuwigheid
@@ -489,14 +450,11 @@ nydelig
 [OCCITAN]
 amoreta
 bais
-abracad
 docor
-arma
 totjorn
 calor
 fealtat
 pantais
-lum
 estela
 
 [POLONAIS]
@@ -515,8 +473,6 @@ kochany
 pragnienie
 uwielbienie
 cieplo
-meka
-sen
 swiatlo
 gwiazda
 piekno
@@ -553,7 +509,6 @@ dorinta
 adoratie
 caldura
 fidelitate
-vis
 lumina
 stea
 
@@ -562,7 +517,6 @@ serdtse
 milaya
 dorogoy
 potseluy
-solnyshko
 zajka
 krasotka
 nezhnost
@@ -573,17 +527,14 @@ ob_yatiya
 schast_ye
 
 [SERBE]
-san
 lepota
 
 [SLOVAQUE]
 laska
 srdce
-boztek
 objatie
 sladke
 vasen
-mecnost
 poklad
 milovany
 tuzba
@@ -598,7 +549,6 @@ karlek
 hjarta
 alskling
 gullig
-sot
 omhet
 sjal
 alskade
@@ -617,366 +567,141 @@ milacek
 touha
 zboznovani
 hvezda
-agilvwi
 gvgeyu
-atahuna
-uduli
-usdi
 adanvto
-svnohi
-elisi
-atsila
-ahani
 unalii
-kanandi
-gadu
-gihli
-osda
-tsigi
-amayi
 ulihelisdi
-asagda
-elohi
 shijei
-shidine
-shimah
-shizhee
 shiyazhi
 nizhoni
-ahixiini
 hozho
-ahee
 shiyaz
 shichooni
 shiilee
-ayoo
-hashte
-doonee
-cheetiin
 ayoor
 zaagi
 zaagiidiwin
-ode
-ningwis
-ndaanis
-niwiingewin
 gzaagiin
 minodee
-giizis
-nibi
-mashkiki
 zaagih
-jiens
 gzaagin
-maang
-noodin
-ozhibiiige
-nibiish
-mikwam
-miigwech
-sans_accents
 ayoor_anoshni
-taa_aanii
 shil_hozho
 
 [LAKOTA]
 thehila
 cante
 waonsida
-waste
 tehihila
-waci
-otoka
-nagi
-woyute
-wiyukchan
 wacinyan
 cantewaste
 cantognaka
 cantekiya
-w_waste
 cante_skuya
-o_waste
-cante_maske
 
 [INUKTITUT]
 nagligivat
 naglingniq
 uummat
-irniq
-panik
-piujuk
-ningiuk
-angut
-arnaq
-ikajuq
-qiuk
-qanimaniq
-tupiq
-siqiniq
-tatqiq
-qimukser
-illu
-tusaama
-quana
 nagligusuq
 sakih
 sakihitowin
 mteh
 kisewatisiwin
 sakihakan
-nisim
-nikawiy
-nohtawiy
 nipakosiyewin
 miyodee
-mino
-kisa
 miyosiwin
-niwiws
-nimosom
-nohkom
 nikisewatis
 nitotem
 sakihitin
-nipakosit
 
 [CHOCTAW]
-achukma
-chukfi
-chuka
-ishki
-ki
 chukash
 holitopa
-kanimi
-pisa
-nukoa
-nokhanglo
-okla
-haksi
-hihlah
-salik
-chim_achukma
-pisa_achukma
-sv_lashpa
 
 [INNU-AIMUN]
 shakieu
 tshishakietin
 utei
 minuatam
-tshiminupan
-minupan
-tshiteriten
-tshin
-nikan
-makusham
-ueshkat
-aimun
-nipi
-nipish
-mitshuap
-shaputuan
-tipiskau
-pishim
-matshi
 tlazohtla
 yolotl
 tlazohtli
 xochitl
-tonalli
 noyollo
-tlazohcamati
-chichik
-kualli
-ilhuicatl
-mahuizotl
-pampa
 tetlazohtlaliztli
 yoliliztli
 yolloxochitl
 cualnezqui
 netlazohtlaliztli
-tlahuil
-tlapal
-nozo_holy
 
 [MAYA KICHE]
 loqoj
-kux
 loqalaj
-qapoj
-rajaw
-tinamit
-qaq
 loqo
 kaslem
-uxlab
 loqobal
-tzonoj
 chumil
 saqil
 kotzij
-qij
-alaj
 kulanem
-uwach
 loqanik
 
 [MAYA YUCATEQUE]
 yaakunaj
-pel
 pucsiikal
 kiichpan
 chujuk
-kaaba
 kuxtal
-otsil
-chiibal
-kiin
-uuy
-mukyah
 yaakunah
-ujel
 yaakun
-chul
-utz
-mehen
-taan
 sabedi
-sabed
-ulub
-dada
-mu
-sagla
-niga
-boni
-mala
-nuet
-absoget
 burba
-obali
-durdagal
-ina
-galu
-muat
-ua
-nega
 in_yaakunet
 an_sabedi
 
 [GARIFUNA]
-isieni
-gubida
 ibagari
 anichi
-anugi
 numada
 ugundani
-gari
-haruga
-bununa
-ibani
-idaguma
-sun
-daragu
-bungiu
 buitu
-gani
-chulugu
-aban
 
 [MISKITO]
 latwan
 kupia
 swapni
-yamni
-pira
-insla
-aisaba
 maya
-kli
-kaiki
-upla
-aisat
-bara
-wan
-rait
-piuro
-tuktan
-plun
 latwan_laya
 
 [ZAPOTEC]
-tzaa
-laa
-stobi
-lee
 xquenda
-zaa
 nayaxhi
-racaxi
-stobe
 xquendaya
 biaani
-guenda
-benda
 ladxiddo
-xila
-nani
-xaba
-dxi
-dxii
 
 [MIXTECO]
-tasavi
-inii
 kuni
-kutani
 mani
-nduvua
-vee
-kuu
-ndani
-vii
-vaa
-kahan
-xani
-yukunsa
-tata
-nana
-suchi
-chitu
-ndaa
 
 [CRÉOLE HAÏTIEN]
 lanmou
 chouchou
 doudou
-ke
 dous
-dousman
-bo
 embrase
 toujou
 trezo
-chal
-manman
 lavi
-bel
-sansyon
 ti_ke
 
 [CRÉOLE GUADELOUPÉEN]
-tch
 bizou
-kylen
 pasyon
 souri
-sipozisyon
 ti_tch
-ti_kien
 lanmou_mwen
 
 [CRÉOLE MARTINIQUAIS]
@@ -988,29 +713,11 @@ kout_tche
 ti_doudou
 
 [TAINO]
-guani
-ana
-caron
-cahi
-chebi
-guami
-atacay
-turi
-maiz
-cacique
-bohitio
-yukayeque
-cem
-boriken
 guatiao
-maboya
-yuca
-batey
 
 [PAPIAMENTO]
 dushi
 curason
-ebon
 semper
 stima
 dushikito
@@ -1018,11 +725,7 @@ bida
 bunita
 tierno
 companero
-soo
-luz
-fawor
 un_brasa
-un_dunami
 
 [QUECHUA]
 munay
@@ -1037,34 +740,23 @@ urpi
 sonqollay
 masi
 kawsay
-inti
 tika
 koyllur
 yanantin
-tian
-waylla
 sumaqta
 kuyakuy
 
 [GUARANI]
 mborayhu
-pya
 kunuu
 hetu
-pyaguapy
-tetar
-por
-angir
 tekove
-ko
 yvoty
 mbyja
-mbae
 rohayhu
 poty
 che_rahu
 che_kamba
-che_ama
 
 [AYMARA]
 munasia
@@ -1073,17 +765,9 @@ munata
 munani
 suma
 jakawi
-uru
 warawara
-panpachani
-aruskipasipxanani
 munasiwi
-jaysaataki
-chuymani
 kantuta
-quta
-wayna
-tawaqu
 munsta
 chuymama
 
@@ -1091,106 +775,14 @@ chuymama
 poyewn
 piwke
 aywn
-ayn
 poye
-kine
-fey
-newen
-kuyen
-ant
 rayen
 wenuy
-kurf
-choyn
-feley
 monen
-rema
 
 [WAYUU]
 aishi
-ais
-anas
-aleker
-anashi
-achi
-ama
-epinayu
-kamusuchi
-kasiho
-kai
-kashi
 aliih
-miuchi
-kepeshi
-tepichi
-alepajee
-ais_piamale
-
-[NHEENGATU]
-saiso
-piasawa
-muraki
-mirasawa
-paran
-mir
-tetama
-apigawa
-kunh
-iwapora
-panema
-pitanga
-yby
-yaka
-takwara
-yapur
-mawa
-yasa
-kassabo
-kakhu
-adaja
-bahu
-loko
-hiaro
-wiwa
-hadali
-oni
-koye
-kobat
-karapa
-yawara
-kase
-
-[SHIPIBO-KONIBO]
-noi
-noikani
-shanti
-jemba
-ani
-benbo
-xeta
-ainbo
-xobo
-bari
-oxe
-jene
-ni
-shinian
-rao
-tsinsin
-bake
-tsiti
-
-[TUPI-GUARANI]
-angatupa
-coaracy
-jaci
-ara
-yvy
-paramirim
-mirim
-ceuci
-aba
-tapuy
 
 [ARABE]
 habibi
@@ -1218,12 +810,10 @@ ya_ayni
 ahava
 neshama
 yakar
-lev
 kishuf
 tsachok
 chibut
 neshika
-dod
 rati
 dodim
 tamid
@@ -1231,13 +821,11 @@ malach
 chesed
 chaye
 yakira
-oz
 dodai
 chemad
 bat_yaan
 
 [TURC]
-ask
 sevgi
 askim
 canim
@@ -1262,7 +850,6 @@ biricik
 eshgh
 nafasam
 azizam
-del
 ghalb
 janam
 hamnasheen
@@ -1281,7 +868,6 @@ hamrah
 doostat_daram
 
 [ARMÉNIEN]
-ser
 hoki
 sirt
 sirats
@@ -1310,7 +896,6 @@ kotsna
 chakucheba
 tkbili
 tsotne
-mze
 angelozi
 otsneba
 vneta
@@ -1385,7 +970,6 @@ mahabat
 yssyk
 
 [TADJIK]
-dil
 jonam
 ogush
 vafo
@@ -1408,7 +992,6 @@ arzuw
 wepaly
 yylylyk
 yildiz
-ot
 ebedi
 bagt
 gozler
@@ -1447,7 +1030,6 @@ priyo
 shona
 poran
 hridoy
-mon
 adar
 snaiho
 kobita
@@ -1507,7 +1089,6 @@ jeev
 hruday
 jiwala
 maza
-aas
 spandan
 mogra
 aawad
@@ -1517,7 +1098,6 @@ sughandh
 godwa
 sparsh
 premika
-nat
 sobat
 maza_sobat
 
@@ -1528,7 +1108,6 @@ rathtaran
 obata
 suwanda
 senehasa
-pem
 suwada
 jeevitaya
 adari
@@ -1539,7 +1118,6 @@ tharuwa
 alokaya
 sthira
 rasaya
-oba
 premaya
 chiththa
 
@@ -1586,10 +1164,6 @@ pag_asa
 
 [VIETNAMIEN]
 thuong
-yeu
-om
-hon
-nho
 nguoi_yeu
 trai_tim
 thuong_yeu
@@ -1607,15 +1181,10 @@ khat_khao
 diu_dang
 
 [THAÏ]
-rak
 teerak
-kod
 joom
 cheevit
-fan
 sanya
-fa
-dao
 saad
 suay
 hua_jai
@@ -1642,9 +1211,7 @@ srey
 kbal
 phkai
 chhit
-pka
 bong
-un
 komnot
 srolanh_neak
 srey_laor
@@ -1657,7 +1224,6 @@ hnalontha
 chitthu
 phet
 nann
-cho
 athet
 aitmet
 chit
@@ -1665,7 +1231,6 @@ hnalon
 thida
 noothen
 myawlint
-kye
 apyaw
 thitsa
 pyone
@@ -1674,12 +1239,10 @@ akyi
 chitmyat
 
 [MANDARIN]
-ai
 qing
 baobei
 xinxian
 xian
-xin
 zhiyin
 xihuan
 yusheng
@@ -1696,7 +1259,6 @@ xian_ai
 re_ai
 
 [JAPONAIS]
-koi
 suki
 kokoro
 daisuki
@@ -1704,7 +1266,6 @@ aishiteru
 koibito
 itoshii
 unmei
-jo
 megumi
 dearest
 bokuno
@@ -1734,7 +1295,6 @@ jinsim
 yeppeun
 yeongwon
 ngoi
-sam
 sweet
 po_pei
 oi_yan
@@ -1767,17 +1327,14 @@ sergelen
 mordon
 khusel
 dulaan
-od
 khani
 unench
 ekhlel
 khairlasan
 unet
 duuran
-hob
 hbibi
 qalbi
-azi
 bouss
 tnagniq
 hlou
@@ -1788,10 +1345,8 @@ nwtq
 hobi
 chawq
 aziz
-zin
 teghnaq
 tayri
-ul
 tayriw
 taziri
 ayur
@@ -1810,7 +1365,6 @@ afulki
 thafukt
 thudert
 agape
-het
 menre
 maie
 aspasmos
@@ -1842,7 +1396,6 @@ tamuu
 maisha
 roho
 mbinguni
-malaya
 ndoto
 furaha
 joto
@@ -1854,16 +1407,13 @@ milele
 hamu
 
 [HAOUSSA]
-so
 zuciya
 masoyi
 soyayya
 sunbace
 rungume
-zakada
 rayuwa
 kurwa
-samaniya
 malaika
 mafarki
 farinciki
@@ -1872,91 +1422,42 @@ aminci
 tauraro
 haske
 kyau
-kwadayi
 har_abada
 
 [YORUBA]
-ife
 okan
 olufe
 ifefe
-zweet
-aye
-emi
 orun
 angeli
-ala
-ayo
 igbona
 otito
 irawo
 imole
-ewa
-fe
 gba_mora
 fi_enu_ko
 titi_lai
 
 [IGBO]
 ihunanya
-obi
-omume
 makuo
-sutu
-uto
-ndu
-mmo
-nro
 anwuri
-oku
 kpakpando
-ihe
-mma
 aguu
-yidde
-bernde
-gido
-yidango
-muuchugol
-mooftugol
-welo
-nguurndam
-yonki
-asaman
-maleyka
-koydol
-beldum
-wulnde
-goonga
-hoode
-jaangol
-lobbo
-poofngol
 onye_alumu
 elu_igwe
-mmuo_ozi
 ikwasi_obi
 
 [WOLOF]
-nob
-xol
-soxna
-bray
-bcceuk
-nabb
 neex
 dund
-xel
 asamaan
 malaaka
 geent
-mbgte
 tangaay
-dgg
 biddew
 leer
 rafet
-bgg
 ba_faw
 
 [BAMBARA]
@@ -1965,30 +1466,19 @@ dusukun
 kanubagaw
 kanuya
 susumu
-minan
 duman
-nyenaji
 sankolo
-mlek
 sugo
 nisondiya
-kalaniya
-tiyena
 dolo
 yeelen
 ceye
-feni
-odo
 akoma
 medofo
 fefeefe
 atuu
-mfeano
-dew
 nkwa
-kra
 soro
-abrofo
 daae
 anigye
 hyew
@@ -1996,26 +1486,16 @@ nokware
 nsoromma
 hann
 afeboo
-apere
 foo_abada
 
 [EWE]
 lolo
-dzi
-amedzo
-gbogbo
 vivi
 agbe
-luwo
 dzifo
-mawudorla
-drzo
 dzidzo
-dzo
 nutefe
-wle
 kekeli
-atsu
 tegbee
 dzro
 lolo_tyo
@@ -2023,62 +1503,33 @@ kpla_asi
 
 [FON]
 wanyi
-me
 wanyito
 gbigbo
-gbakpa
-nungbizo
-gbe
-yeyi
-jixwe
-mawu
-dlolam
-awaji
-myo
 nugbo
 weziza
 dagbe
-kakadoi
-jro
-nonglem
 suuri
 nongra
 nongma
 kuuni
 noogo
-vuum
-sii
-saaga
 maleka
-bango
-sanyelo
-tulp
 sidga
 neere
-gomde
-wakat
-kudum
-m_ma
 
 [LINGALA]
 bolingo
 motema
-mboloko
-lipwela
-yamba
-pusa
 elengi
 bomoi
 molimo
 likolo
 anjelu
 esengo
-moto
 sembo
 minzoto
 pole
 kitoko
-lobiko
 posa
 
 [KIKONGO]
@@ -2086,16 +1537,11 @@ zola
 ntima
 zolana
 bizola
-yambana
-fika
-nsudi
 mpeve
 zulu
-mbasi
 ndosi
 kyese
 tiya
-kwikama
 ntetembwa
 ntemo
 seko
@@ -2105,70 +1551,39 @@ nsatu
 dinanga
 mutshima
 munanga
-musangu
-kowa
-meza
 nsanka
 muoyo
 nyuma
 diulu
 munjelu
-tshipunzu
 disanka
 kapia
-buledi
 mutoto
-dituku
 bimpe
 tshiendelele
-djinka
 
 [SANGO]
 ndoye
-be
-mbene
-gbu
-tusu
 nzoni
 fini
 yingo
 nduzu
 ngia
-wa
 tongoro
-lozi
-ye
 ndoye_mingi
 tene_ti_biani
 lakue_lakue
 
 [FANG]
-nying
 nlem
-nyinga
-nyingan
-ba
-fep
-mveng
 ening
 nsisim
-yop
 enjel
-nlot
-abui
-fufop
-ten
-ntang
-elang
-mbe
-abyang
-ayen
 
 [LUGANDA]
 okwagala
 omutima
 omwagalwa
-kussa
 kwagala
 nywegera
 biwoomu
@@ -2198,10 +1613,8 @@ samii
 maleekaa
 abjuu
 gammachuu
-hoa
 amanamummaa
 urjii
-ifa
 bareeda
 hawwii
 bara_bara
@@ -2210,9 +1623,6 @@ bara_bara
 jacayl
 wadnaha
 gacaliye
-dhusuq
-duubid
-dhallaan
 macaan
 nolosha
 nafta
@@ -2226,11 +1636,6 @@ xiddig
 iftiin
 qurux
 hammo
-fiker
-lib
-yefikir
-ikf
-matem
 hiwot
 nefs
 semay
@@ -2238,32 +1643,20 @@ melak
 hilm
 destah
 muket
-taemast
 kokeb
 berhan
 konjo
 lezelalem
-mefeteg
-fikirom
 libi
 fkur
-simmet
-meantza
-meaz
 heywet
 nafsi
 malak
 hilmi
-dhushet
-leli
 kokob
-tsbuq
-nzelalem
 fitiavana
-fo
 malala
 safosafo
-nify
 tsara
 mami
 fiainana
@@ -2278,7 +1671,6 @@ kintana
 mazava
 kanto
 mandrakizay
-iraka
 
 [ZULU]
 uthando
@@ -2313,13 +1705,11 @@ ngonaphakade
 lerato
 pelo
 moratowa
-mehopolo
 monate
 bophelo
 moya
 lehodimo
 lengeloi
-toropo
 thabo
 mofuthu
 botshepehi
@@ -2327,16 +1717,11 @@ naleli
 leseli
 bontle
 takatso
-ho_kopa
-ho_meka
-ka_ho_sa_feleng
 
 [SETSWANA]
 lorato
 moratwa
 kgatlhego
-tshopora
-atla
 botshelo
 mowa
 legodimo
@@ -2347,13 +1732,11 @@ kgotso
 boammaruri
 naledi
 lesedi
-keleletso
 go_ya_go_ile
 
 [SHONA]
 rudo
 mudiwa
-dakunanzva
 mbundira
 tsvoda
 zvinotapira
@@ -2373,55 +1756,19 @@ chido
 
 [HAWAÏEN]
 aloha
-kuipua
-maile
-ipo
-hanohano
-mahalo
 pili
-manawa
-pua
-paao
 pualani
 honi
-manu
-hookahi
 pilialoha
-pau
 aloha_wau
 
 [TAHITIEN]
 aroha
 here
-teina
-taeae
-metua
-vairaata
-teiti
-rima
-horo
-parau
-mahana
-moana
-pohee
-feti
 oraraa
-taata
-hotu
-fetii
 ngakau
-roimata
-mate
 wairua
-whanau
-kakara
-koha
-tapu
-tautoko
 mauri
-aotearoa
-wai
-marama
 whetu
 oranga
 ataahua
@@ -2431,81 +1778,37 @@ hoa_here
 [SAMOAN]
 alofa
 fatu
-uameme
-pule
 agaga
-tasi
 fiafia
 fusi
 fetu
-aso
-ola
-mamalu
-viia
-tamaitai
-tane
 faamoemoe
-fono
 faamaoni
 
 [TONGAN]
-ofa
 mafu
-siu
-kainga
 laumalie
 maama
-peheu
-haohaoa
-puke
-siana
-fafine
-fonua
-lotu
 mooni
 fiefia
 amanaki
 manava
-ragi
-poki
-kaku
-teka
-miro
-kaho
-hinareru
-matatoa
-ariki
-korua
-maurua
-umu
-henua
 hoa_aroha
 poki_aroha
 
 [WALLISIEN]
-kaiga
-mauli
-aga
-tagata
 fetuu
 lelei
-kakai
-hau
-fenua
-taahine
 
 [FIDJIEN]
 loloma
 domoni
 dodomo
 veilomani
-vesu
 reguci
-cegu
 bula
 yalo
 lomalagi
-kalou
 marau
 katakata
 kalokalo
@@ -2513,103 +1816,38 @@ rarama
 totoka
 tawamudu
 pren
-moa
-kisim
-givim
 laip
 spirit
 heven
 ensel
-tinbak
 hamamas
-hat
-tru
-sta
 lait
 gutpela
-olsem
-laff
 fren
 laef
 anjel
 drim
 amamas
-hot
 trutru
 laet
 gudfala
 olwe
 wantem
 lalokau
-lalo
-bamona
 namo
 turana
-mai
-abia
 lauma
 guba
 aneru
-nihi
 moale
 siahu
 momokani
 hisiu
 diari
 hanaihanai
-ura
-ihnimi
-ilun
-qane
-hapa
-mel
-uin
-qatr
-ixihiti
-hnapa
-meci
-tro
-dridri
-eje
-alene
-dropping
-thup
-nyipi
-aloin
-nyine
-wawaim
-bala
-bartur
-nurna
-maur
-tulungan
-kunan
-nurnur
-gugu
-takodo
-kapul
-kalang
-pupu
-boina
-vana
-liman
 guaiya
-amot
-pao
-chiku
-magof
-linala
-anhet
-tano
-halo
-hinasso
 guinaiya
-maiena
-estrellas
-fia
-manana
 maolek
-taotao
 dodomo_dina
 veilomani_dina
 pasin_bilong_pas
@@ -2618,101 +1856,871 @@ stap_wantaim
 mi_lovem_yu
 stap_wetem
 namo_herea
-bala_na_vana
-bartur_marum
-na_ka
 
 [PALAUAN]
 reng
-sechelige
-soan
-osurech
 mengull
 klengar
-chelid
-milingil
 deureng
-kerel
 merang
 btuuch
-bad
-mesei
-kldibel
 ungil
-buuch
-blai
-tedei
 betik_a_reng
 
 [GILBERTAIN / KIRIBATI]
 tangira
-nanon
-boboti
-kunei
 maiu
 tamnei
 karawa
-mimi
 kukurei
-katituara
 koaua
 itoi
 oota
 raoiroi
-kawai
 aki_toki
 
 [MARSHALLAIS]
 yokwe
 buru
 jera
-monono
-kabjere
 kallimur
 mour
-jitton
-lan
-inepata
-lanin
-kible
 mool
-iju
 meram
 emman
 indeeo
-kona
-mukuringanyi
-kuru
-kata
-kutju
-walytja
 kurunpa
-wara
-pukuwiyani
-pulka
-nganana
-tjitji
-ngura
 wiru
-tjunpu
-munu
 palya
-nyinanyi
-kunpu
-tjungoringanyi
-palyanji
-yirdamuru
-ngapa
-yapa
-walyja
 pirlirrpa
-ngurra
-wardapi
-kurdu
-wirriya
-ngamaji
-ngapuju
-warlu
-karu
-miyi
-nyinami
+
+# ====================================================================
+# MOTS ECARTES : trop courts (3 lettres ou moins)
+#
+# Ils se lisent comme du bruit, et plusieurs se confondent avec des mots
+# francais ou anglais : hot, son, ant, ask, fan, dew, mon, be, ye, wa, so, un.
+#
+# [ALBANAIS] sy
+# [ANGLAIS] hug
+# [CATALAN] cor
+# [CATALAN] cel
+# [DANOIS] kys
+# [DANOIS] liv
+# [DANOIS] lys
+# [ESPÉRANTO] amo
+# [FRANÇAIS] ame
+# [GAÉLIQUE ÉCOSSAIS] pog
+# [GREC] zoi
+# [GREC] fos
+# [IRLANDAIS] gra
+# [MACÉDONIEN] son
+# [NÉERLANDAIS] kus
+# [OCCITAN] lum
+# [POLONAIS] sen
+# [ROUMAIN] vis
+# [SERBE] san
+# [SUÉDOIS] sot
+# [TCHÈQUE] ode
+# [CHOCTAW] ki
+# [MAYA KICHE] kux
+# [MAYA KICHE] qaq
+# [MAYA KICHE] qij
+# [MAYA YUCATEQUE] pel
+# [MAYA YUCATEQUE] uuy
+# [MAYA YUCATEQUE] utz
+# [MAYA YUCATEQUE] mu
+# [MAYA YUCATEQUE] ina
+# [MAYA YUCATEQUE] ua
+# [GARIFUNA] sun
+# [MISKITO] kli
+# [MISKITO] wan
+# [ZAPOTEC] laa
+# [ZAPOTEC] lee
+# [ZAPOTEC] zaa
+# [ZAPOTEC] dxi
+# [MIXTECO] vee
+# [MIXTECO] kuu
+# [MIXTECO] vii
+# [MIXTECO] vaa
+# [CRÉOLE HAÏTIEN] ke
+# [CRÉOLE HAÏTIEN] bo
+# [CRÉOLE HAÏTIEN] bel
+# [CRÉOLE GUADELOUPÉEN] tch
+# [TAINO] ana
+# [TAINO] cem
+# [PAPIAMENTO] soo
+# [PAPIAMENTO] luz
+# [GUARANI] pya
+# [GUARANI] por
+# [GUARANI] ko
+# [AYMARA] uru
+# [MAPUDUNGUN] ayn
+# [MAPUDUNGUN] fey
+# [MAPUDUNGUN] ant
+# [WAYUU] ais
+# [WAYUU] ama
+# [WAYUU] kai
+# [NHEENGATU] mir
+# [NHEENGATU] yby
+# [NHEENGATU] oni
+# [SHIPIBO-KONIBO] noi
+# [SHIPIBO-KONIBO] ani
+# [SHIPIBO-KONIBO] oxe
+# [SHIPIBO-KONIBO] ni
+# [SHIPIBO-KONIBO] rao
+# [TUPI-GUARANI] ara
+# [TUPI-GUARANI] yvy
+# [TUPI-GUARANI] aba
+# [HÉBREU] lev
+# [HÉBREU] dod
+# [HÉBREU] oz
+# [TURC] ask
+# [PERSAN] del
+# [ARMÉNIEN] ser
+# [GÉORGIEN] mze
+# [TADJIK] dil
+# [TOURKMÈNE] ot
+# [BENGALI] mon
+# [MARATHI] aas
+# [MARATHI] nat
+# [SINHALA] pem
+# [SINHALA] oba
+# [VIETNAMIEN] yeu
+# [VIETNAMIEN] om
+# [VIETNAMIEN] hon
+# [VIETNAMIEN] nho
+# [THAÏ] rak
+# [THAÏ] kod
+# [THAÏ] fan
+# [THAÏ] fa
+# [THAÏ] dao
+# [KHMER] pka
+# [KHMER] un
+# [BIRMAN] cho
+# [BIRMAN] kye
+# [MANDARIN] ai
+# [MANDARIN] xin
+# [JAPONAIS] koi
+# [JAPONAIS] jo
+# [CORÉEN] sam
+# [MONGOL] od
+# [MONGOL] hob
+# [MONGOL] azi
+# [MONGOL] zin
+# [MONGOL] ul
+# [MONGOL] het
+# [HAOUSSA] so
+# [YORUBA] ife
+# [YORUBA] aye
+# [YORUBA] emi
+# [YORUBA] ala
+# [YORUBA] ayo
+# [YORUBA] ewa
+# [YORUBA] fe
+# [IGBO] obi
+# [IGBO] uto
+# [IGBO] ndu
+# [IGBO] mmo
+# [IGBO] nro
+# [IGBO] oku
+# [IGBO] ihe
+# [IGBO] mma
+# [WOLOF] nob
+# [WOLOF] xol
+# [WOLOF] xel
+# [WOLOF] dgg
+# [WOLOF] bgg
+# [BAMBARA] odo
+# [BAMBARA] dew
+# [BAMBARA] kra
+# [EWE] dzi
+# [EWE] dzo
+# [EWE] wle
+# [FON] me
+# [FON] gbe
+# [FON] myo
+# [FON] jro
+# [FON] sii
+# [SANGO] be
+# [SANGO] gbu
+# [SANGO] wa
+# [SANGO] ye
+# [FANG] ba
+# [FANG] fep
+# [FANG] yop
+# [FANG] ten
+# [FANG] mbe
+# [OROMO] hoa
+# [OROMO] ifa
+# [SOMALI] lib
+# [SOMALI] ikf
+# [SOMALI] fo
+# [HAWAÏEN] ipo
+# [HAWAÏEN] pua
+# [HAWAÏEN] pau
+# [TAHITIEN] wai
+# [SAMOAN] aso
+# [SAMOAN] ola
+# [TONGAN] ofa
+# [TONGAN] siu
+# [TONGAN] umu
+# [WALLISIEN] aga
+# [WALLISIEN] hau
+# [FIDJIEN] moa
+# [FIDJIEN] hat
+# [FIDJIEN] tru
+# [FIDJIEN] sta
+# [FIDJIEN] hot
+# [FIDJIEN] mai
+# [FIDJIEN] ura
+# [FIDJIEN] mel
+# [FIDJIEN] uin
+# [FIDJIEN] tro
+# [FIDJIEN] eje
+# [FIDJIEN] pao
+# [FIDJIEN] fia
+# [MARSHALLAIS] lan
+# [MARSHALLAIS] iju
+
+# ====================================================================
+# MOTS ECARTES : hors du champ lexical de l amour
+#
+# Reperes dans les langues que je peux verifier : sens etranger au sujet,
+# faute de frappe, ou lecture facheuse.
+#
+# [ALBANAIS] mefal
+# [ALBANAIS] embelsira
+# [ALBANAIS] me_ke
+# [ALLEMAND] wohlgefuehl
+# [BASQUE] karkara
+# [BASQUE] zortea
+# [BIÉLORUSSE] kachanodze
+# [BIÉLORUSSE] sonca
+# [BIÉLORUSSE] marja
+# [BIÉLORUSSE] tyulpan
+# [BULGARE] pregradka
+# [BULGARE] skapai
+# [BULGARE] nezhost
+# [BULGARE] slantse
+# [CATALAN] besit
+# [CATALAN] tremolor
+# [CROATE] sunce
+# [DANOIS] skatje
+# [GAÉLIQUE ÉCOSSAIS] glacadh
+# [GAÉLIQUE ÉCOSSAIS] deas
+# [GAÉLIQUE ÉCOSSAIS] cainnt
+# [GAÉLIQUE ÉCOSSAIS] fealltachd
+# [HONGROIS] szepsep
+# [IRLANDAIS] labhairt
+# [IRLANDAIS] cumann
+# [OCCITAN] abracad
+# [OCCITAN] arma
+# [POLONAIS] meka
+# [RUSSE] solnyshko
+# [SLOVAQUE] boztek
+# [SLOVAQUE] mecnost
+
+# ====================================================================
+# MOTS ECARTES : sens non verifiable
+#
+# Langues que je ne sais pas verifier. Je n ai garde que les mots dont je
+# reconnais positivement le sens amoureux ; ceux-ci decrivent le plus souvent
+# la maison, l eau, le feu, la nourriture, les animaux ou la parente.
+#
+# [TCHÈQUE] agilvwi
+# [TCHÈQUE] atahuna
+# [TCHÈQUE] uduli
+# [TCHÈQUE] usdi
+# [TCHÈQUE] svnohi
+# [TCHÈQUE] elisi
+# [TCHÈQUE] atsila
+# [TCHÈQUE] ahani
+# [TCHÈQUE] kanandi
+# [TCHÈQUE] gadu
+# [TCHÈQUE] gihli
+# [TCHÈQUE] osda
+# [TCHÈQUE] tsigi
+# [TCHÈQUE] amayi
+# [TCHÈQUE] asagda
+# [TCHÈQUE] elohi
+# [TCHÈQUE] shidine
+# [TCHÈQUE] shimah
+# [TCHÈQUE] shizhee
+# [TCHÈQUE] ahixiini
+# [TCHÈQUE] ahee
+# [TCHÈQUE] ayoo
+# [TCHÈQUE] hashte
+# [TCHÈQUE] doonee
+# [TCHÈQUE] cheetiin
+# [TCHÈQUE] ningwis
+# [TCHÈQUE] ndaanis
+# [TCHÈQUE] niwiingewin
+# [TCHÈQUE] giizis
+# [TCHÈQUE] nibi
+# [TCHÈQUE] mashkiki
+# [TCHÈQUE] jiens
+# [TCHÈQUE] maang
+# [TCHÈQUE] noodin
+# [TCHÈQUE] ozhibiiige
+# [TCHÈQUE] nibiish
+# [TCHÈQUE] mikwam
+# [TCHÈQUE] miigwech
+# [TCHÈQUE] taa_aanii
+# [LAKOTA] waste
+# [LAKOTA] waci
+# [LAKOTA] otoka
+# [LAKOTA] nagi
+# [LAKOTA] woyute
+# [LAKOTA] wiyukchan
+# [LAKOTA] w_waste
+# [LAKOTA] o_waste
+# [LAKOTA] cante_maske
+# [INUKTITUT] irniq
+# [INUKTITUT] panik
+# [INUKTITUT] piujuk
+# [INUKTITUT] ningiuk
+# [INUKTITUT] angut
+# [INUKTITUT] arnaq
+# [INUKTITUT] ikajuq
+# [INUKTITUT] qiuk
+# [INUKTITUT] qanimaniq
+# [INUKTITUT] tupiq
+# [INUKTITUT] siqiniq
+# [INUKTITUT] tatqiq
+# [INUKTITUT] qimukser
+# [INUKTITUT] illu
+# [INUKTITUT] tusaama
+# [INUKTITUT] quana
+# [INUKTITUT] nisim
+# [INUKTITUT] nikawiy
+# [INUKTITUT] nohtawiy
+# [INUKTITUT] mino
+# [INUKTITUT] kisa
+# [INUKTITUT] niwiws
+# [INUKTITUT] nimosom
+# [INUKTITUT] nohkom
+# [INUKTITUT] nipakosit
+# [CHOCTAW] achukma
+# [CHOCTAW] chukfi
+# [CHOCTAW] chuka
+# [CHOCTAW] ishki
+# [CHOCTAW] kanimi
+# [CHOCTAW] pisa
+# [CHOCTAW] nukoa
+# [CHOCTAW] nokhanglo
+# [CHOCTAW] okla
+# [CHOCTAW] hihlah
+# [CHOCTAW] salik
+# [CHOCTAW] chim_achukma
+# [CHOCTAW] pisa_achukma
+# [CHOCTAW] sv_lashpa
+# [INNU-AIMUN] tshiminupan
+# [INNU-AIMUN] minupan
+# [INNU-AIMUN] tshiteriten
+# [INNU-AIMUN] tshin
+# [INNU-AIMUN] nikan
+# [INNU-AIMUN] makusham
+# [INNU-AIMUN] ueshkat
+# [INNU-AIMUN] aimun
+# [INNU-AIMUN] nipi
+# [INNU-AIMUN] nipish
+# [INNU-AIMUN] mitshuap
+# [INNU-AIMUN] shaputuan
+# [INNU-AIMUN] tipiskau
+# [INNU-AIMUN] pishim
+# [INNU-AIMUN] matshi
+# [INNU-AIMUN] tonalli
+# [INNU-AIMUN] tlazohcamati
+# [INNU-AIMUN] chichik
+# [INNU-AIMUN] kualli
+# [INNU-AIMUN] ilhuicatl
+# [INNU-AIMUN] mahuizotl
+# [INNU-AIMUN] pampa
+# [INNU-AIMUN] tlahuil
+# [INNU-AIMUN] tlapal
+# [MAYA KICHE] qapoj
+# [MAYA KICHE] rajaw
+# [MAYA KICHE] tinamit
+# [MAYA KICHE] uxlab
+# [MAYA KICHE] tzonoj
+# [MAYA KICHE] alaj
+# [MAYA KICHE] uwach
+# [MAYA YUCATEQUE] kaaba
+# [MAYA YUCATEQUE] otsil
+# [MAYA YUCATEQUE] chiibal
+# [MAYA YUCATEQUE] kiin
+# [MAYA YUCATEQUE] mukyah
+# [MAYA YUCATEQUE] ujel
+# [MAYA YUCATEQUE] chul
+# [MAYA YUCATEQUE] mehen
+# [MAYA YUCATEQUE] taan
+# [MAYA YUCATEQUE] sabed
+# [MAYA YUCATEQUE] ulub
+# [MAYA YUCATEQUE] dada
+# [MAYA YUCATEQUE] sagla
+# [MAYA YUCATEQUE] boni
+# [MAYA YUCATEQUE] mala
+# [MAYA YUCATEQUE] nuet
+# [MAYA YUCATEQUE] absoget
+# [MAYA YUCATEQUE] obali
+# [MAYA YUCATEQUE] durdagal
+# [MAYA YUCATEQUE] galu
+# [MAYA YUCATEQUE] muat
+# [MAYA YUCATEQUE] nega
+# [GARIFUNA] isieni
+# [GARIFUNA] gubida
+# [GARIFUNA] anugi
+# [GARIFUNA] gari
+# [GARIFUNA] haruga
+# [GARIFUNA] bununa
+# [GARIFUNA] ibani
+# [GARIFUNA] idaguma
+# [GARIFUNA] daragu
+# [GARIFUNA] bungiu
+# [GARIFUNA] gani
+# [GARIFUNA] chulugu
+# [GARIFUNA] aban
+# [MISKITO] yamni
+# [MISKITO] pira
+# [MISKITO] insla
+# [MISKITO] aisaba
+# [MISKITO] kaiki
+# [MISKITO] upla
+# [MISKITO] aisat
+# [MISKITO] bara
+# [MISKITO] rait
+# [MISKITO] piuro
+# [MISKITO] tuktan
+# [MISKITO] plun
+# [ZAPOTEC] tzaa
+# [ZAPOTEC] stobi
+# [ZAPOTEC] racaxi
+# [ZAPOTEC] stobe
+# [ZAPOTEC] guenda
+# [ZAPOTEC] benda
+# [ZAPOTEC] xila
+# [ZAPOTEC] nani
+# [ZAPOTEC] xaba
+# [ZAPOTEC] dxii
+# [MIXTECO] tasavi
+# [MIXTECO] inii
+# [MIXTECO] kutani
+# [MIXTECO] nduvua
+# [MIXTECO] ndani
+# [MIXTECO] kahan
+# [MIXTECO] xani
+# [MIXTECO] yukunsa
+# [MIXTECO] tata
+# [MIXTECO] nana
+# [MIXTECO] suchi
+# [MIXTECO] chitu
+# [MIXTECO] ndaa
+# [CRÉOLE HAÏTIEN] dousman
+# [CRÉOLE HAÏTIEN] chal
+# [CRÉOLE HAÏTIEN] manman
+# [CRÉOLE HAÏTIEN] sansyon
+# [CRÉOLE GUADELOUPÉEN] kylen
+# [CRÉOLE GUADELOUPÉEN] sipozisyon
+# [CRÉOLE GUADELOUPÉEN] ti_kien
+# [TAINO] guani
+# [TAINO] caron
+# [TAINO] cahi
+# [TAINO] chebi
+# [TAINO] guami
+# [TAINO] atacay
+# [TAINO] turi
+# [TAINO] maiz
+# [TAINO] cacique
+# [TAINO] bohitio
+# [TAINO] yukayeque
+# [TAINO] boriken
+# [TAINO] maboya
+# [TAINO] yuca
+# [TAINO] batey
+# [PAPIAMENTO] ebon
+# [PAPIAMENTO] fawor
+# [PAPIAMENTO] un_dunami
+# [QUECHUA] inti
+# [QUECHUA] tian
+# [QUECHUA] waylla
+# [GUARANI] pyaguapy
+# [GUARANI] tetar
+# [GUARANI] angir
+# [GUARANI] mbae
+# [GUARANI] che_ama
+# [AYMARA] panpachani
+# [AYMARA] aruskipasipxanani
+# [AYMARA] jaysaataki
+# [AYMARA] chuymani
+# [AYMARA] quta
+# [AYMARA] wayna
+# [AYMARA] tawaqu
+# [MAPUDUNGUN] kine
+# [MAPUDUNGUN] newen
+# [MAPUDUNGUN] kuyen
+# [MAPUDUNGUN] kurf
+# [MAPUDUNGUN] choyn
+# [MAPUDUNGUN] feley
+# [MAPUDUNGUN] rema
+# [WAYUU] anas
+# [WAYUU] aleker
+# [WAYUU] anashi
+# [WAYUU] achi
+# [WAYUU] epinayu
+# [WAYUU] kamusuchi
+# [WAYUU] kasiho
+# [WAYUU] kashi
+# [WAYUU] miuchi
+# [WAYUU] kepeshi
+# [WAYUU] tepichi
+# [WAYUU] alepajee
+# [WAYUU] ais_piamale
+# [NHEENGATU] saiso
+# [NHEENGATU] piasawa
+# [NHEENGATU] muraki
+# [NHEENGATU] mirasawa
+# [NHEENGATU] paran
+# [NHEENGATU] tetama
+# [NHEENGATU] apigawa
+# [NHEENGATU] kunh
+# [NHEENGATU] iwapora
+# [NHEENGATU] panema
+# [NHEENGATU] pitanga
+# [NHEENGATU] yaka
+# [NHEENGATU] takwara
+# [NHEENGATU] yapur
+# [NHEENGATU] mawa
+# [NHEENGATU] yasa
+# [NHEENGATU] kassabo
+# [NHEENGATU] kakhu
+# [NHEENGATU] adaja
+# [NHEENGATU] bahu
+# [NHEENGATU] loko
+# [NHEENGATU] hiaro
+# [NHEENGATU] wiwa
+# [NHEENGATU] hadali
+# [NHEENGATU] koye
+# [NHEENGATU] kobat
+# [NHEENGATU] karapa
+# [NHEENGATU] yawara
+# [NHEENGATU] kase
+# [SHIPIBO-KONIBO] noikani
+# [SHIPIBO-KONIBO] shanti
+# [SHIPIBO-KONIBO] jemba
+# [SHIPIBO-KONIBO] benbo
+# [SHIPIBO-KONIBO] xeta
+# [SHIPIBO-KONIBO] ainbo
+# [SHIPIBO-KONIBO] xobo
+# [SHIPIBO-KONIBO] bari
+# [SHIPIBO-KONIBO] jene
+# [SHIPIBO-KONIBO] shinian
+# [SHIPIBO-KONIBO] tsinsin
+# [SHIPIBO-KONIBO] bake
+# [SHIPIBO-KONIBO] tsiti
+# [TUPI-GUARANI] angatupa
+# [TUPI-GUARANI] coaracy
+# [TUPI-GUARANI] jaci
+# [TUPI-GUARANI] paramirim
+# [TUPI-GUARANI] mirim
+# [TUPI-GUARANI] ceuci
+# [TUPI-GUARANI] tapuy
+# [HAOUSSA] zakada
+# [HAOUSSA] samaniya
+# [HAOUSSA] kwadayi
+# [YORUBA] zweet
+# [IGBO] omume
+# [IGBO] sutu
+# [IGBO] yidde
+# [IGBO] bernde
+# [IGBO] gido
+# [IGBO] yidango
+# [IGBO] muuchugol
+# [IGBO] mooftugol
+# [IGBO] welo
+# [IGBO] nguurndam
+# [IGBO] yonki
+# [IGBO] asaman
+# [IGBO] maleyka
+# [IGBO] koydol
+# [IGBO] beldum
+# [IGBO] wulnde
+# [IGBO] goonga
+# [IGBO] hoode
+# [IGBO] jaangol
+# [IGBO] lobbo
+# [IGBO] poofngol
+# [IGBO] mmuo_ozi
+# [WOLOF] soxna
+# [WOLOF] bray
+# [WOLOF] bcceuk
+# [WOLOF] nabb
+# [WOLOF] mbgte
+# [BAMBARA] minan
+# [BAMBARA] nyenaji
+# [BAMBARA] mlek
+# [BAMBARA] kalaniya
+# [BAMBARA] tiyena
+# [BAMBARA] feni
+# [BAMBARA] mfeano
+# [BAMBARA] apere
+# [EWE] amedzo
+# [EWE] gbogbo
+# [EWE] luwo
+# [EWE] mawudorla
+# [EWE] drzo
+# [EWE] atsu
+# [FON] gbakpa
+# [FON] nungbizo
+# [FON] yeyi
+# [FON] jixwe
+# [FON] mawu
+# [FON] dlolam
+# [FON] awaji
+# [FON] kakadoi
+# [FON] nonglem
+# [FON] vuum
+# [FON] saaga
+# [FON] bango
+# [FON] sanyelo
+# [FON] tulp
+# [FON] gomde
+# [FON] wakat
+# [FON] kudum
+# [FON] m_ma
+# [LINGALA] mboloko
+# [LINGALA] lipwela
+# [LINGALA] yamba
+# [LINGALA] pusa
+# [LINGALA] moto
+# [LINGALA] lobiko
+# [KIKONGO] yambana
+# [KIKONGO] fika
+# [KIKONGO] nsudi
+# [KIKONGO] mbasi
+# [KIKONGO] kwikama
+# [TSHILUBA] musangu
+# [TSHILUBA] kowa
+# [TSHILUBA] meza
+# [TSHILUBA] tshipunzu
+# [TSHILUBA] buledi
+# [TSHILUBA] dituku
+# [TSHILUBA] djinka
+# [SANGO] mbene
+# [SANGO] tusu
+# [SANGO] lozi
+# [FANG] nying
+# [FANG] nyinga
+# [FANG] nyingan
+# [FANG] mveng
+# [FANG] nlot
+# [FANG] abui
+# [FANG] fufop
+# [FANG] ntang
+# [FANG] elang
+# [FANG] abyang
+# [FANG] ayen
+# [LUGANDA] kussa
+# [SOMALI] dhusuq
+# [SOMALI] duubid
+# [SOMALI] dhallaan
+# [SOMALI] fiker
+# [SOMALI] yefikir
+# [SOMALI] matem
+# [SOMALI] taemast
+# [SOMALI] mefeteg
+# [SOMALI] fikirom
+# [SOMALI] simmet
+# [SOMALI] meantza
+# [SOMALI] meaz
+# [SOMALI] dhushet
+# [SOMALI] leli
+# [SOMALI] tsbuq
+# [SOMALI] nzelalem
+# [SOMALI] nify
+# [SOMALI] iraka
+# [XHOSA] mehopolo
+# [XHOSA] toropo
+# [XHOSA] ho_kopa
+# [XHOSA] ho_meka
+# [XHOSA] ka_ho_sa_feleng
+# [SETSWANA] tshopora
+# [SETSWANA] atla
+# [SETSWANA] keleletso
+# [SHONA] dakunanzva
+# [HAWAÏEN] kuipua
+# [HAWAÏEN] maile
+# [HAWAÏEN] hanohano
+# [HAWAÏEN] mahalo
+# [HAWAÏEN] manawa
+# [HAWAÏEN] paao
+# [HAWAÏEN] manu
+# [HAWAÏEN] hookahi
+# [TAHITIEN] teina
+# [TAHITIEN] taeae
+# [TAHITIEN] metua
+# [TAHITIEN] vairaata
+# [TAHITIEN] teiti
+# [TAHITIEN] rima
+# [TAHITIEN] horo
+# [TAHITIEN] parau
+# [TAHITIEN] mahana
+# [TAHITIEN] moana
+# [TAHITIEN] pohee
+# [TAHITIEN] feti
+# [TAHITIEN] taata
+# [TAHITIEN] hotu
+# [TAHITIEN] fetii
+# [TAHITIEN] roimata
+# [TAHITIEN] whanau
+# [TAHITIEN] kakara
+# [TAHITIEN] koha
+# [TAHITIEN] tapu
+# [TAHITIEN] tautoko
+# [TAHITIEN] aotearoa
+# [TAHITIEN] marama
+# [SAMOAN] uameme
+# [SAMOAN] pule
+# [SAMOAN] tasi
+# [SAMOAN] mamalu
+# [SAMOAN] viia
+# [SAMOAN] tamaitai
+# [SAMOAN] tane
+# [SAMOAN] fono
+# [TONGAN] kainga
+# [TONGAN] peheu
+# [TONGAN] haohaoa
+# [TONGAN] puke
+# [TONGAN] siana
+# [TONGAN] fafine
+# [TONGAN] fonua
+# [TONGAN] lotu
+# [TONGAN] ragi
+# [TONGAN] poki
+# [TONGAN] kaku
+# [TONGAN] teka
+# [TONGAN] miro
+# [TONGAN] kaho
+# [TONGAN] hinareru
+# [TONGAN] matatoa
+# [TONGAN] ariki
+# [TONGAN] korua
+# [TONGAN] maurua
+# [TONGAN] henua
+# [WALLISIEN] kaiga
+# [WALLISIEN] mauli
+# [WALLISIEN] tagata
+# [WALLISIEN] kakai
+# [WALLISIEN] fenua
+# [WALLISIEN] taahine
+# [FIDJIEN] vesu
+# [FIDJIEN] cegu
+# [FIDJIEN] kalou
+# [FIDJIEN] kisim
+# [FIDJIEN] givim
+# [FIDJIEN] tinbak
+# [FIDJIEN] olsem
+# [FIDJIEN] laff
+# [FIDJIEN] lalo
+# [FIDJIEN] bamona
+# [FIDJIEN] abia
+# [FIDJIEN] nihi
+# [FIDJIEN] ihnimi
+# [FIDJIEN] ilun
+# [FIDJIEN] qane
+# [FIDJIEN] hapa
+# [FIDJIEN] qatr
+# [FIDJIEN] ixihiti
+# [FIDJIEN] hnapa
+# [FIDJIEN] meci
+# [FIDJIEN] dridri
+# [FIDJIEN] alene
+# [FIDJIEN] thup
+# [FIDJIEN] nyipi
+# [FIDJIEN] aloin
+# [FIDJIEN] nyine
+# [FIDJIEN] wawaim
+# [FIDJIEN] bala
+# [FIDJIEN] bartur
+# [FIDJIEN] nurna
+# [FIDJIEN] maur
+# [FIDJIEN] tulungan
+# [FIDJIEN] kunan
+# [FIDJIEN] nurnur
+# [FIDJIEN] gugu
+# [FIDJIEN] takodo
+# [FIDJIEN] kapul
+# [FIDJIEN] kalang
+# [FIDJIEN] pupu
+# [FIDJIEN] boina
+# [FIDJIEN] vana
+# [FIDJIEN] liman
+# [FIDJIEN] amot
+# [FIDJIEN] chiku
+# [FIDJIEN] magof
+# [FIDJIEN] linala
+# [FIDJIEN] anhet
+# [FIDJIEN] tano
+# [FIDJIEN] halo
+# [FIDJIEN] hinasso
+# [FIDJIEN] maiena
+# [FIDJIEN] manana
+# [FIDJIEN] taotao
+# [FIDJIEN] bala_na_vana
+# [FIDJIEN] bartur_marum
+# [FIDJIEN] na_ka
+# [PALAUAN] sechelige
+# [PALAUAN] soan
+# [PALAUAN] osurech
+# [PALAUAN] chelid
+# [PALAUAN] milingil
+# [PALAUAN] kerel
+# [PALAUAN] mesei
+# [PALAUAN] kldibel
+# [PALAUAN] buuch
+# [PALAUAN] blai
+# [PALAUAN] tedei
+# [GILBERTAIN / KIRIBATI] nanon
+# [GILBERTAIN / KIRIBATI] boboti
+# [GILBERTAIN / KIRIBATI] kunei
+# [GILBERTAIN / KIRIBATI] mimi
+# [GILBERTAIN / KIRIBATI] katituara
+# [GILBERTAIN / KIRIBATI] kawai
+# [MARSHALLAIS] monono
+# [MARSHALLAIS] kabjere
+# [MARSHALLAIS] jitton
+# [MARSHALLAIS] inepata
+# [MARSHALLAIS] lanin
+# [MARSHALLAIS] kible
+# [MARSHALLAIS] kona
+# [MARSHALLAIS] mukuringanyi
+# [MARSHALLAIS] kuru
+# [MARSHALLAIS] kata
+# [MARSHALLAIS] kutju
+# [MARSHALLAIS] walytja
+# [MARSHALLAIS] wara
+# [MARSHALLAIS] pukuwiyani
+# [MARSHALLAIS] pulka
+# [MARSHALLAIS] nganana
+# [MARSHALLAIS] tjitji
+# [MARSHALLAIS] ngura
+# [MARSHALLAIS] tjunpu
+# [MARSHALLAIS] munu
+# [MARSHALLAIS] nyinanyi
+# [MARSHALLAIS] kunpu
+# [MARSHALLAIS] tjungoringanyi
+# [MARSHALLAIS] palyanji
+# [MARSHALLAIS] yirdamuru
+# [MARSHALLAIS] ngapa
+# [MARSHALLAIS] yapa
+# [MARSHALLAIS] walyja
+# [MARSHALLAIS] ngurra
+# [MARSHALLAIS] wardapi
+# [MARSHALLAIS] kurdu
+# [MARSHALLAIS] wirriya
+# [MARSHALLAIS] ngamaji
+# [MARSHALLAIS] ngapuju
+# [MARSHALLAIS] warlu
+# [MARSHALLAIS] karu
+# [MARSHALLAIS] miyi
+# [MARSHALLAIS] nyinami
+
