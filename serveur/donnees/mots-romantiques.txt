@@ -20,7 +20,7 @@
 # raison. Pour en reprendre un, il suffit de retirer le # et de le remonter
 # dans son bloc.
 #
-# 1798 mots, 109 langues.
+# 1798 mots, 119 langues.
 # Une adresse tire 3 mots distincts et l ordre compte :
 # 1798 x 1797 x 1796 = 5 802 886 776 adresses possibles.
 
@@ -1287,6 +1287,8 @@ asmara
 belaian
 dambaan
 setia
+
+[TAGALOG]
 mahal
 giliw
 irog
@@ -1440,6 +1442,8 @@ hwanghol
 jinsim
 yeppeun
 yeongwon
+
+[CANTONAIS]
 ngoi
 sweet
 po_pei
@@ -1912,6 +1916,9 @@ aloha_wau
 aroha
 here
 oraraa
+hoa_here
+
+[MAORI]
 ngakau
 wairua
 mauri
@@ -1919,7 +1926,6 @@ whetu
 oranga
 ataahua
 hiahia
-hoa_here
 
 [SAMOAN]
 alofa
@@ -1938,6 +1944,8 @@ maama
 mooni
 fiefia
 amanaki
+
+[RAPANUI]
 manava
 hoa_aroha
 poki_aroha
@@ -1961,6 +1969,10 @@ kalokalo
 rarama
 totoka
 tawamudu
+dodomo_dina
+veilomani_dina
+
+[TOK PISIN]
 pren
 laip
 spirit
@@ -1969,6 +1981,11 @@ ensel
 hamamas
 lait
 gutpela
+pasin_bilong_pas
+mekim_bel
+stap_wantaim
+
+[BISLAMA]
 fren
 laef
 anjel
@@ -1979,6 +1996,10 @@ laet
 gudfala
 olwe
 wantem
+mi_lovem_yu
+stap_wetem
+
+[HIRI MOTU]
 lalokau
 namo
 turana
@@ -1991,17 +2012,12 @@ momokani
 hisiu
 diari
 hanaihanai
+namo_herea
+
+[CHAMORRO]
 guaiya
 guinaiya
 maolek
-dodomo_dina
-veilomani_dina
-pasin_bilong_pas
-mekim_bel
-stap_wantaim
-mi_lovem_yu
-stap_wetem
-namo_herea
 
 [PALAUAN]
 reng
@@ -2035,9 +2051,13 @@ mool
 meram
 emman
 indeeo
+
+[PITJANTJATJARA]
 kurunpa
 wiru
 palya
+
+[WARLPIRI]
 pirlirrpa
 
 # ====================================================================
