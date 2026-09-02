@@ -23,6 +23,7 @@ const scenarioInvite = await import('./scenario-invite.js');
 const scenarioCarte = await import('./scenario-carte.js');
 const scenarioAcces = await import('./scenario-acces.js');
 const scenarioRegles = await import('./scenario-regles.js');
+const scenarioMots = await import('./scenario-mots.js');
 const scenarioFond = await import('./scenario-fond.js');
 const scenarioDecor = await import('./scenario-decor.js');
 
@@ -84,6 +85,7 @@ try {
   await scenarioCarte.verifierLeRemplissage(invite, slug);
   await verifierLAdministration(slug);
   await scenarioRegles.verifierLUniciteDesAdresses();
+  scenarioMots.verifierLaBanqueDeMots();
   scenarioRegles.verifierLeCadrageDesVilles();
   scenarioRegles.verifierLesCategoriesDeLieux();
   scenarioRegles.verifierLeRemplissageDeZone();

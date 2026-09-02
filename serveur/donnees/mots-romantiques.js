@@ -1,43 +1,36 @@
 // Vocabulaire romantique servant a composer les adresses des experiences.
-// Contrainte : uniquement des lettres latines non accentuees, pour qu'une
-// adresse reste tapable sur n'importe quel clavier latin et lisible dans une
-// URL. Les langues qui n'utilisent pas l'alphabet latin sont donc presentes
-// sous leur translitteration usuelle (jamais leurs caracteres d'origine).
-export const motsRomantiques = [
-  // Francais
-  'amour', 'cheri', 'tendresse', 'calin', 'bisou', 'coeur', 'douceur', 'toujours',
-  // Anglais
-  'love', 'sweet', 'honey', 'darling', 'forever', 'cuddle', 'lovely', 'crush',
-  // Italien
-  'amore', 'cuore', 'tesoro', 'dolcezza', 'bacio', 'stella', 'sempre', 'carina',
-  // Espagnol
-  'corazon', 'querida', 'besito', 'carino', 'dulce', 'alma', 'vida', 'linda',
-  // Portugais
-  'saudade', 'carinho', 'amado', 'beijo', 'coracao', 'ternura', 'fofinho',
-  // Latin et esperanto
-  'amor', 'carus', 'dulcis', 'anima', 'amiko', 'kara',
-  // Catalan, occitan, basque
-  'estimo', 'cor', 'amoreta', 'maitea', 'bihotza',
-  // Allemand et neerlandais
-  'liebe', 'schatz', 'herz', 'kuss', 'suess', 'liefje', 'hartje', 'lieveling',
-  // Scandinave
-  'hjarta', 'alskling', 'karlek', 'gullig', 'kjaere', 'elskede', 'hjerte',
-  // Slave (translitteration latine pour le cyrillique)
-  'kochanie', 'serce', 'milosc', 'laska', 'milacek', 'lyubov', 'serdtse', 'milaya',
-  // Grec, roumain, hongrois, finnois
-  'agapi', 'kardia', 'filaki', 'glykia', 'iubire', 'draga', 'inima',
-  'szerelem', 'szivem', 'edes', 'rakkaus', 'kulta', 'sydan',
-  // Turc
-  'sevgi', 'askim', 'canim', 'tatlim', 'gonul',
-  // Arabe et hebreu, en translitteration latine
-  'habibi', 'hayati', 'albi', 'ahava', 'neshama',
-  // Hindi et ourdou, en translitteration latine
-  'pyaar', 'prem', 'jaan', 'mohabbat', 'sanam',
-  // Asie de l'Est et du Sud-Est, en translitteration latine
-  'koi', 'suki', 'kokoro', 'sarang', 'aishite', 'cinta', 'sayang', 'kasih',
-  'manis', 'rindu', 'thuong', 'mahal', 'irog',
-  // Afrique et Oceanie
-  'mapenzi', 'moyo', 'penda', 'uthando', 'aloha', 'aikane', 'wahine',
-  // Celtique
-  'cariad', 'calon', 'cushla', 'mavourneen', 'graine',
-];
+//
+// Les mots ne sont pas ecrits ici mais dans mots-romantiques.txt, a cote : une
+// banque se relit et se complete beaucoup plus facilement dans un fichier texte
+// que dans un tableau de code. Ajouter un mot, c est ajouter une ligne.
+//
+// Contrainte : uniquement des lettres latines non accentuees, pour qu une
+// adresse reste tapable sur n importe quel clavier et lisible dans une URL.
+// Les langues qui n utilisent pas l alphabet latin y figurent sous leur
+// translitteration usuelle.
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const cheminDeLaBanque = join(dirname(fileURLToPath(import.meta.url)), 'mots-romantiques.txt');
+
+// Format : un mot par ligne, [LANGUE] ouvre un bloc, # marque un commentaire.
+const lireLaBanque = () => {
+  const contenu = readFileSync(cheminDeLaBanque, 'utf8');
+  return contenu
+    .split('\n')
+    .map((ligne) => ligne.trim())
+    .filter((ligne) => ligne && !ligne.startsWith('#') && !ligne.startsWith('['));
+};
+
+// La banque est lue une fois, au demarrage. Sans elle, aucune adresse ne peut
+// etre composee : mieux vaut le dire tout de suite que produire des liens vides.
+const chargerLaBanque = () => {
+  try {
+    return lireLaBanque();
+  } catch (erreur) {
+    throw new Error(`Banque de mots illisible (${cheminDeLaBanque}) : ${erreur.message}`);
+  }
+};
+
+export const motsRomantiques = chargerLaBanque();

@@ -110,7 +110,7 @@ serveur/routes/           une famille de routes par fichier
 serveur/services/         métier et accès aux données
 serveur/utilitaires/      fonctions pures : validation, horaires, géométrie, mots de passe
 serveur/middlewares/      session visiteur, protections, limitation des envois
-serveur/donnees/          sources fixes : lieux de Rouen, vocabulaire des adresses
+serveur/donnees/          sources fixes : lieux de Rouen, banque de mots des adresses
 
 public/scripts/carte/     moteur de la carte : projection, décor, rendu, coloriage
 public/scripts/commun/    scène de carte, placement, horaires, créneaux, fenêtres
@@ -168,7 +168,9 @@ valables — le serveur reste seul juge.
 
 - Rien de ce qui vient du navigateur n'est repris tel quel : slug, lieux, horaires,
   dates et positions des points sont tous revalidés côté serveur.
-- Le slug est tiré au sort par le serveur, jamais proposé par le navigateur.
+- Le slug est tiré au sort par le serveur, jamais proposé par le navigateur. Ses
+mots viennent de `serveur/donnees/mots-romantiques.txt`, lu au démarrage :
+ajouter un mot, c'est ajouter une ligne, rien d'autre à toucher.
 - Les mots de passe des expériences sont hachés avec scrypt
   (`serveur/utilitaires/mot-de-passe.js`). Aucune empreinte ne quitte le serveur.
 - Un lien inexistant et un mauvais mot de passe donnent exactement la même réponse.

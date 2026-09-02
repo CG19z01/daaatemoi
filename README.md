@@ -107,6 +107,9 @@ vercel deploy --prod
    Les minutes vont toujours de 5 en 5.
 5. **Le partage.** Un mot de passe (haché avec scrypt, jamais stocké en clair) puis
    un lien à trois mots romantiques, par exemple `/amour-luna-cuore-for-you`.
+   Les mots viennent de `serveur/donnees/mots-romantiques.txt` : 2 341 mots dans
+   112 langues, soit près de 12,8 milliards d'adresses possibles. Le fichier se
+   complète à la main, un mot par ligne.
 
 Sur la carte, quatre outils : **Feutre** (trait au geste maintenu), **Coloriage**
 (un appui remplit la zone visée en suivant les contours), **Texte** (zones de texte
@@ -133,7 +136,7 @@ Toute diffusion publique du site doit conserver cette attribution.
 
 ```
 serveur/            configuration, routes, services, middlewares, utilitaires
-serveur/donnees/    liste des lieux de Rouen, vocabulaire des adresses
+serveur/donnees/    liste des lieux de Rouen, banque de mots des adresses
 serveur/services/   entrepôt, expériences, cartographie OpenStreetMap
 serveur/utilitaires/ validations, horaires, créneaux, mots de passe, géométrie
 public/             pages, styles et scripts du navigateur

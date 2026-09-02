@@ -27,6 +27,12 @@ const vocabulaire = [...new Set(motsRomantiques.map(normaliserUnMot))].filter(
 
 export const nombreDeMotsDisponibles = () => vocabulaire.length;
 
+// Trois mots distincts sont necessaires : en dessous, le tirage tournerait sans
+// fin. On le dit clairement plutot que de laisser la requete se figer.
+if (vocabulaire.length < NOMBRE_DE_MOTS) {
+  throw new Error(`Banque de mots trop courte : ${vocabulaire.length} mot(s) utilisable(s).`);
+}
+
 // Trois mots distincts, tires au sort de maniere cryptographique.
 export const composerUnSlug = () => {
   const choisis = [];
