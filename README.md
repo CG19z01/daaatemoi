@@ -16,7 +16,7 @@ journal d'alors.
 
 - **Node.js 20+ / Express** (unique dépendance de production)
 - **HTML, CSS et JavaScript modules** côté navigateur, sans framework ni étape de build
-- **Canvas 2D** pour la carte (projection latitude/longitude vers une vue inclinée), dessinée à partir d'un extrait **OpenStreetMap** converti en mètres : aucune tuile, aucun appel réseau depuis le navigateur
+- **Canvas 2D** pour la carte (projection latitude/longitude vers une vue inclinée) : le fond vient d'un extrait **OpenStreetMap** converti en mètres par le serveur, aucune tuile, aucun appel réseau depuis le navigateur
 - **Stockage JSON** dans `donnees/` en local, **Upstash Redis** en ligne
 - **OpenStreetMap** pour les villes et les lieux : Nominatim pour localiser une ville,
   Overpass pour extraire son fond de carte et rechercher des établissements réels.
@@ -142,7 +142,6 @@ public/scripts/commun/ carte réutilisable, placement, horaires, créneaux, fen�
 public/scripts/creation/ page /create
 public/scripts/invite/   page invitée
 public/fragments/   fenêtres partagées par les deux nouvelles pages
-public/donnees/     fond de carte figé de Rouen, conservé depuis la première version
 donnees/            journal des clics et réservations (JSON, généré)
 donnees/documents/  villes, fonds de carte et expériences (JSON, généré)
 scripts-verification/  syntaxe, limite de 150 lignes, cohérence des pages, tests

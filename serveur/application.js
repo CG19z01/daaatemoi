@@ -38,7 +38,6 @@ application.use((requete, reponse, suite) => {
 application.use(express.json({ limit: '32kb' }));
 application.use('/styles', express.static(join(dossierPublic, 'styles')));
 application.use('/scripts', express.static(join(dossierPublic, 'scripts')));
-application.use('/donnees', express.static(join(dossierPublic, 'donnees')));
 application.use('/fragments', express.static(join(dossierPublic, 'fragments')));
 
 application.use('/admin', routesAdmin);
