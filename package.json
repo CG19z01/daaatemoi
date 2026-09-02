@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env serveur/index.js",
     "dev": "node --watch --env-file-if-exists=.env serveur/index.js",
-    "verifier": "node scripts-verification/verifier-syntaxe.js && node scripts-verification/verifier-lignes.js && node scripts-verification/verifier-pages.js",
+    "verifier": "node scripts-verification/verifier-syntaxe.js && node scripts-verification/verifier-lignes.js && node scripts-verification/verifier-pages.js && node scripts-verification/verifier-chargement.js",
     "test": "npm run verifier && node scripts-verification/verifier-experiences.js"
   },
   "engines": {

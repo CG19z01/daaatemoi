@@ -5,6 +5,7 @@ import {
   TAILLE_MINIMALE,
   TAILLE_MAXIMALE,
   TAILLE_PAR_DEFAUT,
+  MODE_FEUTRE,
   MODE_GOMME,
 } from './reglages-du-feutre.js';
 import { tracerUnTrait } from './traceur.js';
