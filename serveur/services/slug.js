@@ -2,7 +2,7 @@
 // des tirets. Le tirage se fait cote serveur uniquement : le navigateur ne
 // choisit jamais son adresse.
 import { randomInt } from 'node:crypto';
-import { motsRomantiques } from '../donnees/mots-romantiques.js';
+import { motsRomantiques, motsReconnaissables } from '../donnees/mots-romantiques.js';
 
 const NOMBRE_DE_MOTS = 3;
 
@@ -27,26 +27,51 @@ export const normaliserUnMot = (mot) =>
     .replace(/^_+|_+$/g, '')
     .replace(/_{2,}/g, '_');
 
-const vocabulaire = [...new Set(motsRomantiques.map(normaliserUnMot))].filter(
-  (mot) => mot.length >= 2 && mot.length <= 20 && /^[a-z]+(?:_[a-z]+)*$/.test(mot),
-);
+const utilisable = (mot) =>
+  mot.length >= 2 && mot.length <= 20 && /^[a-z]+(?:_[a-z]+)*$/.test(mot);
+
+const vocabulaire = [...new Set(motsRomantiques.map(normaliserUnMot))].filter(utilisable);
+
+// Sous-ensemble des langues qu un francophone reconnait. Chaque adresse en
+// contient au moins un mot : sans cela, un lien sur trois n aurait offert aucun
+// repere a la personne qui le recoit.
+const vocabulaireReconnaissable = [
+  ...new Set(motsReconnaissables.map(normaliserUnMot)),
+].filter(utilisable);
 
 export const nombreDeMotsDisponibles = () => vocabulaire.length;
 
 // Trois mots distincts sont necessaires : en dessous, le tirage tournerait sans
 // fin. On le dit clairement plutot que de laisser la requete se figer.
-if (vocabulaire.length < NOMBRE_DE_MOTS) {
-  throw new Error(`Banque de mots trop courte : ${vocabulaire.length} mot(s) utilisable(s).`);
+if (vocabulaire.length < NOMBRE_DE_MOTS || vocabulaireReconnaissable.length === 0) {
+  throw new Error(
+    `Banque de mots trop courte : ${vocabulaire.length} mot(s), dont ` +
+      `${vocabulaireReconnaissable.length} reconnaissable(s).`,
+  );
 }
 
-// Trois mots distincts, tires au sort de maniere cryptographique.
+const tirer = (liste) => liste[randomInt(liste.length)];
+
+// Melange de Fisher-Yates : le mot reconnaissable ne tombe pas toujours en tete.
+const melanger = (mots) => {
+  const melanges = [...mots];
+  for (let rang = melanges.length - 1; rang > 0; rang -= 1) {
+    const autre = randomInt(rang + 1);
+    [melanges[rang], melanges[autre]] = [melanges[autre], melanges[rang]];
+  }
+  return melanges;
+};
+
+// Trois mots distincts, tires au sort de maniere cryptographique. Le premier
+// vient d une langue reconnaissable, les deux autres de toute la banque, puis
+// l ordre est melange.
 export const composerUnSlug = () => {
-  const choisis = [];
+  const choisis = [tirer(vocabulaireReconnaissable)];
   while (choisis.length < NOMBRE_DE_MOTS) {
-    const mot = vocabulaire[randomInt(vocabulaire.length)];
+    const mot = tirer(vocabulaire);
     if (!choisis.includes(mot)) choisis.push(mot);
   }
-  return choisis.join('-');
+  return melanger(choisis).join('-');
 };
 
 // Adresse complete partagee a l'invite.

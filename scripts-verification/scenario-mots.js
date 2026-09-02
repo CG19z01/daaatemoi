@@ -1,7 +1,7 @@
 // Vérifications de la banque de mots : ce qu'elle contient, et ce qu'elle
 // produit une fois tirée au sort.
 import { verifier, titre } from './outils-de-test.js';
-import { motsRomantiques } from '../serveur/donnees/mots-romantiques.js';
+import { motsRomantiques, motsReconnaissables } from '../serveur/donnees/mots-romantiques.js';
 import { SLUG_VALIDE, extraireLeSlug, composerUnSlug } from '../serveur/services/slug.js';
 
 export const verifierLaBanqueDeMots = () => {
@@ -46,4 +46,29 @@ export const verifierLesExpressionsLiees = () => {
   for (const [forme, raison] of refusees) {
     verifier(!SLUG_VALIDE.test(forme), `${raison} est refusé`);
   }
+};
+
+export const verifierLeRepereReconnaissable = () => {
+  titre('Un repère reconnaissable dans chaque adresse');
+  const reconnus = new Set(motsReconnaissables);
+  verifier(reconnus.size > 100, `la réserve reconnaissable est fournie (${reconnus.size} mots)`);
+  verifier(
+    motsReconnaissables.every((mot) => motsRomantiques.includes(mot)),
+    'elle est bien un sous-ensemble de la banque',
+  );
+
+  const tirages = Array.from({ length: 2000 }, () => composerUnSlug());
+  verifier(
+    tirages.every((slug) => slug.split('-').some((mot) => reconnus.has(mot))),
+    'aucune adresse n’est composée de trois mots inconnus d’un francophone',
+  );
+
+  // Sans mélange, le repère tomberait toujours en tête : ce serait un tic.
+  const places = new Set();
+  for (const slug of tirages) {
+    slug.split('-').forEach((mot, rang) => {
+      if (reconnus.has(mot)) places.add(rang);
+    });
+  }
+  verifier(places.size === 3, 'il ne tombe pas toujours à la même place');
 };

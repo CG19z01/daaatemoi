@@ -87,6 +87,7 @@ try {
   await scenarioRegles.verifierLUniciteDesAdresses();
   scenarioMots.verifierLaBanqueDeMots();
   scenarioMots.verifierLesExpressionsLiees();
+  scenarioMots.verifierLeRepereReconnaissable();
   scenarioRegles.verifierLeCadrageDesVilles();
   scenarioRegles.verifierLesCategoriesDeLieux();
   scenarioRegles.verifierLeRemplissageDeZone();

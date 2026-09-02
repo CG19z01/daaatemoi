@@ -9,6 +9,10 @@
 #   mo_leannan, hua_jai, lanmou_mwen. Une adresse vaut trois de ces mots,
 #   separes par des tirets ; le tiret bas ne les coupe donc pas.
 #
+# Un bloc marque « reconnaissable » rassemble des mots qu un francophone
+# devine, ou presque. Chaque adresse en contient au moins un : elle garde
+# ainsi un repere, quelles que soient les deux autres langues tirees.
+#
 # Le serveur lit ce fichier au demarrage. Ajouter un mot, c est ajouter une
 # ligne : rien d autre a toucher. Les doublons entre langues sont ecartes.
 #
@@ -16,9 +20,9 @@
 # raison. Pour en reprendre un, il suffit de retirer le # et de le remonter
 # dans son bloc.
 #
-# 1656 mots, 109 langues.
+# 1798 mots, 109 langues.
 # Une adresse tire 3 mots distincts et l ordre compte :
-# 1656 x 1655 x 1654 = 4 533 084 720 adresses possibles.
+# 1798 x 1797 x 1796 = 5 802 886 776 adresses possibles.
 
 [ALBANAIS]
 dashuri
@@ -37,7 +41,7 @@ e_embel
 i_dashur
 e_dashura
 
-[ALLEMAND]
+[ALLEMAND] reconnaissable
 liebe
 schatz
 herz
@@ -57,8 +61,13 @@ zuneigung
 stern
 wunsch
 zauber
+kuschel
+herzchen
+geliebte
+traum
+innig
 
-[ANGLAIS]
+[ANGLAIS] reconnaissable
 love
 darling
 sweetheart
@@ -77,6 +86,11 @@ warmth
 beloved
 adore
 sweetness
+cherish
+embrace
+romance
+heartbeat
+enamoured
 
 [BASQUE]
 maitea
@@ -133,7 +147,7 @@ vernost
 toplina
 mily
 
-[CATALAN]
+[CATALAN] reconnaissable
 estimo
 estimada
 abracada
@@ -150,6 +164,11 @@ enamorat
 calidesa
 sempre
 anhel
+estimat
+carinyo
+amoret
+bellesa
+felicitat
 
 [CROATE]
 ljubav
@@ -186,8 +205,13 @@ varme
 troskab
 droem
 stjerne
+elsker
+kaereste
+smuk
+laengsel
+kaerlig
 
-[ESPAGNOL]
+[ESPAGNOL] reconnaissable
 amor
 carino
 corazon
@@ -206,8 +230,13 @@ adorar
 deseo
 enamorado
 afecto
+beso
+cielito
+corazoncito
+mi_amor
+enamorada
 
-[ESPÉRANTO]
+[ESPÉRANTO] reconnaissable
 koro
 karulo
 kiso
@@ -226,6 +255,11 @@ fideleco
 flamo
 revado
 amo_mia
+amata
+kareso
+sopiro
+felico
+beleco
 
 [FINNOIS]
 rakkaus
@@ -248,8 +282,13 @@ unelma
 valo
 tahti
 ihana
+rakastan
+kaipaus
+onni
+armas
+syleily
 
-[FRANÇAIS]
+[FRANÇAIS] reconnaissable
 amour
 cheri
 tendresse
@@ -266,6 +305,11 @@ aime
 passionne
 beguin
 adoration
+tendre
+amoureux
+eprise
+bien_aime
+coup_de_foudre
 
 [GAÉLIQUE ÉCOSSAIS]
 gradh
@@ -284,7 +328,7 @@ gaol
 gu_siorraidh
 mo_leannan
 
-[GREC]
+[GREC] reconnaissable
 agapi
 kardia
 fili
@@ -303,6 +347,11 @@ zestasia
 pisti
 oneiro
 asteri
+erotas
+agapo
+kardoula
+agkaliazo
+latrevo
 
 [HONGROIS]
 szerelem
@@ -324,6 +373,11 @@ huseg
 alom
 feny
 csillag
+szeretlek
+puszi
+dragam
+boldogsag
+vagyodas
 
 [IRLANDAIS]
 croi
@@ -335,8 +389,17 @@ dilseacht
 realta
 go_deo
 mo_stoir
+muirnin
+mo_chroi
+siorai
+gramhar
+cumha
+caoin
+annsacht
+searc
+gean
 
-[ITALIEN]
+[ITALIEN] reconnaissable
 amore
 cuore
 dolcezza
@@ -354,6 +417,11 @@ fiamma
 incanto
 adorare
 eterno
+innamorato
+carezza
+cuoricino
+amore_mio
+teneramente
 
 [LETTON]
 milestiba
@@ -412,8 +480,13 @@ svetlost
 zvezda
 ubavina
 sreka
+ljubov
+saka
+zaljuben
+kopnez
+cuvstvo
 
-[NÉERLANDAIS]
+[NÉERLANDAIS] reconnaissable
 liefde
 hartje
 liefje
@@ -433,6 +506,11 @@ droom
 licht
 ster
 schoonheid
+verliefd
+schatje
+lieveling
+omhelzing
+verlangen
 
 [NORVÉGIEN]
 kjaerlighet
@@ -446,8 +524,14 @@ oemhet
 sjel
 troskap
 nydelig
+elskling
+lengsel
+kjaereste
+lykke
+glede
+hengivenhet
 
-[OCCITAN]
+[OCCITAN] reconnaissable
 amoreta
 bais
 docor
@@ -456,6 +540,15 @@ calor
 fealtat
 pantais
 estela
+aimar
+amorosa
+poton
+caressa
+anma
+bonur
+beutat
+flor
+sospir
 
 [POLONAIS]
 milosc
@@ -476,8 +569,13 @@ cieplo
 swiatlo
 gwiazda
 piekno
+kocham
+zakochany
+calus
+tesknota
+szczescie
 
-[PORTUGAIS]
+[PORTUGAIS] reconnaissable
 carinho
 coracao
 saudades
@@ -491,8 +589,14 @@ paixaozinha
 afeto
 estrela
 minha_vida
+querido
+namorado
+saudade
+apaixonado
+docura
+meu_amor
 
-[ROUMAIN]
+[ROUMAIN] reconnaissable
 iubire
 inima
 sarut
@@ -511,6 +615,11 @@ caldura
 fidelitate
 lumina
 stea
+iubita
+sarutare
+indragostit
+duios
+mangaiere
 
 [RUSSE]
 serdtse
@@ -525,9 +634,30 @@ milyj
 lyubimyj
 ob_yatiya
 schast_ye
+lyublyu
+vlyublen
+obozhayu
+laskovyj
+rodnaya
+nezhno
 
 [SERBE]
 lepota
+volim
+voleti
+zaljubljen
+mila
+dusica
+nezno
+ceznja
+naklonost
+lepotica
+srecan
+poljubi
+zauvek
+slatka
+andjeo
+osmeh
 
 [SLOVAQUE]
 laska
@@ -543,6 +673,12 @@ teplo
 svetlo
 hviezda
 krasa
+milujem
+zamilovany
+bozk
+nezny
+stastie
+drahy
 
 [SUÉDOIS]
 karlek
@@ -558,6 +694,12 @@ drom
 ljus
 stjarna
 vacker
+puss
+foralskad
+langtan
+lycka
+sotnos
+karleksfull
 
 [TCHÈQUE]
 pusinka
@@ -587,6 +729,10 @@ zaagih
 gzaagin
 ayoor_anoshni
 shil_hozho
+miluji
+polibek
+touzeni
+stesti
 
 [LAKOTA]
 thehila
@@ -686,7 +832,7 @@ ladxiddo
 kuni
 mani
 
-[CRÉOLE HAÏTIEN]
+[CRÉOLE HAÏTIEN] reconnaissable
 lanmou
 chouchou
 doudou
@@ -697,14 +843,14 @@ trezo
 lavi
 ti_ke
 
-[CRÉOLE GUADELOUPÉEN]
+[CRÉOLE GUADELOUPÉEN] reconnaissable
 bizou
 pasyon
 souri
 ti_tch
 lanmou_mwen
 
-[CRÉOLE MARTINIQUAIS]
+[CRÉOLE MARTINIQUAIS] reconnaissable
 tche
 douse
 kares
@@ -715,7 +861,7 @@ ti_doudou
 [TAINO]
 guatiao
 
-[PAPIAMENTO]
+[PAPIAMENTO] reconnaissable
 dushi
 curason
 semper
