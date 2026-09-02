@@ -7,6 +7,7 @@ import { creerSelecteurDeBatiments } from './selection-batiments.js';
 import { EMPREINTE_MAXIMALE } from './modeles-batiments.js';
 import { creerGrilleDOccupation } from './occupation.js';
 import { creerTestDeLaMer } from './cote.js';
+import { creerDistanceAuxVoies } from './proximite.js';
 
 const MARGE_DANS_LA_CASE = 10;
 const PAS_DE_LA_GRILLE = EMPREINTE_MAXIMALE + MARGE_DANS_LA_CASE;
@@ -28,8 +29,11 @@ const MARGE_DU_RIVAGE = 250;
 // Sécurité : on ne bâtit qu'à portée d'une rue. Une ville, c'est là où passent
 // les voies ; la mer, elle, n'en a aucune. Quelle que soit la façon dont
 // OpenStreetMap décrit un littoral, aucune maison ne peut donc finir au large.
-const PORTEE_DES_VOIES = 300;
-const PAS_DES_VOIES = 40;
+//
+// Un kilomètre : de quoi couvrir les abords d'une ville, où les rues s'espacent
+// sans que la campagne commence vraiment. En deçà, il restait de grandes plages
+// blanches entre la ville dense et le bord de la carte.
+const PORTEE_DES_VOIES = 1000;
 // Plusieurs essais par case, et plusieurs modèles : une case qui refuse un
 // immeuble accueille souvent une petite maison. La ville reste ainsi pleine.
 const MODELES_ESSAYES = 3;
@@ -60,26 +64,17 @@ const preparerLaGrille = (fond, positionsDesLieux, limiteDeLaVille) => {
   return grille;
 };
 
-// Cases situées à portée d'une rue : la seule terre où l'on construit.
-const preparerLesAbordsDesVoies = (fond, limiteDeLaVille) => {
-  const abords = creerGrilleDOccupation(limiteDeLaVille + PORTEE_DES_VOIES, PAS_DES_VOIES);
-  for (const voie of [...fond.voiesPrincipales, ...fond.voiesSecondaires]) {
-    abords.marquerUneLigne(voie, PORTEE_DES_VOIES);
-  }
-  return abords;
-};
-
 // Renvoie un bâtiment posé dans la case, ou null si rien n'y tient.
 // Près du rivage, la position tirée est vérifiée elle-même : le centre de la
 // case peut être à terre alors que le bâtiment, décalé, tomberait à l'eau.
-const poserUnBatiment = (grille, abords, choisirUnBatiment, aleatoire, x, y, aLEau = null) => {
+const poserUnBatiment = (grille, aPortee, choisirUnBatiment, aleatoire, x, y, aLEau = null) => {
   for (let modele = 0; modele < MODELES_ESSAYES; modele += 1) {
     const batiment = choisirUnBatiment();
     const placeLibreEnX = Math.max(0, PAS_DE_LA_GRILLE - MARGE_DANS_LA_CASE - batiment.largeur);
     const placeLibreEnY = Math.max(0, PAS_DE_LA_GRILLE - MARGE_DANS_LA_CASE - batiment.profondeur);
     for (let essai = 0; essai < POSITIONS_ESSAYEES; essai += 1) {
       const position = { x: x + aleatoire() * placeLibreEnX, y: y + aleatoire() * placeLibreEnY };
-      if (!abords.estMarque(position.x, position.y)) continue;
+      if (!aPortee(position.x, position.y)) continue;
       if (aLEau?.(position.x, position.y)) continue;
       if (aLEau?.(position.x + batiment.largeur, position.y + batiment.profondeur)) continue;
       if (grille.emplacementLibre(position.x, position.y, batiment.largeur, batiment.profondeur)) {
@@ -92,7 +87,11 @@ const poserUnBatiment = (grille, abords, choisirUnBatiment, aleatoire, x, y, aLE
 
 export const construireDecor = (fond, positionsDesLieux = [], limiteDeLaVille = LIMITE_PAR_DEFAUT) => {
   const grille = preparerLaGrille(fond, positionsDesLieux, limiteDeLaVille);
-  const abords = preparerLesAbordsDesVoies(fond, limiteDeLaVille);
+  const distanceAUneVoie = creerDistanceAuxVoies(
+    [...fond.voiesPrincipales, ...fond.voiesSecondaires],
+    limiteDeLaVille + PORTEE_DES_VOIES,
+  );
+  const aPortee = (x, y) => distanceAUneVoie(x, y) <= PORTEE_DES_VOIES;
   // La mer n'est pas décrite par une surface : seul son rivage l'est. On en
   // déduit le large. Les plans d'eau, eux, sont déjà interdits par la grille,
   // contour compris : inutile de les retester ici, ce serait bien plus lent.
@@ -108,7 +107,7 @@ export const construireDecor = (fond, positionsDesLieux = [], limiteDeLaVille = 
       if (rivage.aLEau) continue;
       const batiment = poserUnBatiment(
         grille,
-        abords,
+        aPortee,
         choisirUnBatiment,
         aleatoire,
         x,

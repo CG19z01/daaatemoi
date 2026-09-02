@@ -4,7 +4,7 @@
 import { pivoterDesMetres, ETENDUE_PAR_DEFAUT } from '../carte/projection.js';
 
 // Au-delà, la génération du décor coûterait cher pour des bâtiments hors champ.
-const LIMITE_MAXIMALE_DU_DECOR = 5000;
+const LIMITE_MAXIMALE_DU_DECOR = 5200;
 const MARGE_DU_DECOR = 400;
 // Marge autour de la ville, pour qu'elle ne vienne pas coller aux bords.
 const MARGE_DU_CADRE = 1.08;
@@ -30,12 +30,14 @@ export const cadreDeLaZone = (zone) => {
   };
 };
 
-// Portée du décor : de quoi couvrir tout le cadre, sans aller au-delà.
-export const limiteDuDecor = (cadre) => {
-  const demiDiagonale =
+// Portée du décor : de quoi couvrir tout ce que l'écran peut montrer de la
+// carte, c'est-à-dire le cadre de la ville, mais aussi les abords jusqu'à la
+// limite des données. Au-delà commence la hachure, où l'on ne bâtit pas.
+export const limiteDuDecor = (cadre, porteeDesDonnees = 0) => {
+  const besoinDuCadre =
     Math.max(
       Math.abs(cadre.centre.x) + cadre.etendue.largeur / 2,
       Math.abs(cadre.centre.y) + cadre.etendue.profondeur / 2,
     ) + MARGE_DU_DECOR;
-  return Math.min(LIMITE_MAXIMALE_DU_DECOR, Math.round(demiDiagonale));
+  return Math.min(LIMITE_MAXIMALE_DU_DECOR, Math.round(Math.max(besoinDuCadre, porteeDesDonnees)));
 };

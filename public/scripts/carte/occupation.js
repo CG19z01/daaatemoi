@@ -76,12 +76,5 @@ export const creerGrilleDOccupation = (limite, pas) => {
     return true;
   };
 
-  // Vrai si cette case a ete marquee. Sert a l'inverse de l'occupation :
-  // reperer ce qui est proche de quelque chose, et non ce qui en est loin.
-  const estMarque = (x, y) => {
-    const position = indice(x, y);
-    return position >= 0 && cases[position] === 1;
-  };
-
-  return { marquerUneLigne, marquerUnPolygone, emplacementLibre, estMarque };
+  return { marquerUneLigne, marquerUnPolygone, emplacementLibre };
 };

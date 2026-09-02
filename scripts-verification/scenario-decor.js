@@ -116,14 +116,20 @@ export const verifierLaSecuriteDesVoies = () => {
     parcs: [],
   };
 
+  // La portée est d'un kilomètre : de quoi couvrir les abords d'une ville sans
+  // gagner la pleine campagne, ni la mer.
+  const PORTEE = 1000;
+  const MARGE = 250;
   const { lesBatiments } = construireDecor(fond, [], 3000);
-  verifier(lesBatiments.length > 20, `les abords de la rue sont bâtis (${lesBatiments.length})`);
+  verifier(lesBatiments.length > 100, `les abords de la rue sont bâtis (${lesBatiments.length})`);
   verifier(
-    lesBatiments.every((batiment) => Math.abs(batiment.x + 1000) < 400),
+    lesBatiments.every((batiment) => Math.abs(batiment.x + 1000) < PORTEE + MARGE),
     'aucun bâtiment ne s’éloigne de la seule rue existante',
   );
   verifier(
-    lesBatiments.every((batiment) => batiment.y > -1600 && batiment.y < 1600),
+    lesBatiments.every(
+      (batiment) => batiment.y > -1200 - PORTEE - MARGE && batiment.y < 1200 + PORTEE + MARGE,
+    ),
     'la construction s’arrête aussi au bout de la rue',
   );
 };

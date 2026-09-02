@@ -34,7 +34,7 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     if (decor) return;
     definirLOrientationDuMonde(false);
     cadre = cadreDeLaZone(zone);
-    decor = construireDecor(fondBrut, [], limiteDuDecor(cadre));
+    decor = construireDecor(fondBrut, [], limiteDuDecor(cadre, fondBrut.portee));
   };
 
   const redimensionner = () => {

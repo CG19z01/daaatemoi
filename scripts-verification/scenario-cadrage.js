@@ -5,6 +5,7 @@ import { verifier, titre } from './outils-de-test.js';
 import { creerProjection, definirLOrientationDuMonde } from '../public/scripts/carte/projection.js';
 import { cadreDeLaZone } from '../public/scripts/commun/cadre-de-ville.js';
 import { nettoyerLeFond } from '../public/scripts/carte/fond-de-carte.js';
+import { creerDistanceAuxVoies } from '../public/scripts/carte/proximite.js';
 
 const ECRANS = [
   ['ordinateur', 1536, 1080],
@@ -112,4 +113,21 @@ export const verifierLaPorteeDesDonnees = () => {
   verifier(fond.portee === 900, 'sans portée annoncée, elle se déduit des tracés');
   verifier(nettoyerLeFond({ portee: 5040 }).portee === 5040, 'sinon celle du serveur est reprise');
   verifier(nettoyerLeFond({}).portee === 0, 'un fond vide n’en annonce aucune, et tout l’écran devient bordure');
+};
+
+export const verifierLaDistanceAuxVoies = () => {
+  titre('Distance à la voie la plus proche');
+  // Une seule rue, du sud au nord, au milieu de rien.
+  const debut = Date.now();
+  const distance = creerDistanceAuxVoies([[[0, -2000], [0, 2000]]], 5200);
+  const duree = Date.now() - debut;
+
+  verifier(distance(0, 0) < 100, 'sur la rue, la distance est nulle');
+  verifier(Math.abs(distance(600, 0) - 600) < 150, `à 600 m, elle vaut ${Math.round(distance(600, 0))} m`);
+  verifier(Math.abs(distance(-1500, 500) - 1500) < 250, 'elle reste juste des deux côtés');
+  verifier(distance(4800, 0) > 4000, 'loin de tout, elle est grande');
+  verifier(distance(99000, 0) === Infinity, 'hors de la grille, elle est infinie');
+
+  // Le coût ne dépend plus du rayon recherché : c'est tout l'intérêt du procédé.
+  verifier(duree < 400, `le calcul reste rapide (${duree} ms pour toute la ville)`);
 };

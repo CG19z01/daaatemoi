@@ -104,6 +104,7 @@ try {
   scenarioCadrage.verifierLeZoomAdapte();
   scenarioCadrage.verifierLaProjectionReversible();
   scenarioCadrage.verifierLaPorteeDesDonnees();
+  scenarioCadrage.verifierLaDistanceAuxVoies();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

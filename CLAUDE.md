@@ -155,7 +155,9 @@ d'immenses bandes vides en haut et en bas.
 
 L'écran déborde toujours un peu de la zone extraite : `portee`, portée par le
 fond, dit jusqu'où vont les données, et `hors-carte.js` hachure ce qui est
-au-delà. Rien n'y est inventé, mais plus rien n'y reste blanc. Un fond produit
+au-delà. En deçà, le décor couvre toute la zone cartographiée, et l'on bâtit
+jusqu'à un kilomètre d'une voie — `proximite.js` en donne la distance par une
+transformée de chanfrein, dont le coût ne dépend pas du rayon cherché. Rien n'y est inventé, mais plus rien n'y reste blanc. Un fond produit
 par une version antérieure est régénéré, via `VERSION_DU_FOND`.
 
 Créneaux : minutes de 5 en 5 partout, début au plus tôt 2 h avant l'ouverture du
