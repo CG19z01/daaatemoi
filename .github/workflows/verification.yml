@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Recuperer le depot
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Installer Node ${{ matrix.version-de-node }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.version-de-node }}
           cache: npm
