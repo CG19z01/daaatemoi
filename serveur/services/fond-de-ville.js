@@ -14,7 +14,7 @@ import { classer, eclaircirLeFond } from './tri-du-fond.js';
 // Marque de fabrique du fond. Un fond produit par une version antérieure est
 // régénéré : c'est ce qui permet de faire évoluer le rendu sans vider le cache
 // à la main, en local comme en production.
-export const VERSION_DU_FOND = 4;
+export const VERSION_DU_FOND = 5;
 
 // Plus la ville est grande, plus le tracé est simplifié : le fond garde ainsi
 // un poids comparable, qu'il couvre un village ou une métropole.
@@ -86,6 +86,10 @@ export const construireLeFondDeVille = (elements, centre, mesure) => {
     source: 'OpenStreetMap (c) les contributeurs, licence ODbL',
     repere: 'm',
     version: VERSION_DU_FOND,
+    // Jusqu'où les données s'étendent réellement, en mètres autour du centre.
+    // Le navigateur en a besoin pour savoir où la carte s'arrête, et traiter
+    // les abords autrement qu'en les laissant blancs.
+    portee: Math.round(limite),
     centre: { latitude: centre.latitude, longitude: centre.longitude },
     // Zone à cadrer à l'écran, en mètres bruts : c'est elle qui adapte le zoom
     // à chaque ville, sans niveau de zoom commun à toutes.

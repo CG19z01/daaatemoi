@@ -6,6 +6,8 @@ import { pivoterDesMetres, ETENDUE_PAR_DEFAUT } from '../carte/projection.js';
 // Au-delà, la génération du décor coûterait cher pour des bâtiments hors champ.
 const LIMITE_MAXIMALE_DU_DECOR = 5000;
 const MARGE_DU_DECOR = 400;
+// Marge autour de la ville, pour qu'elle ne vienne pas coller aux bords.
+const MARGE_DU_CADRE = 1.08;
 
 const CADRE_PAR_DEFAUT = { centre: { x: 0, y: 0 }, etendue: ETENDUE_PAR_DEFAUT };
 
@@ -21,7 +23,10 @@ export const cadreDeLaZone = (zone) => {
   const maximumY = Math.max(premier.y, second.y);
   return {
     centre: { x: (minimumX + maximumX) / 2, y: (minimumY + maximumY) / 2 },
-    etendue: { largeur: maximumX - minimumX, profondeur: maximumY - minimumY },
+    etendue: {
+      largeur: (maximumX - minimumX) * MARGE_DU_CADRE,
+      profondeur: (maximumY - minimumY) * MARGE_DU_CADRE,
+    },
   };
 };
 

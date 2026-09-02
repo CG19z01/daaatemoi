@@ -89,7 +89,8 @@ vercel deploy --prod
    (fleuve, voies, parcs), simplifié et converti en mètres relatifs au centre :
    dans un repère en mètres relatifs à son centre. Le rayon d'extraction suit la
    taille réelle de la ville, et le cadrage se règle sur sa zone bâtie — un village
-   et une métropole ne reçoivent donc pas le même zoom. Le résultat est mis en
+   et une métropole ne reçoivent donc pas le même zoom. Au-delà des données, les
+   abords sont hachurés plutôt que laissés blancs. Le résultat est mis en
    cache, une ville n'est extraite qu'une fois.
 2. **Les lieux.** Jusqu'à 5, cherchés parmi les lieux réels d'OpenStreetMap :
    établissements, mais aussi cathédrales, musées, monuments, parcs et points de

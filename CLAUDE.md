@@ -149,8 +149,14 @@ null                             -> horaires non renseignés
 
 Le cadrage n'est jamais un zoom fixe : le serveur mesure la zone bâtie de la ville
 (`zone-batie.js`, par percentiles pour ignorer les routes de campagne) et la
-projection l'ajuste ensuite à l'écran. Un fond produit par une version antérieure
-est régénéré, via `VERSION_DU_FOND`.
+projection l'ajuste ensuite à l'écran — fit to bounds, avec une marge. La vue se
+redresse à mesure que l'écran s'allonge, sans quoi une ville aplatie laisserait
+d'immenses bandes vides en haut et en bas.
+
+L'écran déborde toujours un peu de la zone extraite : `portee`, portée par le
+fond, dit jusqu'où vont les données, et `hors-carte.js` hachure ce qui est
+au-delà. Rien n'y est inventé, mais plus rien n'y reste blanc. Un fond produit
+par une version antérieure est régénéré, via `VERSION_DU_FOND`.
 
 Créneaux : minutes de 5 en 5 partout, début au plus tôt 2 h avant l'ouverture du
 lieu et au plus tard 1 h avant sa fermeture, plages multiples et fermeture après

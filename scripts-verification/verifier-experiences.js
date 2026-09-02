@@ -26,6 +26,7 @@ const scenarioRegles = await import('./scenario-regles.js');
 const scenarioMots = await import('./scenario-mots.js');
 const scenarioFond = await import('./scenario-fond.js');
 const scenarioDecor = await import('./scenario-decor.js');
+const scenarioCadrage = await import('./scenario-cadrage.js');
 
 const dossierDesDocuments = join(process.cwd(), 'donnees', 'documents');
 
@@ -99,6 +100,10 @@ try {
   scenarioDecor.verifierLeDecor();
   scenarioDecor.verifierUnLittoralMorcele();
   scenarioDecor.verifierLaSecuriteDesVoies();
+  scenarioCadrage.verifierLeCadrage();
+  scenarioCadrage.verifierLeZoomAdapte();
+  scenarioCadrage.verifierLaProjectionReversible();
+  scenarioCadrage.verifierLaPorteeDesDonnees();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

@@ -4,6 +4,7 @@ import { BLANC } from './trait.js';
 import { dessinerLaSeine } from './seine.js';
 import { dessinerLesParcs, dessinerLeReseauDeVoies } from './rendu-fond.js';
 import { dessinerLeLittoral, dessinerLesPlansDEau } from './mer.js';
+import { dessinerLesAbords } from './hors-carte.js';
 
 const dessinerLeSol = (contexte, largeur, hauteur) => {
   contexte.globalAlpha = 1;
@@ -24,6 +25,8 @@ const dessinerLesBatiments = (contexte, lesBatiments, projection, taille) => {
 export const dessinerLaCarte = (contexte, fond, decor, projection, taille) => {
   contexte.clearRect(0, 0, taille.largeur, taille.hauteur);
   dessinerLeSol(contexte, taille.largeur, taille.hauteur);
+  // Les abords en premier : tout le reste se dessine par-dessus.
+  dessinerLesAbords(contexte, fond.portee, projection, taille);
   dessinerLesParcs(contexte, fond.parcs, projection);
   dessinerLesPlansDEau(contexte, fond.plansDEau, projection);
   dessinerLaSeine(contexte, fond.riviere, projection);

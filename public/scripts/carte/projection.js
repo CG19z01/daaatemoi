@@ -20,7 +20,22 @@ export const definirLeCentreDuMonde = (centre) => {
   metresParDegreLongitudeActuels = metresParDegreLongitude(centre.latitude);
 };
 
-const INCLINAISON = 0.55;
+// Inclinaison de la vue. Un ecran large supporte une carte tres aplatie, qui
+// donne sa fausse 3D au projet ; un ecran haut et etroit, lui, se retrouverait
+// avec d immenses bandes vides au-dessus et au-dessous de la ville. On redresse
+// donc la vue a mesure que le format s allonge.
+const INCLINAISON_A_PLAT = 0.55;
+const INCLINAISON_REDRESSEE = 0.92;
+const FORMAT_LARGE = 1.5;
+const FORMAT_HAUT = 0.6;
+
+const inclinaisonAdaptee = (largeur, hauteur) => {
+  const format = largeur / hauteur;
+  if (format >= FORMAT_LARGE) return INCLINAISON_A_PLAT;
+  if (format <= FORMAT_HAUT) return INCLINAISON_REDRESSEE;
+  const avancement = (FORMAT_LARGE - format) / (FORMAT_LARGE - FORMAT_HAUT);
+  return INCLINAISON_A_PLAT + avancement * (INCLINAISON_REDRESSEE - INCLINAISON_A_PLAT);
+};
 const CISAILLEMENT_PAYSAGE = 0.25;
 const CISAILLEMENT_PORTRAIT = 0.18;
 const MARGE_AUTOUR_DES_LIEUX = 300;
@@ -79,9 +94,12 @@ export const creerProjection = (largeur, hauteur, cadre) => {
   const centreVise = cadre?.centre ?? { x: 0, y: 0 };
   const etendue = cadre?.etendue ?? ETENDUE_PAR_DEFAUT;
   const cisaillement = hauteur > largeur ? CISAILLEMENT_PORTRAIT : CISAILLEMENT_PAYSAGE;
+  const inclinaison = inclinaisonAdaptee(largeur, hauteur);
+  // Fit to bounds : la plus petite des deux echelles fait entrer la ville
+  // entiere, largeur et profondeur comprises.
   const echelle = Math.min(
     largeur / (etendue.largeur + etendue.profondeur * cisaillement),
-    hauteur / (etendue.profondeur * INCLINAISON),
+    hauteur / (etendue.profondeur * inclinaison),
   );
   const centreEcran = { x: largeur / 2, y: hauteur / 2 };
 
@@ -90,20 +108,20 @@ export const creerProjection = (largeur, hauteur, cadre) => {
     const ecartY = y - centreVise.y;
     return {
       x: centreEcran.x + (ecartX + ecartY * cisaillement) * echelle,
-      y: centreEcran.y - ecartY * INCLINAISON * echelle - altitude * echelle,
+      y: centreEcran.y - ecartY * inclinaison * echelle - altitude * echelle,
     };
   };
 
   // Chemin retour : on annule l'inclinaison, puis le cisaillement.
   const versMetriqueDepuisEcran = (positionX, positionY) => {
-    const ecartY = (centreEcran.y - positionY) / (INCLINAISON * echelle);
+    const ecartY = (centreEcran.y - positionY) / (inclinaison * echelle);
     const ecartX = (positionX - centreEcran.x) / echelle - ecartY * cisaillement;
     return { x: ecartX + centreVise.x, y: ecartY + centreVise.y };
   };
 
   return {
     echelle,
-    inclinaison: INCLINAISON,
+    inclinaison,
     versEcranMetrique,
     versMetriqueDepuisEcran,
     versCoordonneesDepuisEcran: (positionX, positionY) =>
