@@ -1,0 +1,39 @@
+# Barriere avant la mise en ligne : depuis que Vercel suit ce depot, un push sur
+# main part directement en production. Ce controle rejoue donc les memes
+# verifications qu'en local, sur chaque push et sur chaque pull request.
+name: Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verifier:
+    name: Syntaxe, limite de 150 lignes et tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      # La version minimale declaree dans package.json, et celle qui sert en
+      # production sur Vercel : les deux doivent passer.
+      matrix:
+        version-de-node: ['20', '24']
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer Node ${{ matrix.version-de-node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version-de-node }}
+          cache: npm
+
+      - name: Installer les dependances
+        run: npm ci
+
+      # npm test enchaine la syntaxe, la limite de 150 lignes, la coherence des
+      # pages, puis les tests de bout en bout. Aucun service exterieur n'est
+      # appele : le jeu d'essai est ecrit directement dans l'entrepot.
+      - name: Lancer les verifications
+        run: npm test
