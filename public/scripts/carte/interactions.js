@@ -16,12 +16,10 @@ const bloquerLesGestesDeZoom = (scene) => {
   }
 };
 
-import { placementEnCours } from './placement.js';
-
 // Le coloriage libre demande un appui : la carte ne se colore pas au simple survol.
-// estSuspendu permet a une autre page (creation, invitation) de fournir sa
-// propre condition de mise en pause, sans dupliquer ce branchement.
-export const brancherLaColoration = (scene, coloration, estSuspendu = placementEnCours) => {
+// estSuspendu dit quand le geste sert a autre chose — placer un point, poser un
+// texte — et que le feutre doit donc se taire.
+export const brancherLaColoration = (scene, coloration, estSuspendu) => {
   let dessinEnCours = false;
 
   const ajouterDepuisLEvenement = (evenement) => {

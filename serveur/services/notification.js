@@ -3,8 +3,6 @@
 import { configuration } from '../config.js';
 import { formaterUneDateIso } from '../utilitaires/date-paris.js';
 
-const TITRE_DU_RENDEZ_VOUS = 'Nouveau date 💜';
-const TITRE_DE_LA_PROPOSITION = 'Autre endroit proposé 💜';
 const TITRE_DE_LA_REPONSE = 'Réponse à une invitation 💜';
 // Le premier appel sortant d'une instance froide est lent : on laisse du temps,
 // et on retente une fois pour absorber un incident passager.
@@ -14,14 +12,6 @@ const PAUSE_ENTRE_TENTATIVES = 400;
 const SUJET_VALIDE = /^[A-Za-z0-9_-]{6,64}$/;
 
 export const notificationsConfigurees = () => SUJET_VALIDE.test(configuration.sujetDeNotification);
-
-const composerLeMessage = (rendezVous) =>
-  [
-    'Nouveau rendez-vous !',
-    '',
-    rendezVous.nomDuLieu,
-    `${formaterUneDateIso(rendezVous.dateDeReservation)} à ${rendezVous.heureDeReservation}`,
-  ].join('\n');
 
 // Le jeton n'est ajoute que si l'instance en demande un (cas auto-heberge).
 const entetes = () => {
@@ -67,29 +57,6 @@ export const envoyerUneNotification = async ({ titre, message, etiquette }) => {
   }
   return { envoyee: false, raison: dernierProbleme };
 };
-
-export const prevenirDUnRendezVous = (rendezVous) =>
-  envoyerUneNotification({
-    titre: TITRE_DU_RENDEZ_VOUS,
-    message: composerLeMessage(rendezVous),
-    etiquette: 'calendar',
-  });
-
-// "AUTRE ENDROIT PROPOSE" : lieu, date, heure et instant de reception.
-export const prevenirDUneProposition = (proposition) =>
-  envoyerUneNotification({
-    titre: TITRE_DE_LA_PROPOSITION,
-    message: [
-      'AUTRE ENDROIT PROPOSÉ',
-      '',
-      `Lieu : ${proposition.nomDuLieu}`,
-      `Date : ${formaterUneDateIso(proposition.dateProposee)}`,
-      `Heure : ${proposition.heureProposee}`,
-      '',
-      `Reçu le : ${proposition.horodatage}`,
-    ].join('\n'),
-    etiquette: 'round_pushpin',
-  });
 
 // Reponse d'un invite a une experience : le creneau retenu et ses alternatives.
 // Une seule notification par reponse, pour ne pas alerter inutilement.

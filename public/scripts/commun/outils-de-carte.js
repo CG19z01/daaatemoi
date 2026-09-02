@@ -1,7 +1,6 @@
 // Barre d'outils des cartes d'expérience : Feutre, Coloriage, Texte, Gomme.
-// Les réglages de taille et de couleur sont ceux déjà en place sur la carte de
-// Rouen — la roue chromatique sert au feutre et au coloriage, jamais aux points
-// des lieux ni aux textes, qui ont leurs propres réglages.
+// La roue chromatique sert au feutre et au coloriage, jamais aux points des
+// lieux ni aux textes, qui ont leurs propres réglages.
 import { MODE_FEUTRE, MODE_GOMME } from '../carte/coloration.js';
 import { brancherLesReglagesDuTrait } from '../carte/reglages-du-trait.js';
 

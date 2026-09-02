@@ -28,8 +28,8 @@ try {
   throw new Error('Fenêtres communes indisponibles.');
 }
 
-// Les textes partent d'eux-mêmes, une fois le geste terminé ; le dessin garde
-// son bouton Sauvegarder, comme sur la carte de Rouen.
+// Les textes partent d'eux-mêmes, une fois le geste terminé ; le dessin, lui,
+// attend le bouton Sauvegarder.
 let atelier = null;
 const enregistrerLesTextesPlusTard = creerEnregistrementDiffere(async () => {
   try {

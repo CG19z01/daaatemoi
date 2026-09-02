@@ -1,6 +1,5 @@
 // Coloriage partage : les traits attendent le bouton Sauvegarder avant de partir
 // vers le serveur. Le dessin commun est charge au demarrage de la page.
-import { recupererLeDessin, envoyerUnTrait } from './api.js';
 
 const POINTS_PAR_ENVOI = 250;
 const DUREE_DE_LA_CONFIRMATION = 2000;
@@ -18,9 +17,8 @@ export const decouper = (trait) => {
   return morceaux;
 };
 
-// La page invitee fournit ses propres fonctions d'appel : chaque experience a
-// son dessin, la carte de Rouen garde le sien.
-export const chargerLeDessin = async (recuperer = recupererLeDessin) => {
+// L'appelant fournit ses fonctions d'appel : chaque experience a son dessin.
+export const chargerLeDessin = async (recuperer) => {
   try {
     return await recuperer();
   } catch {
@@ -66,7 +64,7 @@ const enregistrer = async (bouton, envoyer) => {
   }
 };
 
-export const brancherLeDessinPartage = (coloration, envoyer = envoyerUnTrait) => {
+export const brancherLeDessinPartage = (coloration, envoyer) => {
   coloration.surTraitTermine((trait) => traitsEnAttente.push(trait));
   const bouton = document.getElementById('boutonSauvegarder');
   bouton.addEventListener('click', () => enregistrer(bouton, envoyer));

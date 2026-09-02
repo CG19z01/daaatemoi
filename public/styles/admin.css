@@ -104,16 +104,6 @@
   }
 }
 
-/* Pastille rappelant la couleur choisie pour le point. */
-.pastille-de-couleur {
-  display: inline-block;
-  width: 1.2rem;
-  height: 1.2rem;
-  border: var(--trait-fin) solid var(--encre);
-  border-radius: 50%;
-  vertical-align: middle;
-}
-
 .bouton-retirer {
   min-width: 0;
   padding: 0.25rem 0.8rem;

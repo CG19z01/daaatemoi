@@ -99,7 +99,7 @@
 
 /* Sur mobile, le panneau occupe le bas de l'écran : la barre d'outils reste
    donc en haut, dans la zone de carte, et s'enroule si l'écran est étroit.
-   Elle annule le placement en bas que la carte de Rouen, elle, utilise. */
+   Elle annule le placement en bas que la barre utilise par defaut. */
 @media (max-width: 700px) {
   .page-creation .barre-doutils,
   .page-invite .barre-doutils {

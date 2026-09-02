@@ -1,6 +1,6 @@
-// Scène de carte réutilisable : même rendu cartoon au trait que la carte de
-// Rouen, mais pour n'importe quelle ville. Les modules de dessin, de décor et
-// de projection sont ceux de la carte existante, sans duplication.
+// Scène de carte réutilisable : le rendu cartoon au trait, pour la ville que
+// la personne a choisie. Les modules de dessin, de décor et de projection sont
+// partagés, sans duplication.
 import {
   creerProjection,
   definirLOrientationDuMonde,

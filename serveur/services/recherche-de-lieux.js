@@ -25,7 +25,7 @@ export const nettoyerLeTermeRecherche = (terme) =>
     .trim()
     .slice(0, LONGUEUR_MAXIMALE_DE_LA_RECHERCHE);
 
-// "12 rue des Carmes, Rouen", en ne gardant que ce qui est reellement connu.
+// "12 rue des Carmes, Lyon", en ne gardant que ce qui est reellement connu.
 const composerLAdresse = (etiquettes) => {
   const rue = [etiquettes['addr:housenumber'], etiquettes['addr:street']]
     .filter(Boolean)

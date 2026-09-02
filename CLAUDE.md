@@ -9,9 +9,8 @@ placés à la main, ses disponibilités — puis partage un lien protégé par m
 passe, de la forme `/trois-mots-romantiques-for-you`. Sur la carte : Feutre,
 Coloriage, Texte et Gomme, la gomme n'effaçant que ce que l'utilisateur a ajouté.
 
-La carte de Rouen d'origine (`/carte`) a été retirée. Son moteur de rendu, lui,
-est resté : c'est celui qu'utilisent toutes les cartes de ville. L'administration
-conserve le journal, les points proposés et les rendez-vous d'alors.
+Le site ne connaît plus de ville par défaut : il charge celle qu'on lui demande.
+L'administration suit les expériences créées, et rien d'autre.
 
 Le projet doit être :
 
@@ -40,7 +39,7 @@ Toujours respecter les règles suivantes avant d'écrire ou modifier du code.
 8. Toujours privilégier la lisibilité.
 9. Toujours vérifier le projet après modification importante.
 10. Corriger les erreurs détectées avant de terminer.
-11. Ne jamais casser l'administration ni les rendez-vous déjà enregistrés.
+11. Ne jamais casser l'administration ni les expériences déjà créées.
 12. Lancer `npm test` avant de considérer une modification terminée.
 
 ---
@@ -110,7 +109,7 @@ serveur/routes/           une famille de routes par fichier
 serveur/services/         métier et accès aux données
 serveur/utilitaires/      fonctions pures : validation, horaires, géométrie, mots de passe
 serveur/middlewares/      session visiteur, protections, limitation des envois
-serveur/donnees/          sources fixes : lieux de Rouen, banque de mots des adresses
+serveur/donnees/          banque de mots des adresses
 
 public/scripts/carte/     moteur de la carte : projection, décor, rendu, coloriage
 public/scripts/commun/    scène de carte, placement, horaires, créneaux, fenêtres
@@ -147,9 +146,6 @@ null                             -> horaires non renseignés
 []                               -> fermé ce jour-là
 [{ ouverture, fermeture }, ...]  -> une ou plusieurs plages d'ouverture
 ```
-
-À ne pas confondre avec ceux de `serveur/donnees/lieux.js`, hérités de la carte de
-Rouen et toujours lus par l'administration, qui gardent leur forme d'origine.
 
 Le cadrage n'est jamais un zoom fixe : le serveur mesure la zone bâtie de la ville
 (`zone-batie.js`, par percentiles pour ignorer les routes de campagne) et la

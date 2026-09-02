@@ -6,9 +6,7 @@ disponibilités — puis partage un lien protégé par mot de passe à la person
 qu'il invite. Les cartes sont dessinées au trait, en noir et blanc, dans un style
 cartoon en fausse 3D.
 
-La carte de Rouen d'origine (`/carte`) a été retirée ; son moteur de rendu sert
-désormais à toutes les villes, et l'administration conserve les rendez-vous et le
-journal d'alors.
+Le site ne connaît plus de ville par défaut : il charge celle qu'on lui demande.
 
 **En ligne : https://daaatemoi.vercel.app**
 
@@ -89,7 +87,7 @@ vercel deploy --prod
 
 1. **La ville.** Nominatim la localise, Overpass extrait son fond de carte
    (fleuve, voies, parcs), simplifié et converti en mètres relatifs au centre :
-   exactement le format du fichier figé de Rouen. Le rayon d'extraction suit la
+   dans un repère en mètres relatifs à son centre. Le rayon d'extraction suit la
    taille réelle de la ville, et le cadrage se règle sur sa zone bâtie — un village
    et une métropole ne reçoivent donc pas le même zoom. Le résultat est mis en
    cache, une ville n'est extraite qu'une fois.
@@ -138,7 +136,7 @@ Toute diffusion publique du site doit conserver cette attribution.
 
 ```
 serveur/            configuration, routes, services, middlewares, utilitaires
-serveur/donnees/    liste des lieux de Rouen, banque de mots des adresses
+serveur/donnees/    banque de mots des adresses
 serveur/services/   entrepôt, expériences, cartographie OpenStreetMap
 serveur/utilitaires/ validations, horaires, créneaux, mots de passe, géométrie
 public/             pages, styles et scripts du navigateur

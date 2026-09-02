@@ -1,6 +1,6 @@
 // Conversion d'un extrait OpenStreetMap en fond de carte du projet : des mètres
-// relatifs au centre de la ville, simplifiés, exactement comme le fichier figé
-// de Rouen. Le rendu cartoon au trait n'a besoin de rien d'autre.
+// relatifs au centre de la ville, simplifiés. Le rendu cartoon au trait n'a
+// besoin de rien d'autre.
 import {
   creerConvertisseurEnMetres,
   simplifierUnTrace,

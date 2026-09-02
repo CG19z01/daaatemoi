@@ -1,16 +1,12 @@
-// Administration : connexion serveur, journal des clics et reservations.
+// Administration : connexion serveur et suivi des expériences créées.
 import { Router } from 'express';
 import { join } from 'node:path';
 import { verifierIdentifiants, creerJetonAdmin, DUREE_SESSION_ADMIN_SECONDES } from '../services/authentification.js';
 import { protegerAdmin, estAdministrateur, NOM_DU_COOKIE_ADMIN } from '../middlewares/protection-admin.js';
 import { deposerCookie, supprimerCookie } from '../utilitaires/cookies.js';
-import { recupererLeJournal } from '../services/journal.js';
-import { recupererLesReservations } from '../services/reservations.js';
-import { recupererLesLieuxProposes, supprimerUnLieuPropose } from '../services/lieux-proposes.js';
-import { effacerLeDessin, recupererLeDessin } from '../services/dessin.js';
-import { nettoyerTexte } from '../utilitaires/validation.js';
 import { creerCompteurDeTentatives } from '../middlewares/tentatives.js';
 import { resumerLesExperiences } from '../services/resume-des-experiences.js';
+import { nettoyerTexte } from '../utilitaires/validation.js';
 import { dossierPublic } from '../chemins.js';
 import { attraper } from '../utilitaires/asynchrone.js';
 
@@ -53,38 +49,7 @@ routesAdmin.post('/api/deconnexion', (requete, reponse) => {
   reponse.json({ message: 'Deconnexion effectuee.' });
 });
 
-routesAdmin.get('/api/journal', protegerAdmin, attraper(async (requete, reponse) => {
-  reponse.json({ journalDesClics: await recupererLeJournal() });
-}));
-
-routesAdmin.get('/api/reservations', protegerAdmin, attraper(async (requete, reponse) => {
-  reponse.json({ reservations: await recupererLesReservations() });
-}));
-
-routesAdmin.get('/api/lieux-proposes', protegerAdmin, attraper(async (requete, reponse) => {
-  reponse.json({ lieuxProposes: await recupererLesLieuxProposes() });
-}));
-
-// Retrait d'un point de la carte, reserve a l'administration.
-routesAdmin.delete('/api/lieux-proposes/:identifiant', protegerAdmin, attraper(async (requete, reponse) => {
-  const identifiant = nettoyerTexte(requete.params.identifiant, 60);
-  const retire = await supprimerUnLieuPropose(identifiant);
-  if (!retire) return reponse.status(404).json({ erreur: 'Ce point n’existe plus.' });
-  return reponse.json({ message: 'Point retiré de la carte.' });
-}));
-
-// Experiences creees depuis la page /create, resumees pour le suivi.
+// Expériences créées depuis la page /create, résumées pour le suivi.
 routesAdmin.get('/api/experiences', protegerAdmin, attraper(async (requete, reponse) => {
   reponse.json({ experiences: await resumerLesExperiences() });
-}));
-
-routesAdmin.get('/api/dessin', protegerAdmin, attraper(async (requete, reponse) => {
-  const traits = await recupererLeDessin();
-  reponse.json({ nombreDeTraits: traits.length });
-}));
-
-// Effacement complet du coloriage partage.
-routesAdmin.delete('/api/dessin', protegerAdmin, attraper(async (requete, reponse) => {
-  await effacerLeDessin();
-  reponse.json({ message: 'Coloriage effacé.' });
 }));

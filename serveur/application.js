@@ -5,15 +5,12 @@ import { join } from 'node:path';
 import { verifierConfiguration } from './config.js';
 import { dossierPublic } from './chemins.js';
 import { routesPages } from './routes/pages.js';
-import { routesApi } from './routes/api.js';
 import { routesAdmin } from './routes/admin.js';
-import { routesCartes } from './routes/cartes.js';
 import { routesCreation } from './routes/creation.js';
 import { routesExperiences } from './routes/experiences.js';
 import { routesDessinDExperience } from './routes/experience-dessin.js';
 import { routesTextesDExperience } from './routes/experience-textes.js';
 import { routesApercuDExperience } from './routes/experience-apercu.js';
-import { identifierLeVisiteur } from './middlewares/session-visiteur.js';
 
 verifierConfiguration();
 
@@ -47,8 +44,6 @@ application.use('/api/experiences', routesDessinDExperience);
 application.use('/api/experiences', routesTextesDExperience);
 application.use('/api/experiences', routesApercuDExperience);
 application.use('/api/experiences', routesExperiences);
-application.use('/api', routesApi);
-application.use('/cartes', identifierLeVisiteur, routesCartes);
 application.use('/', routesPages);
 
 // Chemin inconnu : un navigateur recoit une page lisible, un appel d'interface

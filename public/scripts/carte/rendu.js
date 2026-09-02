@@ -1,4 +1,4 @@
-// Rendu de la carte : fond reel de Rouen au trait, puis ville dessinee par-dessus.
+// Rendu de la carte : le fond reel de la ville au trait, puis les batiments.
 import { dessinerBatiment } from './batiments.js';
 import { BLANC } from './trait.js';
 import { dessinerLaSeine } from './seine.js';

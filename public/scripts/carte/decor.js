@@ -10,8 +10,8 @@ import { creerTestDeLaMer } from './cote.js';
 
 const MARGE_DANS_LA_CASE = 10;
 const PAS_DE_LA_GRILLE = EMPREINTE_MAXIMALE + MARGE_DANS_LA_CASE;
-// Portée par défaut : celle de la carte de Rouen. Une expérience sur une autre
-// ville fournit la sienne, pour que les bâtiments couvrent toute la vue.
+// Portée par défaut, si l'appelant n'en fournit pas. Chaque ville donne la
+// sienne, pour que les bâtiments couvrent toute la vue.
 const LIMITE_PAR_DEFAUT = 3400;
 const PAS_DE_L_OCCUPATION = 12;
 const GRAINE = 20260825;

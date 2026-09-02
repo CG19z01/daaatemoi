@@ -56,9 +56,11 @@ const verifierLAdministration = async (slug) => {
   verifier(trouvee?.propositions.length === 3, 'les propositions de l invite apparaissent');
   verifier(!apres.texte.includes('scrypt'), 'aucune empreinte de mot de passe n apparait dans l administration');
 
-  verifier((await admin.appeler('/admin/api/journal')).statut === 200, 'le journal existant fonctionne toujours');
-  verifier((await admin.appeler('/admin/api/reservations')).statut === 200, 'les rendez-vous existants restent disponibles');
-  verifier((await admin.appeler('/api/lieux')).statut === 200, 'la carte historique de Rouen repond toujours');
+  verifier((await admin.appeler('/admin/api/journal')).statut === 404, 'le journal de Rouen a disparu');
+  verifier(
+    (await admin.appeler('/admin/api/reservations')).statut === 404,
+    'les rendez-vous de Rouen aussi',
+  );
 };
 
 const documentsAvant = await readdir(dossierDesDocuments).catch(() => []);

@@ -32,7 +32,11 @@ export const verifierLAncienneCarte = async (client) => {
   verifier(page.statut === 404, '/carte ne donne plus accès à l’ancienne page');
   verifier(page.texte.includes('Rien par ici'), 'une page introuvable lisible est servie à la place');
   verifier(
-    (await client.appeler('/api/lieux')).statut === 200,
-    'les composants réutilisables restent en place côté serveur',
+    (await client.appeler('/api/lieux')).statut === 404,
+    'les anciennes routes de Rouen ne répondent plus',
+  );
+  verifier(
+    (await client.appeler('/cartes/Carte-Edo.jpg')).statut === 404,
+    'les cartes des lieux de Rouen non plus',
   );
 };

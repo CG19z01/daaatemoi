@@ -1,5 +1,5 @@
 // Preparation d'une ville : localisation puis generation de son fond de carte,
-// dans le meme repere et le meme format que le fichier fige de Rouen.
+// dans un repere en metres relatifs a son centre.
 // Le resultat est mis en cache : une ville n'est extraite qu'une seule fois.
 import { entrepot } from './entrepot.js';
 import { geocoderUneVille } from './geocodage.js';

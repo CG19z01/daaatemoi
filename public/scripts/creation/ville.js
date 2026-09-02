@@ -1,5 +1,5 @@
 // Premiere etape : la ville. Le serveur la localise puis genere son fond de
-// carte, dans le meme style au trait que la carte historique de Rouen.
+// carte, dans le style cartoon au trait du site.
 import { preparerLaVille, chargerLeFondDeVille } from './api.js';
 import { definirLaVille } from './etat.js';
 
