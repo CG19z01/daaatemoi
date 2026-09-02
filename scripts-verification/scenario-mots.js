@@ -72,3 +72,22 @@ export const verifierLeRepereReconnaissable = () => {
   }
   verifier(places.size === 3, 'il ne tombe pas toujours à la même place');
 };
+
+export const verifierLaRepetitionAutorisee = () => {
+  titre('Un mot peut se répéter dans une adresse');
+  verifier(SLUG_VALIDE.test('amour-amour-cuore'), 'deux fois le même mot forme une adresse valable');
+  verifier(SLUG_VALIDE.test('amour-amour-amour'), 'trois fois le même mot également');
+  verifier(
+    extraireLeSlug('amour-amour-cuore-for-you') === 'amour-amour-cuore',
+    'le lien correspondant se relit sans perdre la répétition',
+  );
+
+  // Environ une adresse sur cinq cents : quelques dizaines sont attendues ici,
+  // et n en voir aucune signifierait que le tirage les écarte à nouveau.
+  const tirages = Array.from({ length: 30000 }, () => composerUnSlug());
+  const avecRepetition = tirages.filter((slug) => new Set(slug.split('-')).size < 3).length;
+  verifier(
+    avecRepetition > 0,
+    `le tirage en produit réellement (${avecRepetition} sur 30 000)`,
+  );
+};

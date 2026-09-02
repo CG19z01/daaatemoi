@@ -41,11 +41,11 @@ const vocabulaireReconnaissable = [
 
 export const nombreDeMotsDisponibles = () => vocabulaire.length;
 
-// Trois mots distincts sont necessaires : en dessous, le tirage tournerait sans
-// fin. On le dit clairement plutot que de laisser la requete se figer.
-if (vocabulaire.length < NOMBRE_DE_MOTS || vocabulaireReconnaissable.length === 0) {
+// Une banque vide ne permettrait aucun tirage. On le dit clairement plutot que
+// de laisser la requete echouer sans explication.
+if (vocabulaire.length === 0 || vocabulaireReconnaissable.length === 0) {
   throw new Error(
-    `Banque de mots trop courte : ${vocabulaire.length} mot(s), dont ` +
+    `Banque de mots vide : ${vocabulaire.length} mot(s), dont ` +
       `${vocabulaireReconnaissable.length} reconnaissable(s).`,
   );
 }
@@ -62,15 +62,17 @@ const melanger = (mots) => {
   return melanges;
 };
 
-// Trois mots distincts, tires au sort de maniere cryptographique. Le premier
-// vient d une langue reconnaissable, les deux autres de toute la banque, puis
-// l ordre est melange.
+// Trois mots tires au sort de maniere cryptographique. Le premier vient d une
+// langue reconnaissable, les deux autres de toute la banque, puis l ordre est
+// melange.
+//
+// Un meme mot peut sortir deux ou trois fois : amour-amour-cuore est une
+// adresse parfaitement valable. C est rare — environ une sur six cents — et
+// rien ne justifie de l ecarter, l unicite de l adresse etant garantie par le
+// stockage, pas par la distinction des mots.
 export const composerUnSlug = () => {
   const choisis = [tirer(vocabulaireReconnaissable)];
-  while (choisis.length < NOMBRE_DE_MOTS) {
-    const mot = tirer(vocabulaire);
-    if (!choisis.includes(mot)) choisis.push(mot);
-  }
+  while (choisis.length < NOMBRE_DE_MOTS) choisis.push(tirer(vocabulaire));
   return melanger(choisis).join('-');
 };
 

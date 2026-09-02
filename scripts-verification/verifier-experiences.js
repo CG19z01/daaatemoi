@@ -88,6 +88,7 @@ try {
   scenarioMots.verifierLaBanqueDeMots();
   scenarioMots.verifierLesExpressionsLiees();
   scenarioMots.verifierLeRepereReconnaissable();
+  scenarioMots.verifierLaRepetitionAutorisee();
   scenarioRegles.verifierLeCadrageDesVilles();
   scenarioRegles.verifierLesCategoriesDeLieux();
   scenarioRegles.verifierLeRemplissageDeZone();

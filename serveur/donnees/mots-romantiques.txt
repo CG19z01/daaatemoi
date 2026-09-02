@@ -21,8 +21,8 @@
 # dans son bloc.
 #
 # 1798 mots, 134 langues.
-# Une adresse tire 3 mots distincts et l ordre compte :
-# 1798 x 1797 x 1796 = 5 802 886 776 adresses possibles.
+# Une adresse tire 3 mots, l ordre compte et un mot peut se repeter :
+# 1798 x 1798 x 1798 = 5 812 581 592 adresses possibles.
 
 [ALBANAIS]
 dashuri
