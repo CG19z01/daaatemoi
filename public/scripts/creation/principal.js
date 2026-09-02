@@ -48,7 +48,7 @@ surChangement(() => {
   if (projection) atelier.points.repositionner(projection);
 });
 
-brancherLaVille(atelier.scene);
+brancherLaVille(atelier);
 brancherLePanneauDesLieux();
 brancherLesDisponibilites();
 brancherLaPublication(depot);

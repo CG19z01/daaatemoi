@@ -27,6 +27,7 @@ const scenarioMots = await import('./scenario-mots.js');
 const scenarioFond = await import('./scenario-fond.js');
 const scenarioDecor = await import('./scenario-decor.js');
 const scenarioCadrage = await import('./scenario-cadrage.js');
+const scenarioVue = await import('./scenario-vue.js');
 
 const dossierDesDocuments = join(process.cwd(), 'donnees', 'documents');
 
@@ -105,6 +106,9 @@ try {
   scenarioCadrage.verifierLaProjectionReversible();
   scenarioCadrage.verifierLaPorteeDesDonnees();
   scenarioCadrage.verifierLaDistanceAuxVoies();
+  scenarioVue.verifierLaVueSansBords();
+  scenarioVue.verifierLaVueSuffisante();
+  scenarioVue.verifierLaRemiseAZero();
 } finally {
   serveur.close();
   await nettoyer(documentsAvant);

@@ -1,9 +1,18 @@
 // Premiere etape : la ville. Le serveur la localise puis genere son fond de
 // carte, dans le style cartoon au trait du site.
 import { preparerLaVille, chargerLeFondDeVille } from './api.js';
-import { definirLaVille } from './etat.js';
+import { etat, definirLaVille, reinitialiserLesPlacements } from './etat.js';
 
-export const brancherLaVille = (scene) => {
+// Un dessin, un texte ou un point n'ont de sens que sur la carte ou ils ont ete
+// poses : leurs metres designeraient n'importe quoi sur une autre ville. Tout
+// repart donc de zero, et on le dit clairement plutot que de le faire en douce.
+const repartirDeZero = (atelier) => {
+  atelier.textes.definir([]);
+  reinitialiserLesPlacements();
+  atelier.signaler('Nouvelle ville : le dessin et les points sont à refaire.');
+};
+
+export const brancherLaVille = (atelier) => {
   const formulaire = document.getElementById('formulaireVille');
   const champ = document.getElementById('champVille');
   const bouton = document.getElementById('boutonVille');
@@ -23,9 +32,11 @@ export const brancherLaVille = (scene) => {
     message.textContent = 'Je dessine la carte…';
     try {
       const ville = await preparerLaVille(demande);
+      const changementDeVille = Boolean(etat.ville) && etat.ville.cle !== ville.cle;
       const fond = await chargerLeFondDeVille(ville.cle);
-      scene.definirLaVille(fond, ville);
+      atelier.scene.definirLaVille(fond, ville);
       definirLaVille(ville);
+      if (changementDeVille) repartirDeZero(atelier);
       indication.hidden = true;
       message.textContent = [ville.nom, ville.pays].filter(Boolean).join(', ');
     } catch (erreur) {

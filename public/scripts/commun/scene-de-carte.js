@@ -11,7 +11,7 @@ import { construireDecor } from '../carte/decor.js';
 import { nettoyerLeFond } from '../carte/fond-de-carte.js';
 import { dessinerLaCarte } from '../carte/rendu.js';
 import { creerColoration } from '../carte/coloration.js';
-import { cadreDeLaZone, limiteDuDecor } from './cadre-de-ville.js';
+import { cadreDeLaZone, limiteDuDecor, restreindreAuxDonnees } from './cadre-de-ville.js';
 import { remplirDepuisLePoint } from './remplissage.js';
 
 const RATIO_MAXIMUM = 2;
@@ -50,7 +50,11 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     contexteCarte.setTransform(ratio, 0, 0, ratio, 0, 0);
     // Le cadre décrit la ville, la projection l'ajuste à l'écran disponible :
     // le cadrage se recalcule donc tout seul à chaque changement de taille.
+    // Premier cadrage : la ville entière. Puis on resserre si l'écran regardait
+    // au-delà des données, pour qu'aucun bord de carte ne soit jamais visible.
     projection = creerProjection(largeur, hauteur, cadre);
+    const cadreVu = restreindreAuxDonnees(cadre, fondBrut.portee, projection, largeur, hauteur);
+    if (cadreVu !== cadre) projection = creerProjection(largeur, hauteur, cadreVu);
     // La carte est redessinee avant le coloriage : un remplissage relit ses
     // pixels pour retrouver la zone, il lui faut donc une carte a jour.
     dessinerLaCarte(contexteCarte, fondBrut, decor, projection, { largeur, hauteur });
@@ -61,6 +65,8 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
   // Installe le fond d'une ville : ses coordonnées sont déjà en mètres,
   // relatives au centre que la projection doit adopter.
   const definirLaVille = (fond, centre) => {
+    // Le coloriage appartenait a la ville precedente : il s'efface avec elle.
+    coloration.effacerLesTraits();
     definirLeCentreDuMonde(centre ?? fond?.centre);
     zone = fond?.zone ?? null;
     fondBrut = nettoyerLeFond(fond);

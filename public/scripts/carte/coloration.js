@@ -1,16 +1,16 @@
 // Feutre et gomme. Les traits sont retenus en coordonnees de carte (metres),
 // ce qui les rend independants de la taille d'ecran et de l'orientation.
-export const COULEUR_PAR_DEFAUT = '#a30dad';
-export const TAILLE_MINIMALE = 6;
-export const TAILLE_MAXIMALE = 78;
-export const TAILLE_PAR_DEFAUT = 30;
-export const PAS_DE_TAILLE = 8;
+import {
+  COULEUR_PAR_DEFAUT,
+  TAILLE_MINIMALE,
+  TAILLE_MAXIMALE,
+  TAILLE_PAR_DEFAUT,
+  MODE_GOMME,
+} from './reglages-du-feutre.js';
+import { tracerUnTrait } from './traceur.js';
 
-export const MODE_FEUTRE = 'feutre';
-export const MODE_GOMME = 'gomme';
-// Le remplissage ne trace rien : il ne retient que le point vise et la couleur.
-// La zone est recalculee a l'affichage par la fonction fournie a la scene.
-export const MODE_REMPLISSAGE = 'remplissage';
+// Les réglages restent accessibles depuis ce module, comme avant.
+export * from './reglages-du-feutre.js';
 
 const EXPRESSION_COULEUR = /^#[0-9a-f]{6}$/i;
 // En dessous de cette distance, un point n'apporte rien au trace.
@@ -28,29 +28,7 @@ export const creerColoration = (canvas) => {
   let auTraitTermine = null;
   let auRemplissage = null;
 
-  const preparerLOutil = (trait) => {
-    contexte.globalAlpha = 1;
-    contexte.globalCompositeOperation =
-      trait.mode === MODE_GOMME ? 'destination-out' : 'source-over';
-    contexte.strokeStyle = trait.couleur;
-    contexte.lineWidth = Math.max(1, trait.tailleEnMetres * projection.echelle);
-    contexte.lineCap = 'round';
-    contexte.lineJoin = 'round';
-  };
-
-  const tracer = (trait) => {
-    if (!projection || trait.points.length === 0) return;
-    // Un remplissage est rejoue par la scene, qui seule connait la carte.
-    if (trait.mode === MODE_REMPLISSAGE) return auRemplissage?.(trait);
-    preparerLOutil(trait);
-    contexte.beginPath();
-    trait.points.forEach(([x, y], index) => {
-      const position = projection.versEcranMetrique(x, y, 0);
-      if (index === 0) contexte.moveTo(position.x, position.y);
-      else contexte.lineTo(position.x, position.y);
-    });
-    contexte.stroke();
-  };
+  const tracer = (trait) => tracerUnTrait(contexte, trait, projection, auRemplissage);
 
   // Tout est redessine depuis les metres : net a n'importe quelle echelle.
   const rejouer = () => {
@@ -92,6 +70,14 @@ export const creerColoration = (canvas) => {
     rejouer();
   };
 
+  // Changer de ville rend les traits caduques : ils etaient poses sur une autre
+  // carte, et leurs metres ne veulent plus rien dire ici.
+  const effacerLesTraits = () => {
+    interrompreLeTrait();
+    traits = [];
+    rejouer();
+  };
+
   const definirLeMode = (nouveauMode) => {
     interrompreLeTrait();
     modeActuel = nouveauMode === MODE_GOMME ? MODE_GOMME : MODE_FEUTRE;
@@ -128,6 +114,7 @@ export const creerColoration = (canvas) => {
   return {
     ajouterPoint,
     ajouterUnRemplissage,
+    effacerLesTraits,
     // Le remplissage peint directement sur cette couche.
     leContexte: () => contexte,
     definirLeRemplissage: (fonction) => {

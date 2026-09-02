@@ -49,6 +49,14 @@ export const retirerUnLieu = (cle) => {
   signaler();
 };
 
+// Changer de ville invalide les points posés : ils désignaient des endroits
+// d'une autre carte. Les lieux eux-mêmes sont conservés, seul leur placement
+// est à refaire.
+export const reinitialiserLesPlacements = () => {
+  etat.lieux = etat.lieux.map((lieu) => ({ ...lieu, point: null }));
+  signaler();
+};
+
 export const trouverUnLieu = (cle) => etat.lieux.find((lieu) => lieu.cle === cle) ?? null;
 
 export const ajouterUneDisponibilite = (creneau) => {
