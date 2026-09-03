@@ -4,7 +4,6 @@
 import {
   creerProjection,
   definirLOrientationDuMonde,
-  definirLeCentreDuMonde,
   pivoterDesMetres,
 } from '../carte/projection.js';
 import { construireDecor } from '../carte/decor.js';
@@ -62,12 +61,11 @@ export const creerLaScene = ({ scene, canvasCarte, canvasColoration }) => {
     for (const rappel of auxRedimensionnements) rappel(projection);
   };
 
-  // Installe le fond d'une ville : ses coordonnées sont déjà en mètres,
-  // relatives au centre que la projection doit adopter.
-  const definirLaVille = (fond, centre) => {
+  // Installe le fond d'une ville. Tout y est déjà en mètres relatifs à son
+  // centre : la scène n'a besoin d'aucune coordonnée géographique.
+  const definirLaVille = (fond) => {
     // Le coloriage appartenait a la ville precedente : il s'efface avec elle.
     coloration.effacerLesTraits();
-    definirLeCentreDuMonde(centre ?? fond?.centre);
     zone = fond?.zone ?? null;
     fondBrut = nettoyerLeFond(fond);
     decor = null;

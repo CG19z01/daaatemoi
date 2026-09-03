@@ -34,7 +34,7 @@ export const brancherLaVille = (atelier) => {
       const ville = await preparerLaVille(demande);
       const changementDeVille = Boolean(etat.ville) && etat.ville.cle !== ville.cle;
       const fond = await chargerLeFondDeVille(ville.cle);
-      atelier.scene.definirLaVille(fond, ville);
+      atelier.scene.definirLaVille(fond);
       definirLaVille(ville);
       if (changementDeVille) repartirDeZero(atelier);
       indication.hidden = true;

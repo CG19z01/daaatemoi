@@ -66,7 +66,7 @@ let villeAffichee = null;
 
 const afficherLaVille = async (ville) => {
   if (villeAffichee === ville.cle) return;
-  atelier.scene.definirLaVille(await chargerLeFondDeVille(ville.cle), ville);
+  atelier.scene.definirLaVille(await chargerLeFondDeVille(ville.cle));
   villeAffichee = ville.cle;
 };
 
